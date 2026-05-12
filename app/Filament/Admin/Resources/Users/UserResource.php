@@ -46,8 +46,14 @@ class UserResource extends Resource
                     ->required()
                     ->unique(ignoreRecord: true),
                 FileUpload::make('avatar'),
-                TextInput::make('preferred_language'),
-                TextInput::make('preferred_theme'),
+                Select::make('preferred_language')
+                    ->options(config('benlocal.available_languages')),
+                Select::make('preferred_theme')
+                    ->options([
+                        'light' => 'Light',
+                        'dark' => 'Dark',
+                        'system' => 'System',
+                    ]),
                 TextInput::make('country'),
                 TextInput::make('city'),
                 Select::make('residence_region_id')

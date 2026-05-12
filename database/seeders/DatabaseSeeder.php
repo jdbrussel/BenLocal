@@ -27,6 +27,7 @@ class DatabaseSeeder extends Seeder
             CmsPageSeeder::class,
             ModerationSeeder::class,
             NotificationPreferenceSeeder::class,
+            Phase3Seeder::class,
         ]);
 
         User::updateOrCreate(

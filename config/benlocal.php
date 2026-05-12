@@ -11,6 +11,12 @@ return [
 
     'default_language' => 'en',
 
+    'cookie_consent' => [
+        'categories' => ['necessary', 'analytics', 'personalization', 'marketing'],
+    ],
+
+    'social_providers' => ['google', 'facebook'],
+
     'default_region' => 'Tenerife',
 
     'supported_communities' => [

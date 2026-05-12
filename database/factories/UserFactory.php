@@ -34,6 +34,13 @@ class UserFactory extends Factory
             'preferred_theme' => fake()->randomElement(['light', 'dark', 'system']),
             'country' => fake()->country(),
             'city' => fake()->city(),
+            'residence_region_id' => null,
+            'residence_area_id' => null,
+            'residence_place_id' => null,
+            'community_id' => null,
+            'provider' => null,
+            'provider_id' => null,
+            'avatar' => null,
             'trust_penalty_score' => 0,
             'is_shadowbanned' => false,
         ];

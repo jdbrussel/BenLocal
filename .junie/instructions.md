@@ -10,3 +10,12 @@ Junie Pro moet ALTIJD eerst de beschikbare documentatie in dit project bekijken 
 
 ## Documentatie Locatie
 De primaire documentatie bevindt zich in de `docs/` map in de root van het project.
+
+git pull origin main
+composer install --no-dev --optimize-autoloader
+npm install
+npm run build
+php artisan migrate --force
+php artisan optimize
+php artisan filament:optimize
+php artisan queue:restart
