@@ -40,11 +40,12 @@ class UserFactory extends Factory
             'community_id' => null,
             'provider' => null,
             'provider_id' => null,
-            'avatar' => null,
+            'avatar' => 'https://i.pravatar.cc/150?u=' . fake()->uuid(),
             'trust_penalty_score' => 0,
             'is_shadowbanned' => false,
         ];
     }
+
 
     /**
      * Indicate that the model's email address should be unverified.

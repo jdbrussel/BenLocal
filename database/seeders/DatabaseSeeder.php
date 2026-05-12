@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ModerationSeeder::class,
             NotificationPreferenceSeeder::class,
             Phase3Seeder::class,
+            Phase4UXSeeder::class,
         ]);
 
         User::updateOrCreate(
