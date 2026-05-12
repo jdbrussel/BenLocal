@@ -21,3 +21,39 @@ Het admin panel is bereikbaar via `/admin`.
 
 ### Gebruiker aanmaken
 Hoewel `php artisan make:filament-user` beschikbaar zou moeten zijn, kan een gebruiker ook handmatig in de database worden aangemaakt met het `User` model.
+
+## Server Updates
+Om de externe productieserver bij te werken met de nieuwste code van de `main` branch, gebruik de volgende stappen op de server:
+
+1. **Navigeer naar de projectmap**:
+   ```bash
+   cd /path/to/benlocal
+   ```
+
+2. **Haal de nieuwste wijzigingen op**:
+   ```bash
+   git pull origin main
+   ```
+
+3. **Installeer/update dependencies**:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   npm install
+   npm run build
+   ```
+
+4. **Voer database migraties uit**:
+   ```bash
+   php artisan migrate --force
+   ```
+
+5. **Optimaliseer de applicatie**:
+   ```bash
+   php artisan optimize
+   php artisan filament:optimize
+   ```
+
+6. **Herstart wachtrijen (indien van toepassing)**:
+   ```bash
+   php artisan queue:restart
+   ```
