@@ -51,9 +51,28 @@ Gedetailleerde documentatie over de werking van het systeem is te vinden in de `
 - **Campaign System**: Generieke campagnes (bijv. "Tafelen in Tenerife") voor user engagement.
 - **Business Claim Flow**: Eigenaren kunnen hun spot claimen zonder dat dit de ranking beïnvloedt.
 
+## Scoring & Algoritmes
+
+Het hart van BenLocal is het geavanceerde scoringssysteem dat zorgt voor betrouwbare en gepersonaliseerde aanbevelingen.
+
+Belangrijke principes:
+- **Regio Status Weging**: Locals en geverifieerde locals hebben meer invloed op de score.
+- **Community Match**: Rankings worden gepersonaliseerd op basis van de communities die een gebruiker volgt.
+- **Persoonlijk Vertrouwen**: Het volgen van andere gebruikers geeft een boost aan hun reviews in jouw overzicht.
+- **Hidden Gem Score**: Een algoritme dat plekken identificeert met hoge kwaliteit maar lage massa-populariteit.
+- **Reputatie**: Gebruikers bouwen reputatie op per regio, sector en categorie.
+
+Zie [Algoritmes](docs/algorithms.md) voor de volledige technische specificatie van alle scoring services.
+
 ## Ontwikkelingsfasen
 
-Het project wordt modulair opgebouwd in fasen om schaalbaarheid en kwaliteit te waarborgen.
+Het project wordt modulair opgebouwd in de volgende hoofdcomponenten:
+1. **Fundament**: Laravel 12 setup, meertaligheid (JSON), geografische hiërarchie.
+2. **Core Engine**: Spots, Reviews, Aanbevelingen en het Scoring systeem.
+3. **AI Integratie**: Automatische vertalingen en verrijking van spot data.
+4. **Community & Social**: Gebruikersprofielen, reputatie, volgsysteem en feeds.
+5. **Business & Campagnes**: Claim-flows voor eigenaren en marketing campagnes.
+6. **PWA & Mobile Optimization**: Volledige mobiele ervaring met offline mogelijkheden.
 
 ---
 
