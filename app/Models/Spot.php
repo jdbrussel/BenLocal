@@ -76,6 +76,11 @@ class Spot extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function recommendations()
     {
         return $this->hasMany(Recommendation::class);
