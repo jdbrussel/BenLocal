@@ -17,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->resolving(\Illuminate\Console\Command::class, function ($command, $app) {
+            $command->setLaravel($app);
+        });
     }
 
     /**
