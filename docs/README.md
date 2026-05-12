@@ -8,4 +8,5 @@ Dit is de centrale plek voor alle projectdocumentatie. Junie Pro raadpleegt deze
 - [Architectuur](architecture.md): Details over regio's, communities en categorieën.
 - [Core Features](features.md): Uitleg over aanbevelingen, AI vertalingen en reputatie.
 - [Business Rules](business_rules.md): Logica achter scoring en ranking.
+- [Algoritmes](algorithms.md): Gedetailleerde scoring specificaties en services.
 - Voeg hier documentatie toe over API's, database schema's, business logica, etc.
