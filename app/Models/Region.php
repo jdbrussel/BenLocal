@@ -22,4 +22,9 @@ class Region extends Model
     {
         return $this->hasMany(Area::class);
     }
+
+    public function spots()
+    {
+        return $this->hasMany(Spot::class);
+    }
 }

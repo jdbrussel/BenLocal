@@ -19,5 +19,8 @@ Route::get('/feed', function() { return Inertia::render('Feed'); })->name('feed'
 Route::get('/search', function() { return Inertia::render('Search'); })->name('search');
 Route::get('/saved', function() { return Inertia::render('Saved'); })->name('saved');
 Route::get('/profile', function() { return Inertia::render('Profile'); })->name('profile');
+Route::get('/spot/{slug}', function($slug) {
+    return Inertia::render('SpotDetail', ['slug' => $slug]);
+})->name('spot.show');
 
 require __DIR__.'/auth.php';

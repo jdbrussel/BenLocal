@@ -45,12 +45,18 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'trust_penalty_score',
         'suspended_until',
         'is_shadowbanned',
+        'onboarding_completed',
     ];
 
     protected $hidden = [
         'password',
         'remember_token',
     ];
+
+    public function savedSpots()
+    {
+        return $this->hasMany(SavedSpot::class);
+    }
 
     public function canAccessPanel(Panel $panel): bool
     {
@@ -70,6 +76,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             'local_status_verified_at' => 'datetime',
             'suspended_until' => 'datetime',
             'is_shadowbanned' => 'boolean',
+            'onboarding_completed' => 'boolean',
             'trust_penalty_score' => 'integer',
         ];
     }

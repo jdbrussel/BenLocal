@@ -81,6 +81,16 @@ class Spot extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function media()
+    {
+        return $this->morphMany(Media::class, 'model');
+    }
+
+    public function mainImage()
+    {
+        return $this->morphOne(Media::class, 'model')->where('is_primary', true);
+    }
+
     public function recommendations()
     {
         return $this->hasMany(Recommendation::class);

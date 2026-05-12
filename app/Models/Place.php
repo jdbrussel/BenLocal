@@ -22,4 +22,9 @@ class Place extends Model
     {
         return $this->belongsTo(Area::class);
     }
+
+    public function spots()
+    {
+        return $this->hasMany(Spot::class);
+    }
 }
