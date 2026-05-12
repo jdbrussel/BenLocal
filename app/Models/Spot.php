@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Models;
+
+use App\Enums\SpotLifecycleStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Translatable\HasTranslations;
+
+class Spot extends Model
+{
+    use HasFactory, HasTranslations, SoftDeletes;
+
+    protected $fillable = [
+        'name', 'slug', 'description', 'original_language',
+        'sector_id', 'category_id', 'region_id', 'area_id', 'place_id',
+        'address', 'latitude', 'longitude', 'phone', 'email', 'website',
+        'opening_hours', 'price_level', 'spec_values', 'source', 'source_reference',
+        'lifecycle_status', 'is_claimed', 'claimed_at', 'verified_business', 'verified_at',
+        'ai_enriched', 'ai_enrichment_data', 'created_by'
+    ];
+
+    public $translatable = ['name', 'description'];
+
+    protected $casts = [
+        'address' => 'json',
+        'opening_hours' => 'json',
+        'spec_values' => 'json',
+        'ai_enrichment_data' => 'json',
+        'lifecycle_status' => SpotLifecycleStatus::class,
+        'is_claimed' => 'boolean',
+        'claimed_at' => 'datetime',
+        'verified_business' => 'boolean',
+        'verified_at' => 'datetime',
+        'ai_enriched' => 'boolean',
+    ];
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
+
+    public function place()
+    {
+        return $this->belongsTo(Place::class);
+    }
+
+    public function communityProfiles()
+    {
+        return $this->hasMany(SpotCommunityProfile::class);
+    }
+
+    public function badges()
+    {
+        return $this->belongsToMany(SpotBadge::class, 'spot_badge_assignments', 'spot_id', 'badge_id');
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class);
+    }
+}

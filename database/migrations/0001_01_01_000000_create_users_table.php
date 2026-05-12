@@ -16,9 +16,28 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('provider')->nullable();
+            $table->string('provider_id')->nullable();
+            $table->string('preferred_language')->default('en');
+            $table->string('preferred_theme')->default('light');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->foreignId('residence_region_id')->nullable();
+            $table->foreignId('residence_area_id')->nullable();
+            $table->foreignId('residence_place_id')->nullable();
+            $table->foreignId('community_id')->nullable();
+            $table->string('last_known_ip')->nullable();
+            $table->string('last_known_country')->nullable();
+            $table->string('last_known_region')->nullable();
+            $table->timestamp('local_status_verified_at')->nullable();
+            $table->integer('trust_penalty_score')->default(0);
+            $table->timestamp('suspended_until')->nullable();
+            $table->boolean('is_shadowbanned')->default(false);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
