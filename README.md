@@ -23,6 +23,17 @@ Land-gebaseerde communities (Spanje, Nederland, België, Duitsland, UK, etc.). G
 - **Food & Drinks**: Restaurants en Bars.
 - Dynamische filter- en ratingspecificaties per categorie (geen hardcoded velden).
 
+## Documentatie
+
+Gedetailleerde documentatie over de werking van het systeem is te vinden in de `docs` map:
+
+- [Project Documentatie Index](docs/README.md)
+- [Project Setup](docs/setup.md): Installatie en configuratie.
+- [Architectuur](docs/architecture.md): Regio's, communities en categorieën.
+- [Core Features](docs/features.md): Aanbevelingen, AI vertalingen en reputatie.
+- [Business Rules](docs/business_rules.md): Logica achter scoring en ranking.
+- [Algoritmes](docs/algorithms.md): Gedetailleerde scoring specificaties.
+
 ## Tech Stack
 
 - **Framework**: Laravel 12 (PHP 8.3+)
