@@ -207,5 +207,20 @@
     "verification_score": "Verificatiescore",
     "distance_warning": "Afstand tot spot te groot",
     "privacy_note": "Je exacte locatie wordt alleen gebruikt voor verificatie en niet publiek getoond."
+  },
+  "cms": {
+    "page_not_found": "Pagina niet gevonden",
+    "unpublished": "Deze pagina is nog niet gepubliceerd.",
+    "last_updated": "Laatst bijgewerkt: {date}",
+    "read_more": "Lees meer",
+    "back_to_help": "Terug naar Helpcentrum",
+    "contact_support": "Contact opnemen met support",
+    "table_of_contents": "Inhoudsopgave",
+    "related_articles": "Gerelateerde artikelen",
+    "legal_notice": "Juridische kennisgeving",
+    "accept_terms": "Ik accepteer de Algemene Voorwaarden",
+    "accept_privacy": "Ik accepteer het Privacybeleid",
+    "search_help": "Zoek helpartikelen...",
+    "no_help_results": "Geen helpartikelen gevonden voor \"{query}\""
   }
 }

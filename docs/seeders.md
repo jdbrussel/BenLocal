@@ -65,6 +65,18 @@ Focuses on QR code verification, seeding valid, expired, and revoked token scena
 ### 5. ManualVisitDemoSeeder
 Seeds manually logged visits which typically have lower verification scores.
 
+## Phase 15: GDPR, Privacy & Account Management Seeders
+
+To test GDPR compliance and privacy flows:
+
+### 1. GdprSeeder (Orchestrator)
+Calls the following specific seeders in order:
+- `UserPrivacyPreferenceSeeder`: Seeds profile visibility (`public`, `private`, `friends`) and content visibility flags.
+- `ConsentHistorySeeder`: Seeds `CookieConsent` and `PrivacyAuditLog` entries for guests and users.
+- `GdprExportSeeder`: Seeds `pending`, `processing`, `completed`, and `failed` data export requests.
+- `GdprDeletionSeeder`: Seeds account deletion lifecycle requests.
+- `AnonymizedUserSeeder`: Creates "Deleted User" scenarios with preserved anonymized reviews and recommendations.
+
 ## Seeder Order
 The order in `DatabaseSeeder` is critical as activity and visit seeders depend on existing Users, Spots, Recommendations, and Reviews.
 

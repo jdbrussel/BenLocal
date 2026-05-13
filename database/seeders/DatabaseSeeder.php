@@ -52,6 +52,9 @@ class DatabaseSeeder extends Seeder
             SuspiciousVisitSeeder::class,
             QrVisitDemoSeeder::class,
             ManualVisitDemoSeeder::class,
+            GdprSeeder::class,
+            CmsSeeder::class,
+            FaqSeeder::class,
         ]);
 
         User::updateOrCreate(

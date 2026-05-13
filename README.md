@@ -83,6 +83,7 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 12. **[Fase 12: Business Growth & Monetisatie](docs/PHASE12.md)**: Premium plannen, analytics en marketing tools voor ondernemers.
 13. **[Fase 13: Check-ins & Verified Visits](docs/PHASE13.md)**: GPS/QR verificatie van bezoeken voor hogere review-geloofwaardigheid.
 14. **[Fase 14: Notifications & Preferences](docs/PHASE14.md)**: Real-time notificaties (In-app, Email, Push) en gebruikersvoorkeuren.
+15. **[Fase 15: GDPR, Privacy & Account](docs/PHASE15.md)**: Volledige GDPR flows, data export, account anonimisering en privacy audit.
 
 ---
 

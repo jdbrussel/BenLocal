@@ -207,5 +207,20 @@
     "verification_score": "Puntuación de verificación",
     "distance_warning": "Distancia al lugar demasiado grande",
     "privacy_note": "Tu ubicación exacta solo se usa para verificación y no se muestra públicamente."
+  },
+  "cms": {
+    "page_not_found": "Página no encontrada",
+    "unpublished": "Esta página aún no ha sido publicada.",
+    "last_updated": "Última actualización: {date}",
+    "read_more": "Leer más",
+    "back_to_help": "Volver al Centro de Ayuda",
+    "contact_support": "Contactar con Soporte",
+    "table_of_contents": "Tabla de contenidos",
+    "related_articles": "Artículos relacionados",
+    "legal_notice": "Aviso Legal",
+    "accept_terms": "Acepto los Términos de Servicio",
+    "accept_privacy": "Acepto la Política de Privacidad",
+    "search_help": "Buscar artículos de ayuda...",
+    "no_help_results": "No se encontraron artículos de ayuda para \"{query}\""
   }
 }

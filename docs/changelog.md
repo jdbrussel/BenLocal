@@ -1,5 +1,31 @@
 # Changelog
 
+## [Phase 16] - 2026-05-14
+
+### Added
+- Multilingual CMS for public pages and FAQs.
+- `Faq` model and migration.
+- `FaqResource` and updated `PageResource` in Filament.
+- `CmsController` with public API endpoints for localized content.
+- `CmsSeeder` and `FaqSeeder` with full legal and help content in EN, NL, ES.
+- `CmsTest` for verifying page rendering and publishing logic.
+- Multilingual translation files for pages (`lang/{en,nl,es}/pages.php`).
+- UI translation keys for CMS components in `resources/js/locales/{en,nl,es}.json`.
+- Documentation for CMS, legal pages, and frontend localization.
+
+## [Phase 15] - 2026-05-14
+### Added
+- **GDPR & Privacy Management:** Full data portability and right-to-erasure flows.
+- **Core GDPR Services:**
+    - `DataExportService`: Automated extraction of personal data.
+    - `UserAnonymizationService`: Scrubbing personal identifiers while preserving content integrity.
+    - `AccountDeletionService`: Coordinating the account deletion lifecycle.
+    - `ConsentAuditService`: Tamper-evident logging of privacy actions.
+- **Privacy Controls:** Granular visibility settings for profiles, location, and reviews.
+- **Filament GDPR Resources:** Dedicated admin tools for Export Requests, Deletion Requests, and Privacy Audit Logs.
+- **Enhanced GDPR Seeders:** 5 new specific seeders for realistic testing of exports, deletions, anonymization, and consent history.
+- **Documentation:** New `docs/gdpr.md`, `docs/privacy.md`, `docs/account-lifecycle.md` and updated `docs/seeders.md`.
+
 ## [Phase 13] - 2026-05-13
 ### Added
 - **Visit Verification System:** GPS and QR-based check-ins to boost review credibility.

@@ -35,7 +35,7 @@ class PageResource extends Resource
 
     public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
+        return $form
             ->schema([
                 TextInput::make('slug')
                     ->required()

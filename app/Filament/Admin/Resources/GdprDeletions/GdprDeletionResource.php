@@ -21,7 +21,9 @@ class GdprDeletionResource extends Resource
 {
     protected static ?string $model = GdprDeletion::class;
 
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-user-minus';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'GDPR';
 
     public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {

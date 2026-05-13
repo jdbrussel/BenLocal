@@ -21,7 +21,9 @@ class GdprExportResource extends Resource
 {
     protected static ?string $model = GdprExport::class;
 
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-document-arrow-down';
+
+    protected static string|\UnitEnum|null $navigationGroup = 'GDPR';
 
     public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {

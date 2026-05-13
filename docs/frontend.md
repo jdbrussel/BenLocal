@@ -29,3 +29,17 @@ The discovery screen includes a new sort selector:
 3. **Trusted Locals**
 4. **Authentic Local**
 5. **Trending**
+
+## CMS & Localization (Phase 16)
+
+The frontend uses localized JSON files for UI strings and calls the CMS API for dynamic page content.
+
+### Localization Files
+- `resources/js/locales/en.json`
+- `resources/js/locales/nl.json`
+- `resources/js/locales/es.json`
+
+### New UI Components
+- **Help Center:** Browsing FAQs via `GET /api/cms/faqs`.
+- **Legal Pages:** Rendering policies via `GET /api/cms/pages/{slug}`.
+- **Translatable CMS Content:** The API returns `title` and `content` based on the `Accept-Language` header, with fallback to English.

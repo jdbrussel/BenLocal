@@ -25,13 +25,13 @@ class CookieConsentResource extends Resource
 {
     protected static ?string $model = CookieConsent::class;
 
-    protected static \UnitEnum|string|null $navigationGroup = 'CMS & Legal';
+    protected static \UnitEnum|string|null $navigationGroup = 'GDPR';
 
     protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-shield-check';
 
     public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
+        return $form
             ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name'),

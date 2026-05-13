@@ -207,5 +207,20 @@
     "verification_score": "Verification score",
     "distance_warning": "Distance to spot too large",
     "privacy_note": "Your exact location is only used for verification and is not shown publicly."
+  },
+  "cms": {
+    "page_not_found": "Page not found",
+    "unpublished": "This page is not published yet.",
+    "last_updated": "Last updated: {date}",
+    "read_more": "Read more",
+    "back_to_help": "Back to Help Center",
+    "contact_support": "Contact Support",
+    "table_of_contents": "Table of Contents",
+    "related_articles": "Related Articles",
+    "legal_notice": "Legal Notice",
+    "accept_terms": "I accept the Terms of Service",
+    "accept_privacy": "I accept the Privacy Policy",
+    "search_help": "Search help articles...",
+    "no_help_results": "No help articles found for \"{query}\""
   }
 }

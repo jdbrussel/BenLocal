@@ -48,6 +48,9 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'suspended_until',
         'is_shadowbanned',
         'onboarding_completed',
+        'profile_visibility',
+        'show_location',
+        'show_reviews',
     ];
 
     protected $hidden = [
@@ -93,6 +96,8 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             'onboarding_completed' => 'boolean',
             'trust_penalty_score' => 'integer',
             'role' => UserRole::class,
+            'show_location' => 'boolean',
+            'show_reviews' => 'boolean',
         ];
     }
 
@@ -176,5 +181,25 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     public function spotVisits(): HasMany
     {
         return $this->hasMany(SpotVisit::class);
+    }
+
+    public function cookieConsents(): HasMany
+    {
+        return $this->hasMany(CookieConsent::class);
+    }
+
+    public function privacyAuditLogs(): HasMany
+    {
+        return $this->hasMany(PrivacyAuditLog::class);
+    }
+
+    public function gdprExports(): HasMany
+    {
+        return $this->hasMany(GdprExport::class);
+    }
+
+    public function gdprDeletions(): HasMany
+    {
+        return $this->hasMany(GdprDeletion::class);
     }
 }

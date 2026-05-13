@@ -14,8 +14,10 @@ use App\Http\Controllers\Api\ReviewPhotoController;
 use App\Http\Controllers\Api\ReviewReactionController;
 use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\SpotVisitController;
+use App\Http\Controllers\Api\GdprApiController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserContextController;
+use App\Http\Controllers\Api\CmsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +47,10 @@ Route::get('/spots/{slug}', [SpotController::class, 'show']);
 Route::get('/search', SearchController::class);
 
 Route::post('/consent', [AuthApiController::class, 'updateConsent']);
+
+// CMS & Legal
+Route::get('/pages/{slug}', [CmsController::class, 'getPage']);
+Route::get('/faqs', [CmsController::class, 'getFaqs']);
 
 // Authenticated Endpoints
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -93,4 +99,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
     Route::get('/me/notification-preferences', [NotificationController::class, 'getPreferences']);
     Route::put('/me/notification-preferences', [NotificationController::class, 'updatePreferences']);
+
+    // GDPR & Privacy
+    Route::post('/gdpr/export', [GdprApiController::class, 'requestExport']);
+    Route::put('/gdpr/privacy', [GdprApiController::class, 'updatePrivacySettings']);
 });

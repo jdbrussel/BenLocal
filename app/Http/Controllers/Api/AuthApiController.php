@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Services\Gdpr\AccountDeletionService;
+use App\Services\Gdpr\ConsentAuditService;
 use App\Services\UserSettingsService;
 use App\Services\ThemePreferenceService;
 use App\Services\LocaleService;
@@ -19,7 +21,9 @@ class AuthApiController extends Controller
         protected UserSettingsService $settingsService,
         protected ThemePreferenceService $themeService,
         protected LocaleService $localeService,
-        protected CookieConsentService $consentService
+        protected CookieConsentService $consentService,
+        protected AccountDeletionService $deletionService,
+        protected ConsentAuditService $auditService
     ) {}
 
     /**
@@ -95,11 +99,17 @@ class AuthApiController extends Controller
             'consent' => ['required', 'array'],
         ]);
 
+        $oldConsent = $this->consentService->getConsent();
         $this->consentService->updateConsent($validated['consent']);
+        $newConsent = $this->consentService->getConsent();
+
+        if ($request->user()) {
+            $this->auditService->logConsentUpdate($request->user(), $oldConsent, $newConsent);
+        }
 
         return response()->json([
             'message' => 'Cookie consent updated successfully',
-            'consent' => $this->consentService->getConsent()
+            'consent' => $newConsent
         ]);
     }
 
@@ -122,10 +132,8 @@ class AuthApiController extends Controller
     {
         $user = $request->user();
 
-        // Foundation for soft anonymization:
-        // In a real scenario, we might scrub PII but keep contributions.
-        // For now, we perform a Soft Delete as per migration.
-        $user->delete();
+        $deletionRequest = $this->deletionService->requestDeletion($user);
+        $this->deletionService->processDeletion($deletionRequest);
 
         return response()->json([
             'message' => 'Account deleted successfully'
