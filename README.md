@@ -52,6 +52,8 @@ Gedetailleerde documentatie over de werking van het systeem is te vinden in de `
 - **Business Claim Flow**: Eigenaren kunnen hun spot claimen zonder dat dit de ranking beïnvloedt.
 - **Verified Visits**: Bezoeken kunnen worden geverifieerd via GPS of QR-codes voor extra betrouwbaarheid.
 - **Notification System**: Uitgebreid systeem voor in-app, e-mail en push-notificaties met voorkeuren.
+- **GDPR & Privacy Management**: Volledige flows voor gegevensopvraag, accountverwijdering en privacy-instellingen.
+- **Multilingual CMS**: Beheer van statische pagina's en FAQ's met ondersteuning voor meerdere talen.
 
 ## Scoring & Algoritmes
 
@@ -84,6 +86,7 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 13. **[Fase 13: Check-ins & Verified Visits](docs/PHASE13.md)**: GPS/QR verificatie van bezoeken voor hogere review-geloofwaardigheid.
 14. **[Fase 14: Notifications & Preferences](docs/PHASE14.md)**: Real-time notificaties (In-app, Email, Push) en gebruikersvoorkeuren.
 15. **[Fase 15: GDPR, Privacy & Account](docs/PHASE15.md)**: Volledige GDPR flows, data export, account anonimisering en privacy audit.
+16. **[Fase 16: Multilingual CMS & Legal](docs/PHASE16.md)**: Meertalige statische pagina's, FAQ's en juridische content beheer.
 
 ---
 

@@ -23,8 +23,21 @@ Dit is de centrale plek voor alle projectdocumentatie. Junie Pro raadpleegt deze
 - [Fase 7: Trust & Ranking Engine](PHASE7.md): Trust-based ranking, persoonlijk vertrouwen en hidden gems.
 - [Fase 8: Timeline & Social Feed](PHASE8.md): Gepersonaliseerde feed, activity tracking en sociale interactie.
 - [Fase 9: AI, Campagnes & Business](PHASE9.md): AI-gestuurde vertalingen, campagne optimalisatie en business claim flows.
+- [Fase 10: AI Translation](PHASE10.md): Automated translation and enrichment logic.
+- [Fase 11: Business Claim](PHASE11.md): Claim flow and owner dashboard.
 - [Fase 13: Check-ins & Verified Visits](PHASE13.md): Visit verification, GPS/QR check-ins and review credibility.
+- [Fase 14: Notifications & Preferences](PHASE14.md): Real-time notifications and user communication settings.
+- [Fase 15: GDPR & Privacy](PHASE15.md): Full data portability, anonymization and audit trails.
+- [Fase 16: Multilingual CMS](PHASE16.md): Static pages, FAQs and localized legal content.
 - [Timeline & Feed Logic](feed.md): Event types, payload en ranking details.
+
+### Feature Modules
+- [Check-ins](check-ins.md): GPS and QR-based visit verification.
+- [GDPR](gdpr.md): Data export and right to be forgotten.
+- [Privacy](privacy.md): User privacy controls and audit logs.
+- [Account Lifecycle](account-lifecycle.md): Deletion and anonymization process.
+- [CMS](cms.md): Multilingual content management.
+- [Legal](legal.md): Statutory pages and policy management.
 
 ## Trust Engine Documentatie
 - [API](api.md)
