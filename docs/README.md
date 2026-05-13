@@ -23,6 +23,7 @@ Dit is de centrale plek voor alle projectdocumentatie. Junie Pro raadpleegt deze
 - [Fase 7: Trust & Ranking Engine](PHASE7.md): Trust-based ranking, persoonlijk vertrouwen en hidden gems.
 - [Fase 8: Timeline & Social Feed](PHASE8.md): Gepersonaliseerde feed, activity tracking en sociale interactie.
 - [Fase 9: AI, Campagnes & Business](PHASE9.md): AI-gestuurde vertalingen, campagne optimalisatie en business claim flows.
+- [Fase 13: Check-ins & Verified Visits](PHASE13.md): Visit verification, GPS/QR check-ins and review credibility.
 - [Timeline & Feed Logic](feed.md): Event types, payload en ranking details.
 
 ## Trust Engine Documentatie

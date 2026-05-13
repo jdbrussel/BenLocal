@@ -10,7 +10,9 @@ use App\Filament\Admin\Resources\SpotVisits\Pages\CreateSpotVisit;
 use App\Filament\Admin\Resources\SpotVisits\Pages\EditSpotVisit;
 use App\Filament\Admin\Resources\SpotVisits\Pages\ListSpotVisits;
 use App\Models\SpotVisit;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -33,16 +35,15 @@ class SpotVisitResource extends Resource
 
     public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
+        return $form
             ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
                 Select::make('spot_id')
-                    ->relationship('spot', 'name->' . config('benlocal.default_language'))
+                    ->relationship('spot', 'name->en') // Fallback to en
                     ->required(),
-                TextInput::make('checked_in_at')
-                    ->type('datetime-local')
+                DateTimePicker::make('checked_in_at')
                     ->required(),
                 TextInput::make('visit_source'),
                 TextInput::make('latitude')
@@ -51,6 +52,7 @@ class SpotVisitResource extends Resource
                     ->numeric(),
                 TextInput::make('verification_score')
                     ->numeric(),
+                Toggle::make('is_suspicious'),
             ]);
     }
 
@@ -65,7 +67,11 @@ class SpotVisitResource extends Resource
                     ->label('Spot')
                     ->sortable(),
                 TextColumn::make('visit_source'),
-                TextColumn::make('verification_score'),
+                TextColumn::make('verification_score')
+                    ->numeric(2),
+                IconColumn::make('is_suspicious')
+                    ->boolean()
+                    ->color(fn (bool $state): string => $state ? 'danger' : 'success'),
                 TextColumn::make('checked_in_at')
                     ->dateTime()
                     ->sortable(),
@@ -103,3 +109,5 @@ class SpotVisitResource extends Resource
 
 
 
+
+use Filament\Forms\Components\Select;

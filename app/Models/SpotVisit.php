@@ -9,11 +9,13 @@ class SpotVisit extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'spot_id', 'checked_in_at', 'visit_source', 'latitude', 'longitude', 'verification_score'];
+    protected $fillable = ['user_id', 'spot_id', 'checked_in_at', 'visit_source', 'latitude', 'longitude', 'verification_score', 'is_suspicious', 'metadata'];
 
     protected $casts = [
         'checked_in_at' => 'datetime',
         'verification_score' => 'decimal:2',
+        'is_suspicious' => 'boolean',
+        'metadata' => 'json',
     ];
 
     public function user()

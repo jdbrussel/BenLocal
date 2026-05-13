@@ -50,6 +50,8 @@ Gedetailleerde documentatie over de werking van het systeem is te vinden in de `
 - **Hidden Gems**: Dynamisch systeem voor plekken met weinig maar hoogwaardige lokale steun.
 - **Campaign System**: Generieke campagnes (bijv. "Tafelen in Tenerife") voor user engagement.
 - **Business Claim Flow**: Eigenaren kunnen hun spot claimen zonder dat dit de ranking beïnvloedt.
+- **Verified Visits**: Bezoeken kunnen worden geverifieerd via GPS of QR-codes voor extra betrouwbaarheid.
+- **Notification System**: Uitgebreid systeem voor in-app, e-mail en push-notificaties met voorkeuren.
 
 ## Scoring & Algoritmes
 
@@ -76,6 +78,11 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 7. **[Fase 7: Trust & Ranking Engine](docs/PHASE7.md)**: Geavanceerde trust-based ranking, persoonlijke trust graph en hidden gems.
 8. **[Fase 8: Timeline & Social Feed](docs/PHASE8.md)**: Gepersonaliseerde feed, activity tracking en sociale interactie.
 9. **[Fase 9: AI, Campagnes & Business](docs/PHASE9.md)**: AI-gestuurde vertalingen, campagne optimalisatie en business claim flows.
+10. **[Fase 10: AI Translation & Enrichment](docs/PHASE10.md)**: Automatische vertalingen en data-verrijking van spots.
+11. **[Fase 11: Business Claim & Owner Dashboard](docs/PHASE11.md)**: Claim flow voor ondernemers en beheerpanel voor eigenaren.
+12. **[Fase 12: Business Growth & Monetisatie](docs/PHASE12.md)**: Premium plannen, analytics en marketing tools voor ondernemers.
+13. **[Fase 13: Check-ins & Verified Visits](docs/PHASE13.md)**: GPS/QR verificatie van bezoeken voor hogere review-geloofwaardigheid.
+14. **[Fase 14: Notifications & Preferences](docs/PHASE14.md)**: Real-time notificaties (In-app, Email, Push) en gebruikersvoorkeuren.
 
 ---
 

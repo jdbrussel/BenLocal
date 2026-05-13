@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ReviewPhotoController;
 use App\Http\Controllers\Api\ReviewReactionController;
 use App\Http\Controllers\Api\FeedController;
+use App\Http\Controllers\Api\SpotVisitController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserContextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -77,6 +79,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/reviews/{review}/reaction', [ReviewReactionController::class, 'store']);
     Route::delete('/reviews/{review}/reaction', [ReviewReactionController::class, 'destroy']);
 
+    // Spot Visits
+    Route::get('/me/visits', [SpotVisitController::class, 'index']);
+    Route::post('/spots/{spot}/check-in', [SpotVisitController::class, 'checkIn']);
+    Route::post('/spots/{spot}/qr-check-in', [SpotVisitController::class, 'qrCheckIn']);
+
     // User Activity
     Route::get('/users/{user}/activity', [FeedController::class, 'userActivity']);
+
+    // Notifications
+    Route::get('/notifications', [NotificationController::class, 'index']);
+    Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
+    Route::get('/me/notification-preferences', [NotificationController::class, 'getPreferences']);
+    Route::put('/me/notification-preferences', [NotificationController::class, 'updatePreferences']);
 });

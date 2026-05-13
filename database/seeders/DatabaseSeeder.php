@@ -47,6 +47,11 @@ class DatabaseSeeder extends Seeder
             HiddenGemActivitySeeder::class,
             CampaignActivitySeeder::class,
             FeedDemoSeeder::class,
+            SpotVisitDemoSeeder::class,
+            VerifiedVisitReviewSeeder::class,
+            SuspiciousVisitSeeder::class,
+            QrVisitDemoSeeder::class,
+            ManualVisitDemoSeeder::class,
         ]);
 
         User::updateOrCreate(

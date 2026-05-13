@@ -17,7 +17,7 @@ class Spot extends Model
         'sector_id', 'category_id', 'region_id', 'area_id', 'place_id',
         'address', 'latitude', 'longitude', 'phone', 'email', 'website',
         'opening_hours', 'price_level', 'spec_values', 'source', 'source_reference',
-        'lifecycle_status', 'is_claimed', 'claimed_at', 'verified_business', 'verified_at',
+        'lifecycle_status', 'is_claimed', 'claimed_at', 'verified_business', 'verified_at', 'qr_token',
         'ai_enriched', 'ai_enrichment_data', 'created_by', 'translated_at'
     ];
 

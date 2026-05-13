@@ -172,4 +172,9 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
     {
         return $this->hasMany(Follow::class, 'followed_id');
     }
+
+    public function spotVisits(): HasMany
+    {
+        return $this->hasMany(SpotVisit::class);
+    }
 }

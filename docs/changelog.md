@@ -1,5 +1,17 @@
 # Changelog
 
+## [Phase 13] - 2026-05-13
+### Added
+- **Visit Verification System:** GPS and QR-based check-ins to boost review credibility.
+- **SpotVisitService & VisitVerificationService:** Core logic for handling and verifying visits.
+- **API Endpoints:** `POST /api/spots/{spot}/check-in`, `POST /api/spots/{spot}/qr-check-in`, and `GET /api/me/visits`.
+- **QR Token Management:** Spots can now generate and manage secure QR tokens for verification.
+- **Suspicious Activity Detection:** Automatic flagging of visits that appear too far from spot coordinates.
+- **Multilingual Support:** Complete translations for NL, EN, and ES for all visit-related features.
+- **Enhanced Seeders:** Realistic demo data for GPS/QR check-ins, suspicious visits, and linked reviews.
+- **Documentation:** New `docs/check-ins.md` and updates to API/Frontend/Seeder docs.
+- **Testing:** Comprehensive feature tests for GPS distance validation and QR token logic.
+
 ## [Phase 12] - Planned
 ### Added
 - Business Premium/Pro Plans documentation.

@@ -12,7 +12,8 @@ class NotificationPreference extends Model
     protected $fillable = [
         'user_id', 'new_followers', 'review_replies', 'recommendation_validation',
         'tagged_in_review', 'hidden_gem_updates', 'local_status_updates',
-        'spot_updates', 'marketing', 'email_enabled', 'push_enabled'
+        'spot_updates', 'business_claim_updates', 'owner_responses', 'campaign_selections',
+        'marketing', 'email_enabled', 'push_enabled'
     ];
 
     protected $casts = [
@@ -23,6 +24,9 @@ class NotificationPreference extends Model
         'hidden_gem_updates' => 'boolean',
         'local_status_updates' => 'boolean',
         'spot_updates' => 'boolean',
+        'business_claim_updates' => 'boolean',
+        'owner_responses' => 'boolean',
+        'campaign_selections' => 'boolean',
         'marketing' => 'boolean',
         'email_enabled' => 'boolean',
         'push_enabled' => 'boolean',

@@ -31,3 +31,17 @@ Includes `trust_score` and `visibility_score` for each recommendation.
 
 ### GET /api/spots/{id}/reviews
 Includes `weight` and `visibility_score` for each review.
+
+## Visits & Check-ins
+
+### POST /api/spots/{spot}/check-in
+Confirm visit using GPS coordinates.
+- **Parameters:** `latitude`, `longitude`.
+
+### POST /api/spots/{spot}/qr-check-in
+Confirm visit using a QR token.
+- **Parameters:** `token`.
+
+### GET /api/me/visits
+Retrieve authenticated user's visit history.
+- **Includes:** `spot`, `is_verified`, `verification_score`.

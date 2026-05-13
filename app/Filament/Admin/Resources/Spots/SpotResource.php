@@ -114,6 +114,8 @@ class SpotResource extends Resource
                                 Toggle::make('verified_business'),
                                 TextInput::make('verified_at')
                                     ->type('datetime-local'),
+                                TextInput::make('qr_token')
+                                    ->unique(ignoreRecord: true),
                                 Select::make('created_by')
                                     ->relationship('user', 'name'),
                             ]),

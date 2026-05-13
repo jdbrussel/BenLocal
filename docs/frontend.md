@@ -4,6 +4,13 @@
 
 Phase 7 updates the discovery UI to reflect trust metrics.
 
+### Check-ins & Verified Visits (Phase 13)
+The UI now includes features for users to verify their visits:
+- **"I'm here" button:** Located on the spot detail page.
+- **Location Permission Modal:** Explains why location is needed for verification.
+- **Verified Visit Badges:** Shown on reviews and in the user's visit history.
+- **QR Scanner:** Integrated for spot QR token verification.
+
 ### Labels & Indicators
 - **Trusted Local:** Displayed on spots with `local_trust_score >= 100`.
 - **Hidden Gem:** Displayed on spots with `hidden_gem_score >= 70`.

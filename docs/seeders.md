@@ -46,8 +46,27 @@ Orchestrates specific scenarios for demo users to ensure their personalized feed
 - **Emma**: Tourist behavior, follows locals, saves many spots.
 - **Markus**: Follows Jan, reviews quality/value spots.
 
+## Phase 13: Check-ins & Verified Visits Seeders
+
+To test the visit verification system, several seeders generate realistic data:
+
+### 1. SpotVisitDemoSeeder
+Generates a large volume (300-600) of spot visits across all sources (gps, qr, manual, reservation, owner_confirmation) with corresponding verification scores.
+
+### 2. VerifiedVisitReviewSeeder
+Links specific reviews to verified visits for core demo users (Jan, Carlos, Emma, Markus). It demonstrates how verified visits boost review credibility.
+
+### 3. SuspiciousVisitSeeder
+Seeds visits with far-away GPS coordinates to test distance validation and suspicious activity flags in Filament and API.
+
+### 4. QrVisitDemoSeeder
+Focuses on QR code verification, seeding valid, expired, and revoked token scenarios.
+
+### 5. ManualVisitDemoSeeder
+Seeds manually logged visits which typically have lower verification scores.
+
 ## Seeder Order
-The order in `DatabaseSeeder` is critical as activity seeders depend on existing Users, Spots, Recommendations, and Reviews.
+The order in `DatabaseSeeder` is critical as activity and visit seeders depend on existing Users, Spots, Recommendations, and Reviews.
 
 ## How to Test Feed Scenarios
 1. Run `php artisan db:seed`.

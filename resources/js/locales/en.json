@@ -174,5 +174,38 @@
     "hidden_gem_alert": "Hidden Gem Update",
     "new_hidden_gem_desc": "This spot has been gaining significant local traction!",
     "end_of_feed": "You've reached the end of your feed."
+  },
+  "visit": {
+    "check_in": "I’m here",
+    "check_in_title": "Confirm visit",
+    "check_in_text": "Confirm that you are at this location to make your review more valuable.",
+    "location_permission_title": "Use location",
+    "location_permission_text": "BenLocal only uses your location to verify that you are at this spot.",
+    "allow_location": "Allow location",
+    "manual_visit": "Add visit manually",
+    "scan_qr": "Scan QR code",
+    "gps_verified": "GPS verified",
+    "qr_verified": "QR verified",
+    "manual_logged": "Added manually",
+    "verified_visit": "Verified visit",
+    "unverified_visit": "Unverified visit",
+    "too_far_title": "You don’t seem to be at this spot",
+    "too_far_text": "Your location is too far from this spot to verify the visit automatically.",
+    "check_in_success": "Visit confirmed",
+    "check_in_failed": "Visit could not be confirmed",
+    "write_review_after_visit": "Write a review about your visit now",
+    "recent_visits": "Recent visits",
+    "no_visits": "You have not logged any visits yet",
+    "visit_source": "Visit source",
+    "source": {
+      "manual": "Manual",
+      "gps": "GPS",
+      "qr": "QR code",
+      "reservation": "Reservation",
+      "owner_confirmation": "Confirmed by owner"
+    },
+    "verification_score": "Verification score",
+    "distance_warning": "Distance to spot too large",
+    "privacy_note": "Your exact location is only used for verification and is not shown publicly."
   }
 }

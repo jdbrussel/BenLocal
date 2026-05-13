@@ -157,6 +157,55 @@
     "translated_from": "Traducido automáticamente del {lang}",
     "error": "Algo ha salido mal.",
     "retry": "Reintentar",
-    "success": "¡Éxito!"
+    "success": "¡Éxito!",
+    "loading_more": "Cargando más..."
+  },
+  "feed": {
+    "empty_title": "Tu feed está vacío",
+    "empty_desc": "Sigue a expertos locales y descubre nuevos lugares para llenar tu feed.",
+    "discover_locals": "Descubrir locales",
+    "recommended": "recomendó",
+    "reviewed": "reseñó",
+    "validated_review": "validó una reseña",
+    "followed_user": "empezó a seguir",
+    "saved_spot": "guardó un lugar",
+    "at": "en",
+    "followed": "SIGUIENDO",
+    "hidden_gem_alert": "Actualización de Joya Oculta",
+    "new_hidden_gem_desc": "¡Este lugar está ganando mucha tracción local!",
+    "end_of_feed": "Has llegado al final de tu feed."
+  },
+  "visit": {
+    "check_in": "Estoy aquí",
+    "check_in_title": "Confirmar visita",
+    "check_in_text": "Confirma que estás en esta ubicación para dar más valor a tu reseña.",
+    "location_permission_title": "Usar ubicación",
+    "location_permission_text": "BenLocal solo usa tu ubicación para verificar que estás en este lugar.",
+    "allow_location": "Permitir ubicación",
+    "manual_visit": "Añadir visita manualmente",
+    "scan_qr": "Escanear código QR",
+    "gps_verified": "GPS verificado",
+    "qr_verified": "QR verificado",
+    "manual_logged": "Añadido manualmente",
+    "verified_visit": "Visita verificada",
+    "unverified_visit": "Visita no verificada",
+    "too_far_title": "Parece que no estás en este lugar",
+    "too_far_text": "Tu ubicación está demasiado lejos de este lugar para verificar la visita automáticamente.",
+    "check_in_success": "Visita confirmada",
+    "check_in_failed": "No se pudo confirmar la visita",
+    "write_review_after_visit": "Escribe ahora una reseña sobre tu visita",
+    "recent_visits": "Visitas recientes",
+    "no_visits": "Aún no has registrado visitas",
+    "visit_source": "Fuente de visita",
+    "source": {
+      "manual": "Manual",
+      "gps": "GPS",
+      "qr": "Código QR",
+      "reservation": "Reserva",
+      "owner_confirmation": "Confirmado por el propietario"
+    },
+    "verification_score": "Puntuación de verificación",
+    "distance_warning": "Distancia al lugar demasiado grande",
+    "privacy_note": "Tu ubicación exacta solo se usa para verificación y no se muestra públicamente."
   }
 }

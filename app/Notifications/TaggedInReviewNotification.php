@@ -3,16 +3,17 @@
 namespace App\Notifications;
 
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ReviewValidatedNotification extends Notification implements ShouldQueue
+class TaggedInReviewNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public function __construct(public Review $review)
+    public function __construct(public Review $review, public User $tagger)
     {
     }
 
@@ -28,21 +29,24 @@ class ReviewValidatedNotification extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('notifications.review_validated.subject'))
-            ->line(__('notifications.review_validated.body', [
+            ->subject(__('notifications.tagged_in_review.subject'))
+            ->line(__('notifications.tagged_in_review.body', [
+                'name' => $this->tagger->name,
                 'spot' => $this->review->spot->name
             ]))
-            ->action(__('notifications.review_validated.action'), url('/reviews/' . $this->review->id))
+            ->action(__('notifications.tagged_in_review.action'), url('/reviews/' . $this->review->id))
             ->line(__('notifications.thank_you'));
     }
 
     public function toArray(object $notifiable): array
     {
         return [
-            'type' => 'review_validated',
+            'type' => 'tagged_in_review',
             'review_id' => $this->review->id,
+            'tagger_id' => $this->tagger->id,
             'spot_name' => $this->review->spot->name,
-            'message' => __('notifications.review_validated.body', [
+            'message' => __('notifications.tagged_in_review.body', [
+                'name' => $this->tagger->name,
                 'spot' => $this->review->spot->name
             ]),
             'action_url' => '/reviews/' . $this->review->id,
