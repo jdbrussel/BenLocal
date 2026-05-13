@@ -45,11 +45,15 @@ class CategorySpecOptionResource extends Resource
                     ->label('Specification')
                     ->options(function (callable $get) {
                         $type = $get('spec_type');
-                        if ($type === 'rating') {
-                            return \App\Models\CategoryRatingSpec::all()->pluck('key', 'id');
-                        }
-                        if ($type === 'filter') {
-                            return \App\Models\CategoryFilterSpec::all()->pluck('key', 'id');
+                        try {
+                            if ($type === 'rating') {
+                                return \App\Models\CategoryRatingSpec::all()->pluck('key', 'id');
+                            }
+                            if ($type === 'filter') {
+                                return \App\Models\CategoryFilterSpec::all()->pluck('key', 'id');
+                            }
+                        } catch (\Throwable $e) {
+                            return [];
                         }
                         return [];
                     })
