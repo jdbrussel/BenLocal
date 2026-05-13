@@ -63,4 +63,14 @@ class Review extends Model
     {
         return $this->hasMany(ReviewReaction::class);
     }
+
+    public function tags()
+    {
+        return $this->hasMany(ReviewUserTag::class);
+    }
+
+    public function taggedUsers()
+    {
+        return $this->belongsToMany(User::class, 'review_user_tags', 'review_id', 'tagged_user_id');
+    }
 }

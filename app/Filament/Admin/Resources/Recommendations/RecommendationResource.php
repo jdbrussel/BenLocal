@@ -44,13 +44,16 @@ class RecommendationResource extends Resource
                     ->required()
                     ->searchable(),
                 Select::make('spot_id')
-                    ->relationship('spot', 'name->' . config('benlocal.default_language'))
+                    ->relationship('spot', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
                     ->required()
                     ->searchable(),
                 Select::make('region_id')
-                    ->relationship('region', 'name->' . config('benlocal.default_language')),
+                    ->relationship('region', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name),
                 Select::make('community_id')
-                    ->relationship('community', 'name->' . config('benlocal.default_language')),
+                    ->relationship('community', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name),
                 TranslatableField::make('title'),
                 TranslatableField::make('motivation', 'Motivation', 'textarea'),
                 TextInput::make('original_language')
@@ -74,13 +77,13 @@ class RecommendationResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('spot.name.' . config('benlocal.default_language'))
+                TextColumn::make('spot.name')
                     ->label('Spot')
                     ->sortable(),
                 TextColumn::make('user.name')
                     ->label('User')
                     ->sortable(),
-                TextColumn::make('region.name.' . config('benlocal.default_language'))
+                TextColumn::make('region.name')
                     ->label('Region'),
                 IconColumn::make('hidden_gem_candidate')
                     ->boolean(),
@@ -91,13 +94,15 @@ class RecommendationResource extends Resource
             ])
             ->filters([
                 SelectFilter::make('region')
-                    ->relationship('region', 'name->' . config('benlocal.default_language')),
+                    ->relationship('region', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name),
                 SelectFilter::make('moderation_status')
                     ->options([
                         'pending' => 'Pending',
                         'approved' => 'Approved',
-                        'flagged' => 'Flagged',
+                        'rejected' => 'Rejected',
                         'hidden' => 'Hidden',
+                        'suspicious' => 'Suspicious',
                     ]),
                 TernaryFilter::make('hidden_gem_candidate'),
             ])
@@ -106,6 +111,18 @@ class RecommendationResource extends Resource
                     ->action(fn (Recommendation $record) => $record->update(['moderation_status' => 'approved']))
                     ->color('success')
                     ->icon('heroicon-o-check')
+                    ->requiresConfirmation()
+                    ->visible(fn (Recommendation $record) => $record->moderation_status !== 'approved'),
+                Action::make('reject')
+                    ->action(fn (Recommendation $record) => $record->update(['moderation_status' => 'rejected']))
+                    ->color('danger')
+                    ->icon('heroicon-o-x-mark')
+                    ->requiresConfirmation()
+                    ->visible(fn (Recommendation $record) => !in_array($record->moderation_status, ['rejected', 'hidden'])),
+                Action::make('mark_suspicious')
+                    ->action(fn (Recommendation $record) => $record->update(['moderation_status' => 'suspicious']))
+                    ->color('warning')
+                    ->icon('heroicon-o-exclamation-triangle')
                     ->requiresConfirmation(),
                 EditAction::make(),
                 DeleteAction::make(),

@@ -8,6 +8,10 @@ use App\Http\Controllers\Api\DiscoveryController;
 use App\Http\Controllers\Api\SpotController;
 use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\SavedSpotController;
+use App\Http\Controllers\Api\RecommendationController;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\ReviewPhotoController;
+use App\Http\Controllers\Api\ReviewReactionController;
 use App\Http\Controllers\Api\UserContextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,4 +54,24 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/saved-spots', [SavedSpotController::class, 'index']);
     Route::post('/spots/{spot:slug}/save', [SavedSpotController::class, 'store']);
     Route::delete('/spots/{spot:slug}/save', [SavedSpotController::class, 'destroy']);
+
+    // Recommendations
+    Route::get('/spots/{spot:id}/recommendations', [RecommendationController::class, 'index']);
+    Route::post('/spots/{spot:id}/recommendations', [RecommendationController::class, 'store']);
+    Route::put('/recommendations/{recommendation}', [RecommendationController::class, 'update']);
+    Route::delete('/recommendations/{recommendation}', [RecommendationController::class, 'destroy']);
+
+    // Reviews
+    Route::get('/spots/{spot:id}/reviews', [ReviewController::class, 'index']);
+    Route::post('/spots/{spot:id}/reviews', [ReviewController::class, 'store']);
+    Route::put('/reviews/{review}', [ReviewController::class, 'update']);
+    Route::delete('/reviews/{review}', [ReviewController::class, 'destroy']);
+
+    // Review Photos
+    Route::post('/reviews/{review}/photos', [ReviewPhotoController::class, 'store']);
+    Route::delete('/review-photos/{photo}', [ReviewPhotoController::class, 'destroy']);
+
+    // Review Reactions
+    Route::post('/reviews/{review}/reaction', [ReviewReactionController::class, 'store']);
+    Route::delete('/reviews/{review}/reaction', [ReviewReactionController::class, 'destroy']);
 });

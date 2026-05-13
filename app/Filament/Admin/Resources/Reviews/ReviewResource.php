@@ -13,15 +13,17 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\TernaryFilter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Filament\Tables\Filters\TernaryFilter;
-use Filament\Tables\Filters\SelectFilter;
 use UnitEnum;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Builder;
@@ -44,7 +46,8 @@ class ReviewResource extends Resource
                     ->required()
                     ->searchable(),
                 Select::make('spot_id')
-                    ->relationship('spot', 'name->' . config('benlocal.default_language'))
+                    ->relationship('spot', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
                     ->required()
                     ->searchable(),
                 Select::make('recommendation_id')
@@ -76,7 +79,7 @@ class ReviewResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('spot.name.' . config('benlocal.default_language'))
+                TextColumn::make('spot.name')
                     ->label('Spot')
                     ->sortable(),
                 TextColumn::make('user.name')
@@ -100,12 +103,38 @@ class ReviewResource extends Resource
                     ->options([
                         'pending' => 'Pending',
                         'approved' => 'Approved',
-                        'flagged' => 'Flagged',
+                        'rejected' => 'Rejected',
                         'hidden' => 'Hidden',
+                        'suspicious' => 'Suspicious',
                     ]),
                 TernaryFilter::make('verified_visit'),
+                TernaryFilter::make('confirms_recommendation'),
+                Filter::make('rating_range')
+                    ->form([
+                        TextInput::make('min_rating')->numeric()->minValue(1)->maxValue(5),
+                        TextInput::make('max_rating')->numeric()->minValue(1)->maxValue(5),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['min_rating'], fn ($q) => $q->where('overall_rating', '>=', $data['min_rating']))
+                            ->when($data['max_rating'], fn ($q) => $q->where('overall_rating', '<=', $data['max_rating']));
+                    })
             ])
             ->actions([
+                Action::make('approve')
+                    ->action(fn (Review $record) => $record->update(['moderation_status' => 'approved']))
+                    ->color('success')
+                    ->icon('heroicon-o-check')
+                    ->visible(fn (Review $record) => $record->moderation_status !== 'approved'),
+                Action::make('reject')
+                    ->action(fn (Review $record) => $record->update(['moderation_status' => 'rejected']))
+                    ->color('danger')
+                    ->icon('heroicon-o-x-mark')
+                    ->visible(fn (Review $record) => !in_array($record->moderation_status, ['rejected', 'hidden'])),
+                Action::make('mark_suspicious')
+                    ->action(fn (Review $record) => $record->update(['moderation_status' => 'suspicious']))
+                    ->color('warning')
+                    ->icon('heroicon-o-exclamation-triangle'),
                 EditAction::make(),
                 DeleteAction::make(),
             ])

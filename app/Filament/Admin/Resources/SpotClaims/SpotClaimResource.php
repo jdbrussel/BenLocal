@@ -33,7 +33,8 @@ class SpotClaimResource extends Resource
         return $schema
             ->components([
                 Select::make('spot_id')
-                    ->relationship('spot', 'name->' . config('benlocal.default_language'))
+                    ->relationship('spot', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => $record->name)
                     ->required(),
                 Select::make('user_id')
                     ->relationship('user', 'name')
@@ -60,7 +61,7 @@ class SpotClaimResource extends Resource
                     ->default('pending')
                     ->required(),
                 Select::make('approved_by')
-                    ->relationship('moderator', 'name'),
+                    ->relationship('approver', 'name'),
                 TextInput::make('approved_at')
                     ->type('datetime-local'),
                 TextInput::make('rejection_reason'),
@@ -71,7 +72,7 @@ class SpotClaimResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('spot.name.' . config('benlocal.default_language'))
+                TextColumn::make('spot.name')
                     ->label('Spot')
                     ->sortable(),
                 TextColumn::make('user.name')

@@ -30,6 +30,9 @@ class DatabaseSeeder extends Seeder
             Phase3Seeder::class,
             Phase4UXSeeder::class,
             Phase5DiscoverySeeder::class,
+            ReviewPhotoSeeder::class,
+            ReviewReactionSeeder::class,
+            ReviewTagSeeder::class,
         ]);
 
         User::updateOrCreate(

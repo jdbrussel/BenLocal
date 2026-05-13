@@ -15,3 +15,5 @@ Dit is de centrale plek voor alle projectdocumentatie. Junie Pro raadpleegt deze
 - [Fase 2: Admin Panel](PHASE2.md): Filament resources en beheerinterface.
 - [Fase 3: Auth & Localization](PHASE3.md): Authenticatie, meertaligheid en voorkeuren.
 - [Fase 4: PWA Frontend](PHASE4.md): Vue 3 frontend, PWA en mobiele UX.
+- [Fase 5: Public API & Discovery](PHASE5.md): Discovery engine, API resources en frontend integratie.
+- [Fase 6: Recommendations & Reviews](PHASE6.md): Locals aanbevelingen, reviews, foto's en validaties.

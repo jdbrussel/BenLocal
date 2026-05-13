@@ -4,108 +4,130 @@ namespace Database\Seeders;
 
 use App\Models\Recommendation;
 use App\Models\Review;
-use App\Models\ReviewReaction;
 use App\Models\Spot;
 use App\Models\User;
+use App\Models\UserRegionStatus;
+use App\Models\TimelineEvent;
+use App\Enums\ModerationStatus;
+use App\Enums\UserRegionStatus as UserRegionStatusEnum;
 use Illuminate\Database\Seeder;
 
 class ReviewSeeder extends Seeder
 {
     public function run(): void
     {
-        $users = User::all()->keyBy('email');
-        $spots = Spot::all()->keyBy('slug');
+        $users = User::all();
+        $spots = Spot::all();
+        $recommendations = Recommendation::all();
 
-        $reviewsData = [
-            [
-                'email' => 'emma@benlocal.test',
-                'spot_slug' => 'bodega-san-miguel',
-                'overall_rating' => 5,
-                'rating_values' => ['food_quality' => 5, 'service' => 4, 'atmosphere' => 5, 'value_for_money' => 5],
-                'review_text' => ['en' => 'Amazing experience! Jan was right, this place is a must-visit.'],
-                'confirms_recommendation' => true,
-                'verified_visit' => true,
-                'reactions' => [
-                    ['email' => 'jan@benlocal.test', 'reaction' => 'agree'],
-                    ['email' => 'sofie@benlocal.test', 'reaction' => 'agree'],
-                ]
+        $count = fake()->numberBetween(500, 900);
+        $reviewsCreated = 0;
+
+        $reviewTexts = [
+            'en' => [
+                'Great food and atmosphere. Highly recommend!',
+                'The service was a bit slow, but the view made up for it.',
+                'Absolutely loved the local dishes. Will come back.',
+                'A bit touristy, but worth a visit for the experience.',
+                'The best place in town for a quiet dinner.',
+                'Very friendly staff and delicious seafood.',
+                'I found this place through a local recommendation and it was spot on.',
+                'Average experience, nothing special but not bad either.',
+                'A bit overpriced for what you get, but okay.',
+                'Truly a hidden gem! So glad I found it.',
             ],
-            [
-                'email' => 'markus@benlocal.test',
-                'spot_slug' => 'restaurante-mar-azul',
-                'overall_rating' => 4,
-                'rating_values' => ['food_quality' => 4, 'service' => 4, 'atmosphere' => 5, 'value_for_money' => 3],
-                'review_text' => ['de' => 'Gutes Essen, aber etwas teuer wegen der Lage am Hafen.', 'en' => 'Good food, but a bit expensive due to the harbor location.'],
-                'confirms_recommendation' => true,
-                'perceived_community_profile' => ['tourists' => 70, 'locals' => 30],
+            'nl' => [
+                'Geweldig eten en sfeer. Ten zeerste aanbevolen!',
+                'De bediening was een beetje traag, maar het uitzicht maakte veel goed.',
+                'Absoluut genoten van de lokale gerechten. Ik kom zeker terug.',
+                'Een beetje toeristisch, maar de ervaring waard.',
+                'De beste plek in de stad voor een rustig diner.',
+                'Zeer vriendelijk personeel en heerlijke zeevruchten.',
+                'Ik vond deze plek via een lokale aanbeveling en het was precies goed.',
+                'Gemiddelde ervaring, niets bijzonders maar ook niet slecht.',
+                'Een beetje te duur voor wat je krijgt, maar oké.',
+                'Echt een verborgen juweeltje! Zo blij dat ik het gevonden heb.',
             ],
-            [
-                'email' => 'carlos@benlocal.test',
-                'spot_slug' => 'puerto-beach-bar',
-                'overall_rating' => 2,
-                'rating_values' => ['ambiance' => 3, 'drink_selection' => 2, 'music' => 2, 'service' => 2, 'price_level' => 1],
-                'review_text' => ['es' => 'Demasiado turístico y caro para lo que ofrecen.', 'en' => 'Too touristy and expensive for what they offer.'],
-                'reactions' => [
-                    ['email' => 'jan@benlocal.test', 'reaction' => 'agree'],
-                    ['email' => 'emma@benlocal.test', 'reaction' => 'disagree'],
-                ]
-            ],
-            [
-                'email' => 'sofie@benlocal.test',
-                'spot_slug' => 'cafe-vlaanderen',
-                'overall_rating' => 5,
-                'rating_values' => ['ambiance' => 5, 'drink_selection' => 5, 'music' => 4, 'service' => 5, 'price_level' => 4],
-                'review_text' => ['nl' => 'Mijn favoriete plek voor een Belgisch biertje!'],
-                'confirms_recommendation' => true,
-                'verified_visit' => true,
-            ],
+            'es' => [
+                'Gran comida y ambiente. ¡Altamente recomendado!',
+                'El servicio fue un poco lento, pero la vista lo compensó.',
+                'Absolutamente me encantaron los platos locales. Volveré.',
+                'Un poco turístico, pero vale la pena la experiencia.',
+                'El mejor lugar de la ciudad para una cena tranquila.',
+                'Personal muy amable y mariscos deliciosos.',
+                'Encontré este lugar a través de una recomendación local y fue un acierto.',
+                'Experiencia media, nada especial pero tampoco mala.',
+                'Un poco caro para lo que recibes, pero está bien.',
+                '¡Verdaderamente una joya escondida! Muy feliz de haberlo encontrado.',
+            ]
         ];
 
-        foreach ($reviewsData as $data) {
-            $user = $users[$data['email']] ?? null;
-            $spot = $spots[$data['spot_slug']] ?? null;
+        while ($reviewsCreated < $count) {
+            $user = $users->random();
+            $spot = $spots->random();
 
-            if ($user && $spot) {
-                $recommendation = Recommendation::where('spot_id', $spot->id)
-                    ->where('user_id', '!=', $user->id) // Someone else's recommendation
-                    ->first();
+            // One review per user per spot (simplification for seeder)
+            if (Review::where('user_id', $user->id)->where('spot_id', $spot->id)->exists()) {
+                continue;
+            }
 
-                $review = Review::updateOrCreate(
-                    [
-                        'user_id' => $user->id,
-                        'spot_id' => $spot->id,
-                    ],
-                    [
-                        'recommendation_id' => $recommendation?->id,
-                        'overall_rating' => $data['overall_rating'],
-                        'rating_values' => $data['rating_values'],
-                        'review_text' => $data['review_text'],
-                        'confirms_recommendation' => $data['confirms_recommendation'] ?? null,
-                        'perceived_community_profile' => $data['perceived_community_profile'] ?? null,
-                        'verified_visit' => $data['verified_visit'] ?? false,
-                        'user_community_id' => $user->community_id,
-                        'moderation_status' => 'approved',
-                    ]
-                );
+            $userStatus = UserRegionStatus::where('user_id', $user->id)
+                ->where('region_id', $spot->region_id)
+                ->first()?->status ?: UserRegionStatusEnum::TOURIST;
 
-                if (isset($data['reactions'])) {
-                    foreach ($data['reactions'] as $reactionData) {
-                        $reactionUser = $users[$reactionData['email']] ?? null;
-                        if ($reactionUser) {
-                            ReviewReaction::updateOrCreate(
-                                [
-                                    'user_id' => $reactionUser->id,
-                                    'review_id' => $review->id,
-                                ],
-                                [
-                                    'reaction' => $reactionData['reaction'],
-                                    'weight' => 1.0,
-                                ]
-                            );
-                        }
-                    }
+            $recommendation = Recommendation::where('spot_id', $spot->id)
+                ->where('user_id', '!=', $user->id)
+                ->inRandomOrder()
+                ->first();
+
+            $confirms = null;
+            if ($recommendation) {
+                // Logic for confirmation based on status
+                if ($userStatus === UserRegionStatusEnum::TOURIST) {
+                    $confirms = fake()->randomElement([true, true, true, false]); // Tourists usually confirm
+                } else {
+                    $confirms = fake()->randomElement([true, true, false, false]); // Locals more critical
                 }
             }
+
+            $lang = $user->preferred_language ?: 'en';
+            if (!in_array($lang, ['en', 'nl', 'es'])) $lang = 'en';
+
+            $review = Review::create([
+                'user_id' => $user->id,
+                'spot_id' => $spot->id,
+                'recommendation_id' => $recommendation?->id,
+                'overall_rating' => fake()->randomFloat(2, 1, 5),
+                'rating_values' => [
+                    'food_quality' => fake()->numberBetween(1, 5),
+                    'service' => fake()->numberBetween(1, 5),
+                    'atmosphere' => fake()->numberBetween(1, 5),
+                    'value_for_money' => fake()->numberBetween(1, 5),
+                ],
+                'review_text' => [
+                    $lang => fake()->randomElement($reviewTexts[$lang]),
+                    'en' => fake()->randomElement($reviewTexts['en']),
+                ],
+                'original_language' => $lang,
+                'visited_at' => now()->subDays(fake()->numberBetween(1, 365)),
+                'user_region_status_at_time' => $userStatus,
+                'user_community_id' => $user->community_id,
+                'confirms_recommendation' => $confirms,
+                'verified_visit' => fake()->boolean(30),
+                'moderation_status' => ModerationStatus::APPROVED,
+            ]);
+
+            // Timeline Event
+            TimelineEvent::create([
+                'user_id' => $user->id,
+                'type' => 'review_created',
+                'eventable_type' => Review::class,
+                'eventable_id' => $review->id,
+                'region_id' => $spot->region_id,
+                'payload' => ['spot_name' => $spot->name],
+            ]);
+
+            $reviewsCreated++;
         }
     }
 }

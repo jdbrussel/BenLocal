@@ -11,6 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
+        if (Schema::hasColumn('users', 'onboarding_completed')) {
+            return;
+        }
+
         Schema::table('users', function (Blueprint $table) {
             $table->boolean('onboarding_completed')->default(false)->after('is_shadowbanned');
         });

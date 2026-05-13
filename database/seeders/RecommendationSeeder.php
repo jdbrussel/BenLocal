@@ -6,95 +6,132 @@ use App\Models\Recommendation;
 use App\Models\Region;
 use App\Models\Spot;
 use App\Models\User;
+use App\Models\UserRegionStatus;
+use App\Enums\UserRegionStatus as UserRegionStatusEnum;
+use App\Enums\ModerationStatus;
+use App\Models\TimelineEvent;
 use Illuminate\Database\Seeder;
 
 class RecommendationSeeder extends Seeder
 {
     public function run(): void
     {
-        $tenerife = Region::where('slug', 'tenerife')->first();
+        $regions = Region::all();
+        $spots = Spot::all();
 
-        $jan = User::where('email', 'jan@benlocal.test')->first();
-        $carlos = User::where('email', 'carlos@benlocal.test')->first();
-        $sofie = User::where('email', 'sofie@benlocal.test')->first();
+        // Find users with local or verified_local status
+        $localUserIds = UserRegionStatus::whereIn('status', [
+            UserRegionStatusEnum::LOCAL,
+            UserRegionStatusEnum::VERIFIED_LOCAL
+        ])->pluck('user_id')->unique();
 
-        $recommendations = [
-            [
-                'user' => $jan,
-                'spot_slug' => 'bodega-san-miguel',
-                'motivation' => [
-                    'nl' => 'Authentieke sfeer en fantastische lokale wijn. Een echte aanrader voor wie het ware Tenerife wil proeven.',
-                    'en' => 'Authentic atmosphere and fantastic local wine. Highly recommended for those who want to taste the real Tenerife.',
-                ],
-                'confidence_score' => 0.95,
+        $localUsers = User::whereIn('id', $localUserIds)->get();
+
+        if ($localUsers->isEmpty()) {
+            // Fallback: create some locals if none exist (though Phase 3 should have some)
+            $localUsers = User::factory(20)->create();
+            foreach ($localUsers as $user) {
+                UserRegionStatus::create([
+                    'user_id' => $user->id,
+                    'region_id' => $regions->random()->id,
+                    'status' => fake()->randomElement([UserRegionStatusEnum::LOCAL, UserRegionStatusEnum::VERIFIED_LOCAL]),
+                    'confidence_score' => fake()->numberBetween(70, 99),
+                ]);
+            }
+        }
+
+        $count = fake()->numberBetween(150, 250);
+        $recommendationsCreated = 0;
+
+        $motivations = [
+            'en' => [
+                'Hidden gem with the best local wine.',
+                'Perfect place for a quiet afternoon.',
+                'Truly authentic experience away from tourists.',
+                'The seafood here is incredibly fresh.',
+                'Best view of the sunset in the region.',
+                'A must-visit for anyone looking for real local flavors.',
+                'Friendly staff and amazing atmosphere.',
+                'They have the most delicious traditional dishes.',
+                'Great value for money and very welcoming.',
+                'I always bring my friends here when they visit.',
             ],
-            [
-                'user' => $carlos,
-                'spot_slug' => 'guachinche-casa-pepe',
-                'motivation' => [
-                    'nl' => 'Beste guachinche in de regio. Super vers eten voor een eerlijke prijs. Typisch Canarisch.',
-                    'en' => 'Best guachinche in the region. Super fresh food for a fair price. Typically Canarian.',
-                    'es' => 'El mejor guachinche de la zona. Comida súper fresca a un precio justo. Típico canario.',
-                ],
-                'confidence_score' => 0.98,
-                'hidden_gem_candidate' => true,
+            'nl' => [
+                'Verborgen juweeltje met de beste lokale wijn.',
+                'Perfecte plek voor een rustige middag.',
+                'Echt authentieke ervaring weg van de toeristen.',
+                'De zeevruchten hier zijn ongelooflijk vers.',
+                'Beste uitzicht op de zonsondergang in de regio.',
+                'Een must-visit voor iedereen die op zoek is naar echte lokale smaken.',
+                'Vriendelijk personeel en geweldige sfeer.',
+                'Ze hebben de heerlijkste traditionele gerechten.',
+                'Goede prijs-kwaliteitverhouding en zeer gastvrij.',
+                'Ik breng mijn vrienden hier altijd heen als ze op bezoek komen.',
             ],
-            [
-                'user' => $sofie,
-                'spot_slug' => 'cafe-vlaanderen',
-                'motivation' => [
-                    'nl' => 'Heerlijk Belgisch bier en een gezellig terras. De ideale plek om even te ontsnappen aan de drukte.',
-                    'en' => 'Delicious Belgian beer and a cozy terrace. The ideal place to escape the hustle and bustle.',
-                ],
-                'confidence_score' => 0.90,
-            ],
-            [
-                'user' => $carlos,
-                'spot_slug' => 'asador-el-camino',
-                'motivation' => [
-                    'nl' => 'Geweldig vlees van de grill. De bediening is vlot en vriendelijk.',
-                    'en' => 'Great meat from the grill. The service is fast and friendly.',
-                    'es' => 'Excelente carne a la brasa. El servicio es rápido y amable.',
-                ],
-                'confidence_score' => 0.85,
-            ],
-            [
-                'user' => $jan,
-                'spot_slug' => 'restaurante-mar-azul',
-                'motivation' => [
-                    'nl' => 'Prachtig uitzicht op de haven en de beste zeevruchten in Puerto Colón.',
-                    'en' => 'Beautiful view of the harbor and the best seafood in Puerto Colón.',
-                ],
-                'confidence_score' => 0.88,
-            ],
-            [
-                'user' => $sofie,
-                'spot_slug' => 'belgian-bistro-tenerife',
-                'motivation' => [
-                    'nl' => 'Echte Belgische klassiekers met een prachtig uitzicht. De stoofvlees is een aanrader.',
-                    'en' => 'Real Belgian classics with a beautiful view. The stew is highly recommended.',
-                ],
-                'confidence_score' => 0.82,
-            ],
+            'es' => [
+                'Joya escondida con el mejor vino local.',
+                'Lugar perfecto para una tarde tranquila.',
+                'Experiencia verdaderamente auténtica lejos de los turistas.',
+                'Los mariscos aquí son increíblemente frescos.',
+                'La mejor vista del atardecer en la región.',
+                'Una visita obligada para cualquiera que busque sabores locales reales.',
+                'Personal amable y ambiente increíble.',
+                'Tienen los platos tradicionales más deliciosos.',
+                'Gran relación calidad-precio y muy acogedor.',
+                'Siempre traigo a mis amigos aquí cuando vienen de visita.',
+            ]
         ];
 
-        foreach ($recommendations as $data) {
-            $spot = Spot::where('slug', $data['spot_slug'])->first();
-            if ($data['user'] && $spot) {
-                Recommendation::updateOrCreate(
-                    [
-                        'user_id' => $data['user']->id,
-                        'spot_id' => $spot->id,
-                    ],
-                    [
-                        'region_id' => $tenerife->id,
-                        'community_id' => $data['user']->community_id,
-                        'motivation' => $data['motivation'],
-                        'confidence_score' => $data['confidence_score'],
-                        'hidden_gem_candidate' => $data['hidden_gem_candidate'] ?? false,
-                    ]
-                );
-            }
+        while ($recommendationsCreated < $count) {
+            $user = $localUsers->random();
+            // Get user's local regions
+            $userLocalRegionIds = UserRegionStatus::where('user_id', $user->id)
+                ->whereIn('status', [UserRegionStatusEnum::LOCAL, UserRegionStatusEnum::VERIFIED_LOCAL])
+                ->pluck('region_id');
+
+            $spot = Spot::whereIn('region_id', $userLocalRegionIds)->inRandomOrder()->first();
+
+            if (!$spot) continue;
+
+            // Ensure one recommendation per user per spot
+            $existing = Recommendation::where('user_id', $user->id)->where('spot_id', $spot->id)->exists();
+            if ($existing) continue;
+
+            $lang = $user->preferred_language ?: 'en';
+            if (!in_array($lang, ['en', 'nl', 'es'])) $lang = 'en';
+
+            $recommendation = Recommendation::create([
+                'user_id' => $user->id,
+                'spot_id' => $spot->id,
+                'region_id' => $spot->region_id,
+                'community_id' => $user->community_id,
+                'motivation' => [
+                    $lang => fake()->randomElement($motivations[$lang]),
+                    'en' => fake()->randomElement($motivations['en']), // Ensure English fallback
+                ],
+                'original_language' => $lang,
+                'confidence_score' => fake()->randomFloat(2, 0.7, 1.0),
+                'hidden_gem_candidate' => fake()->boolean(20),
+                'moderation_status' => fake()->randomElement([
+                    ModerationStatus::APPROVED,
+                    ModerationStatus::APPROVED,
+                    ModerationStatus::APPROVED,
+                    ModerationStatus::PENDING,
+                    ModerationStatus::REJECTED
+                ]),
+            ]);
+
+            // Timeline Event
+            TimelineEvent::create([
+                'user_id' => $user->id,
+                'type' => 'recommendation_created',
+                'eventable_type' => Recommendation::class,
+                'eventable_id' => $recommendation->id,
+                'region_id' => $spot->region_id,
+                'payload' => ['spot_name' => $spot->name],
+            ]);
+
+            $recommendationsCreated++;
         }
     }
 }

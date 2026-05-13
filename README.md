@@ -71,8 +71,9 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 2. **[Fase 2: Admin Panel](docs/PHASE2.md)**: Filament v5 integratie, CRUD beheer voor locaties, taxonomie en spots.
 3. **[Fase 3: Auth & Localization](docs/PHASE3.md)**: Authenticatie (Sanctum/Socialite), meertaligheidssysteem, gebruikersvoorkeuren en cookie consent.
 4. **[Fase 4: PWA Frontend](docs/PHASE4.md)**: Mobile-first PWA frontend met Vue 3, onboarding flow en core UX componenten.
-5. **Core Engine**: Uitgebreid scoring systeem, reviews en geavanceerde aanbevelingen.
-6. **AI Integratie & Campagnes**: AI-verrijking, automatische vertalingen en campagnebeheer.
+5. **[Fase 5: Public API & Discovery](docs/PHASE5.md)**: Public API routes, Discovery Engine en frontend-backend integratie.
+6. **[Fase 6: Recommendations & Reviews](docs/PHASE6.md)**: Aanbevelingen door locals, reviews, foto's, validaties en sociale interacties.
+7. **AI Integratie & Campagnes**: AI-verrijking, automatische vertalingen en campagnebeheer.
 
 ---
 

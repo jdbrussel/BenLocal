@@ -11,17 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('saved_spots')) {
-            return;
-        }
-
-        Schema::create('saved_spots', function (Blueprint $table) {
+        Schema::create('review_user_tags', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('spot_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('review_id')->constrained()->onDelete('cascade');
+            $table->foreignId('tagged_user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('tagged_by_user_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
-
-            $table->unique(['user_id', 'spot_id']);
         });
     }
 
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved_spots');
+        Schema::dropIfExists('review_user_tags');
     }
 };
