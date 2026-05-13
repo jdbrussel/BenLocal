@@ -50,7 +50,7 @@ class CategoryRatingSpecsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

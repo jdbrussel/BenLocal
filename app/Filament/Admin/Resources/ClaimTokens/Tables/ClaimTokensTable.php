@@ -43,7 +43,7 @@ class ClaimTokensTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

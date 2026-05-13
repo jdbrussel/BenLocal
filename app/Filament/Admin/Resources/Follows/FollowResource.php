@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Follows;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Follows\Pages\CreateFollow;
 use App\Filament\Admin\Resources\Follows\Pages\EditFollow;
 use App\Filament\Admin\Resources\Follows\Pages\ListFollows;
@@ -14,7 +18,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -22,14 +26,14 @@ class FollowResource extends Resource
 {
     protected static ?string $model = Follow::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Trust';
+    protected static \UnitEnum|string|null $navigationGroup = 'Users & Trust';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-plus';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-user-plus';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('follower_id')
                     ->relationship('follower', 'name')
                     ->required(),
@@ -39,7 +43,7 @@ class FollowResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

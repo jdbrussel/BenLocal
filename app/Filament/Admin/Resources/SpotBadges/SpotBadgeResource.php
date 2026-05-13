@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\SpotBadges;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\SpotBadges\Pages\CreateSpotBadge;
 use App\Filament\Admin\Resources\SpotBadges\Pages\EditSpotBadge;
 use App\Filament\Admin\Resources\SpotBadges\Pages\ListSpotBadges;
@@ -17,7 +21,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -25,14 +29,14 @@ class SpotBadgeResource extends Resource
 {
     protected static ?string $model = SpotBadge::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Spots';
+    protected static \UnitEnum|string|null $navigationGroup = 'Spots';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-academic-cap';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-academic-cap';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 TextInput::make('key')
                     ->required()
                     ->unique(ignoreRecord: true),
@@ -45,7 +49,7 @@ class SpotBadgeResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

@@ -37,7 +37,7 @@ class GdprExportsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

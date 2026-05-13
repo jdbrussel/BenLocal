@@ -37,7 +37,7 @@ class RegionsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\UserRegionStatuses;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\UserRegionStatuses\Pages\CreateUserRegionStatus;
 use App\Filament\Admin\Resources\UserRegionStatuses\Pages\EditUserRegionStatus;
 use App\Filament\Admin\Resources\UserRegionStatuses\Pages\ListUserRegionStatuses;
@@ -17,7 +21,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -25,14 +29,14 @@ class UserRegionStatusResource extends Resource
 {
     protected static ?string $model = UserRegionStatus::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Trust';
+    protected static \UnitEnum|string|null $navigationGroup = 'Users & Trust';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-map';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -52,7 +56,7 @@ class UserRegionStatusResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

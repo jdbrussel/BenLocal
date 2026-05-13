@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\ContentReports;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\ContentReports\Pages\CreateContentReport;
 use App\Filament\Admin\Resources\ContentReports\Pages\EditContentReport;
 use App\Filament\Admin\Resources\ContentReports\Pages\ListContentReports;
@@ -15,7 +19,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -23,14 +27,14 @@ class ContentReportResource extends Resource
 {
     protected static ?string $model = ContentReport::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Moderation';
+    protected static \UnitEnum|string|null $navigationGroup = 'Moderation';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-exclamation-triangle';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-exclamation-triangle';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('reporter_user_id')
                     ->relationship('reporter', 'name')
                     ->required(),
@@ -57,7 +61,7 @@ class ContentReportResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

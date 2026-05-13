@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\CookieConsents;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\CookieConsents\Pages\CreateCookieConsent;
 use App\Filament\Admin\Resources\CookieConsents\Pages\EditCookieConsent;
 use App\Filament\Admin\Resources\CookieConsents\Pages\ListCookieConsents;
@@ -13,7 +17,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -21,14 +25,14 @@ class CookieConsentResource extends Resource
 {
     protected static ?string $model = CookieConsent::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'CMS & Legal';
+    protected static \UnitEnum|string|null $navigationGroup = 'CMS & Legal';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-shield-check';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name'),
                 TextInput::make('session_id'),
@@ -43,7 +47,7 @@ class CookieConsentResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

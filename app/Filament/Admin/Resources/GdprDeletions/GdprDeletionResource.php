@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\GdprDeletions;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\GdprDeletions\Pages\CreateGdprDeletion;
 use App\Filament\Admin\Resources\GdprDeletions\Pages\EditGdprDeletion;
 use App\Filament\Admin\Resources\GdprDeletions\Pages\ListGdprDeletions;
@@ -11,21 +15,20 @@ use App\Models\GdprDeletion;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
+
 
 class GdprDeletionResource extends Resource
 {
     protected static ?string $model = GdprDeletion::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return GdprDeletionForm::configure($schema);
+        return GdprDeletionForm::configure($form);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return GdprDeletionsTable::configure($table);
     }

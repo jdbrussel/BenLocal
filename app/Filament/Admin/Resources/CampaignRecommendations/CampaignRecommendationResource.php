@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\CampaignRecommendations;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\CampaignRecommendations\Pages\CreateCampaignRecommendation;
 use App\Filament\Admin\Resources\CampaignRecommendations\Pages\EditCampaignRecommendation;
 use App\Filament\Admin\Resources\CampaignRecommendations\Pages\ListCampaignRecommendations;
@@ -17,22 +21,20 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
-use UnitEnum;
-use BackedEnum;
+
 
 class CampaignRecommendationResource extends Resource
 {
     protected static ?string $model = CampaignRecommendation::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campaigns';
+    protected static \UnitEnum|string|null $navigationGroup = 'Campaigns';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-star';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 Select::make('campaign_id')
                     ->relationship('campaign', 'name->' . config('benlocal.default_language'))
                     ->required(),
@@ -50,7 +52,7 @@ class CampaignRecommendationResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

@@ -46,7 +46,7 @@ class SpotVisitsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

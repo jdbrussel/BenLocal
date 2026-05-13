@@ -72,7 +72,7 @@ class ReviewsTable
             ->filters([
                 TrashedFilter::make(),
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

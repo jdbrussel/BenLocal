@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\CategoryRatingSpecs;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\CategoryRatingSpecs\Pages\CreateCategoryRatingSpec;
 use App\Filament\Admin\Resources\CategoryRatingSpecs\Pages\EditCategoryRatingSpec;
 use App\Filament\Admin\Resources\CategoryRatingSpecs\Pages\ListCategoryRatingSpecs;
@@ -18,7 +22,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -26,14 +30,14 @@ class CategoryRatingSpecResource extends Resource
 {
     protected static ?string $model = CategoryRatingSpec::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Food & Drinks';
+    protected static \UnitEnum|string|null $navigationGroup = 'Food & Drinks';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-star';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-star';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 Select::make('category_id')
                     ->relationship('category', 'name->' . config('benlocal.default_language'))
                     ->required()
@@ -64,7 +68,7 @@ class CategoryRatingSpecResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

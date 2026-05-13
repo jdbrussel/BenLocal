@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\UserReputations;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\UserReputations\Pages\CreateUserReputation;
 use App\Filament\Admin\Resources\UserReputations\Pages\EditUserReputation;
 use App\Filament\Admin\Resources\UserReputations\Pages\ListUserReputations;
@@ -15,7 +19,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use Filament\Tables\Filters\SelectFilter;
 use UnitEnum;
 use BackedEnum;
@@ -24,14 +28,14 @@ class UserReputationResource extends Resource
 {
     protected static ?string $model = UserReputation::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Trust';
+    protected static \UnitEnum|string|null $navigationGroup = 'Users & Trust';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-shield-check';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -67,7 +71,7 @@ class UserReputationResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

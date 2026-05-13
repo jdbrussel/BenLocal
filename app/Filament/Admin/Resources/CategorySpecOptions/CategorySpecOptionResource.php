@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\CategorySpecOptions;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\CategorySpecOptions\Pages\CreateCategorySpecOption;
 use App\Filament\Admin\Resources\CategorySpecOptions\Pages\EditCategorySpecOption;
 use App\Filament\Admin\Resources\CategorySpecOptions\Pages\ListCategorySpecOptions;
@@ -18,7 +22,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -26,14 +30,14 @@ class CategorySpecOptionResource extends Resource
 {
     protected static ?string $model = CategorySpecOption::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Food & Drinks';
+    protected static \UnitEnum|string|null $navigationGroup = 'Food & Drinks';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-list-bullet';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-list-bullet';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 Select::make('spec_type')
                     ->options([
                         'rating' => 'Rating Spec',
@@ -45,15 +49,11 @@ class CategorySpecOptionResource extends Resource
                     ->label('Specification')
                     ->options(function (callable $get) {
                         $type = $get('spec_type');
-                        try {
-                            if ($type === 'rating') {
-                                return \App\Models\CategoryRatingSpec::all()->pluck('key', 'id');
-                            }
-                            if ($type === 'filter') {
-                                return \App\Models\CategoryFilterSpec::all()->pluck('key', 'id');
-                            }
-                        } catch (\Throwable $e) {
-                            return [];
+                        if ($type === 'rating') {
+                            return \App\Models\CategoryRatingSpec::all()->pluck('key', 'id');
+                        }
+                        if ($type === 'filter') {
+                            return \App\Models\CategoryFilterSpec::all()->pluck('key', 'id');
                         }
                         return [];
                     })
@@ -74,7 +74,7 @@ class CategorySpecOptionResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

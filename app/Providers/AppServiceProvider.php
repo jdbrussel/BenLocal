@@ -20,6 +20,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        $this->app->afterResolving(\Illuminate\Console\Command::class, function ($command) {
+            if ($command->getLaravel() === null) {
+                $command->setLaravel($this->app);
+            }
+        });
+
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });

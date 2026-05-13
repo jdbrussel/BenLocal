@@ -134,14 +134,14 @@ class Phase3Seeder extends Seeder
             \App\Models\Review::create([
                 'user_id' => $user->id,
                 'spot_id' => $spot->id,
-                'rating' => 5,
-                'comment' => [
+                'overall_rating' => 5,
+                'review_text' => [
                     'en' => 'Great place!',
                     'nl' => 'Geweldige plek!',
                     'es' => '¡Gran lugar!',
                 ],
-                'status' => 'active',
-                'published_at' => now(),
+                'moderation_status' => 'approved',
+                'visited_at' => now(),
             ]);
         }
     }

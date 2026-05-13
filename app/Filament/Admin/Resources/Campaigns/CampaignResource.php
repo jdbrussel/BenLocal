@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Campaigns;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Campaigns\Pages\CreateCampaign;
 use App\Filament\Admin\Resources\Campaigns\Pages\EditCampaign;
 use App\Filament\Admin\Resources\Campaigns\Pages\ListCampaigns;
@@ -19,7 +23,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use Filament\Tables\Filters\TernaryFilter;
 use UnitEnum;
 use BackedEnum;
@@ -28,14 +32,14 @@ class CampaignResource extends Resource
 {
     protected static ?string $model = Campaign::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Campaigns';
+    protected static \UnitEnum|string|null $navigationGroup = 'Campaigns';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-megaphone';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-megaphone';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 TranslatableField::make('name')
                     ->columnSpanFull(),
                 TextInput::make('slug')
@@ -75,7 +79,7 @@ class CampaignResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

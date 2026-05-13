@@ -16,8 +16,15 @@ class RecommendationSeeder extends Seeder
 {
     public function run(): void
     {
+        $this->command->info("Starting RecommendationSeeder...");
+
         $regions = Region::all();
         $spots = Spot::all();
+
+        if ($regions->isEmpty() || $spots->isEmpty()) {
+            $this->command->warn("Missing regions or spots. Skipping RecommendationSeeder.");
+            return;
+        }
 
         // Find users with local or verified_local status
         $localUserIds = UserRegionStatus::whereIn('status', [
@@ -28,6 +35,7 @@ class RecommendationSeeder extends Seeder
         $localUsers = User::whereIn('id', $localUserIds)->get();
 
         if ($localUsers->isEmpty()) {
+            $this->command->info("No local users found. Creating fallback locals...");
             // Fallback: create some locals if none exist (though Phase 3 should have some)
             $localUsers = User::factory(20)->create();
             foreach ($localUsers as $user) {
@@ -40,8 +48,17 @@ class RecommendationSeeder extends Seeder
             }
         }
 
-        $count = fake()->numberBetween(150, 250);
+        $targetCount = fake()->numberBetween(150, 250);
+
+        // Safety: Calculate possible combinations to avoid infinite loop
+        // For local dev, a simple heuristic is fine, or we just rely on maxAttempts.
+        // Let's use maxAttempts guard as requested.
+
         $recommendationsCreated = 0;
+        $attempts = 0;
+        $maxAttempts = $targetCount * 3;
+
+        $this->command->info("Creating recommendations (Target: $targetCount, Max attempts: $maxAttempts)...");
 
         $motivations = [
             'en' => [
@@ -82,12 +99,15 @@ class RecommendationSeeder extends Seeder
             ]
         ];
 
-        while ($recommendationsCreated < $count) {
+        while ($recommendationsCreated < $targetCount && $attempts < $maxAttempts) {
+            $attempts++;
             $user = $localUsers->random();
             // Get user's local regions
             $userLocalRegionIds = UserRegionStatus::where('user_id', $user->id)
                 ->whereIn('status', [UserRegionStatusEnum::LOCAL, UserRegionStatusEnum::VERIFIED_LOCAL])
                 ->pluck('region_id');
+
+            if ($userLocalRegionIds->isEmpty()) continue;
 
             $spot = Spot::whereIn('region_id', $userLocalRegionIds)->inRandomOrder()->first();
 
@@ -132,6 +152,12 @@ class RecommendationSeeder extends Seeder
             ]);
 
             $recommendationsCreated++;
+        }
+
+        $this->command->info("Created $recommendationsCreated recommendations in $attempts attempts.");
+
+        if ($attempts >= $maxAttempts && $recommendationsCreated < $targetCount) {
+            $this->command->warn("Reached max attempts ($maxAttempts). Some recommendations were not created due to unique constraint or region limitations.");
         }
     }
 }

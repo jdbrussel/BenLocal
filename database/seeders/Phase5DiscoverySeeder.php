@@ -37,16 +37,34 @@ class Phase5DiscoverySeeder extends Seeder
 {
     public function run(): void
     {
+        $this->command->info("Starting Phase5DiscoverySeeder...");
+
         // 1. Core Data Lookups
         $tenerife = Region::where('slug', 'tenerife')->first();
-        if (!$tenerife) return;
+        if (!$tenerife) {
+            $this->command->warn("Tenerife region not found. Skipping Phase5DiscoverySeeder.");
+            return;
+        }
 
         $communities = Community::all();
+        if ($communities->isEmpty()) {
+            $this->command->warn("No communities found. Skipping Phase5DiscoverySeeder.");
+            return;
+        }
+
         $foodDrinks = Sector::where('slug', 'food-drinks')->first();
         $restaurants = Category::where('slug', 'restaurants')->first();
         $bars = Category::where('slug', 'bars')->first();
 
+        if (!$foodDrinks || !$restaurants || !$bars) {
+            $this->command->warn("Required sectors/categories (food-drinks, restaurants, bars) missing.");
+        }
+
+        $largeDemo = env('BENLOCAL_LARGE_DEMO_DATA', false);
+        $this->command->info($largeDemo ? "Using LARGE demo data settings." : "Using dev-safe (SMALL) data settings.");
+
         // 2. Expand Tenerife Areas & Places
+        $this->command->info("Expanding Tenerife locations...");
         $areas = $this->expandTenerifeLocations($tenerife);
 
         // 3. Badges
@@ -58,29 +76,43 @@ class Phase5DiscoverySeeder extends Seeder
             'color' => 'purple',
         ]);
 
-        // 4. Seed More Users (Total ~100)
-        $users = $this->seedMoreUsers($tenerife, $communities);
+        // 4. Seed More Users
+        $userCount = $largeDemo ? 60 : 25;
+        $this->command->info("Seeding $userCount more users...");
+        $users = $this->seedMoreUsers($tenerife, $communities, $userCount);
 
-        // 5. Seed Realistic Spots (100-150 Total)
-        $spots = $this->seedDiscoverySpots($tenerife, $areas, $foodDrinks, $restaurants, $bars, $users, $hiddenGemBadge);
+        // 5. Seed Realistic Spots
+        $this->command->info("Seeding discovery spots...");
+        $spots = $this->seedDiscoverySpots($tenerife, $areas, $foodDrinks, $restaurants, $bars, $users, $hiddenGemBadge, $largeDemo);
 
-        // 6. Seed Recommendations (300)
-        $this->seedRecommendations($spots, $users, $tenerife);
+        // 6. Seed Recommendations
+        $recTarget = $largeDemo ? 300 : 80;
+        $this->command->info("Seeding recommendations...");
+        $this->seedRecommendations($spots, $users, $tenerife, $recTarget);
 
-        // 7. Seed Reviews & Reactions (1000 reviews, 2000 reactions)
-        $this->seedReviewsAndReactions($spots, $users);
+        // 7. Seed Reviews & Reactions
+        $this->command->info("Seeding reviews and reactions...");
+        $this->seedReviewsAndReactions($spots, $users, $largeDemo);
 
-        // 8. Saved Spots (400)
-        $this->seedSavedSpots($spots, $users);
+        // 8. Saved Spots
+        $saveTarget = $largeDemo ? 400 : 80;
+        $this->command->info("Seeding saved spots...");
+        $this->seedSavedSpots($spots, $users, $saveTarget);
 
-        // 9. Follow Network (200)
-        $this->seedFollowNetwork($users);
+        // 9. Follow Network
+        $followTarget = $largeDemo ? 200 : 60;
+        $this->command->info("Seeding follow network...");
+        $this->seedFollowNetwork($users, $followTarget);
 
         // 10. Timeline Events Expansion
-        $this->seedTimelineEvents($users, $spots, $tenerife);
+        $this->command->info("Seeding timeline events...");
+        $this->seedTimelineEvents($users, $spots, $tenerife, $largeDemo);
 
         // 11. Campaigns expansion
-        $this->seedCampaignActivity($tenerife, $foodDrinks, $restaurants, $users, $spots);
+        $this->command->info("Seeding campaign activity...");
+        $this->seedCampaignActivity($tenerife, $foodDrinks, $restaurants, $users, $spots, $largeDemo);
+
+        $this->command->info("Phase5DiscoverySeeder completed.");
     }
 
     private function expandTenerifeLocations($region)
@@ -155,9 +187,9 @@ class Phase5DiscoverySeeder extends Seeder
         return Area::where('region_id', $region->id)->get();
     }
 
-    private function seedMoreUsers($region, $communities)
+    private function seedMoreUsers($region, $communities, $count)
     {
-        $newUsers = User::factory()->count(60)->create();
+        $newUsers = User::factory()->count($count)->create();
 
         foreach ($newUsers as $user) {
             $status = fake()->randomElement(UserRegionStatusEnum::cases());
@@ -179,9 +211,11 @@ class Phase5DiscoverySeeder extends Seeder
         return User::all();
     }
 
-    private function seedDiscoverySpots($region, $areas, $sector, $restaurantCat, $barCat, $users, $badge)
+    private function seedDiscoverySpots($region, $areas, $sector, $restaurantCat, $barCat, $users, $badge, $largeDemo)
     {
         $spots = collect();
+        if (!$sector || !$restaurantCat || !$barCat) return $spots;
+
         $types = [
             'guachinche' => ['cat' => $restaurantCat, 'cuisines' => ['canarian'], 'price' => '€'],
             'beachbar' => ['cat' => $barCat, 'cuisines' => ['international'], 'price' => '€€'],
@@ -196,9 +230,9 @@ class Phase5DiscoverySeeder extends Seeder
             if ($places->isEmpty()) continue;
 
             $count = match($area->slug) {
-                'costa-adeje', 'playa-de-las-americas', 'los-cristianos' => 20,
-                'el-medano', 'la-caleta' => 12,
-                default => 6
+                'costa-adeje', 'playa-de-las-americas', 'los-cristianos' => $largeDemo ? 20 : 8,
+                'el-medano', 'la-caleta' => $largeDemo ? 12 : 5,
+                default => $largeDemo ? 6 : 3
             };
 
             for ($i = 0; $i < $count; $i++) {
@@ -208,7 +242,6 @@ class Phase5DiscoverySeeder extends Seeder
 
                 $name = fake()->company();
                 $isGem = fake()->boolean(15);
-                $isHotspot = !$isGem && fake()->boolean(20);
 
                 $spot = Spot::factory()->create([
                     'name' => ['en' => $name, 'es' => $name . ' (Local)'],
@@ -245,41 +278,39 @@ class Phase5DiscoverySeeder extends Seeder
     private function seedSpotCommunityProfile($spot, $type)
     {
         $comms = Community::all();
-        $profiles = [];
-
-        if ($type === 'belgian-cafe') {
-            $profiles['belgium'] = 65;
-            $profiles['netherlands'] = 20;
-            $profiles['united-kingdom'] = 10;
-        } elseif ($type === 'guachinche') {
-            $profiles['spain-canaries'] = 85;
-            $profiles['germany'] = 5;
-        } else {
-            // Random but skewed
-            $primary = $comms->random();
-            $profiles[$primary->slug] = 50;
-        }
 
         foreach ($comms as $comm) {
-            SpotCommunityProfile::create([
+            $percentage = 10;
+            if ($type === 'belgian-cafe' && $comm->slug === 'belgium') $percentage = 65;
+            if ($type === 'belgian-cafe' && $comm->slug === 'netherlands') $percentage = 20;
+            if ($type === 'guachinche' && $comm->slug === 'spain-canaries') $percentage = 85;
+
+            SpotCommunityProfile::updateOrCreate([
                 'spot_id' => $spot->id,
                 'community_id' => $comm->id,
-                'percentage' => $profiles[$comm->slug] ?? rand(2, 10),
+            ], [
+                'percentage' => $percentage,
                 'confidence_score' => rand(60, 98) / 100,
             ]);
         }
     }
 
-    private function seedRecommendations($spots, $users, $region)
+    private function seedRecommendations($spots, $users, $region, $target)
     {
         $locals = $users->filter(fn($u) => in_array($u->regionStatuses->where('region_id', $region->id)->first()?->status, [
             UserRegionStatusEnum::LOCAL,
             UserRegionStatusEnum::VERIFIED_LOCAL
         ]));
 
-        if ($locals->isEmpty()) $locals = $users->take(20);
+        if ($locals->isEmpty()) $locals = $users->take(10);
+        if ($spots->isEmpty() || $locals->isEmpty()) return;
 
-        for ($i = 0; $i < 300; $i++) {
+        $created = 0;
+        $attempts = 0;
+        $maxAttempts = $target * 2;
+
+        while ($created < $target && $attempts < $maxAttempts) {
+            $attempts++;
             $user = $locals->random();
             $spot = $spots->random();
 
@@ -296,13 +327,15 @@ class Phase5DiscoverySeeder extends Seeder
                     'nl' => 'Echt een aanrader voor de community.'
                 ]
             ]);
+            $created++;
         }
+        $this->command->info("Created $created recommendations ($attempts attempts).");
     }
 
-    private function seedReviewsAndReactions($spots, $users)
+    private function seedReviewsAndReactions($spots, $users, $largeDemo)
     {
         foreach ($spots as $spot) {
-            $count = rand(5, 15);
+            $count = $largeDemo ? rand(5, 12) : rand(2, 5);
             $reviews = Review::factory()->count($count)->create([
                 'spot_id' => $spot->id,
                 'user_id' => fn() => $users->random()->id,
@@ -310,11 +343,13 @@ class Phase5DiscoverySeeder extends Seeder
 
             foreach ($reviews as $review) {
                 // Reactions
-                $reactCount = rand(2, 8);
+                $reactCount = $largeDemo ? rand(2, 6) : rand(0, 3);
                 for ($j = 0; $j < $reactCount; $j++) {
-                    ReviewReaction::create([
-                        'user_id' => $users->random()->id,
+                    $reactUser = $users->random();
+                    ReviewReaction::updateOrCreate([
+                        'user_id' => $reactUser->id,
                         'review_id' => $review->id,
+                    ], [
                         'reaction' => fake()->randomElement(ReviewReactionType::cases()),
                     ]);
                 }
@@ -330,9 +365,10 @@ class Phase5DiscoverySeeder extends Seeder
         }
     }
 
-    private function seedSavedSpots($spots, $users)
+    private function seedSavedSpots($spots, $users, $target)
     {
-        for ($i = 0; $i < 400; $i++) {
+        if ($spots->isEmpty() || $users->isEmpty()) return;
+        for ($i = 0; $i < $target; $i++) {
             $user = $users->random();
             $spot = $spots->random();
 
@@ -343,9 +379,10 @@ class Phase5DiscoverySeeder extends Seeder
         }
     }
 
-    private function seedFollowNetwork($users)
+    private function seedFollowNetwork($users, $target)
     {
-        for ($i = 0; $i < 200; $i++) {
+        if ($users->count() < 2) return;
+        for ($i = 0; $i < $target; $i++) {
             $follower = $users->random();
             $followed = $users->random();
             if ($follower->id === $followed->id) continue;
@@ -357,10 +394,14 @@ class Phase5DiscoverySeeder extends Seeder
         }
     }
 
-    private function seedTimelineEvents($users, $spots, $region)
+    private function seedTimelineEvents($users, $spots, $region, $largeDemo)
     {
-        foreach ($users->take(30) as $user) {
-            for ($i = 0; $i < 5; $i++) {
+        if ($users->isEmpty() || $spots->isEmpty()) return;
+        $userSub = $users->take($largeDemo ? 40 : 15);
+        $count = 0;
+        foreach ($userSub as $user) {
+            $events = $largeDemo ? 5 : 3;
+            for ($i = 0; $i < $events; $i++) {
                 $spot = $spots->random();
                 TimelineEvent::create([
                     'user_id' => $user->id,
@@ -371,16 +412,22 @@ class Phase5DiscoverySeeder extends Seeder
                     'payload' => ['name' => $spot->getTranslation('name', 'en')],
                     'created_at' => fake()->dateTimeBetween('-1 month', 'now'),
                 ]);
+                $count++;
             }
         }
+        $this->command->info("Created $count timeline events.");
     }
 
-    private function seedCampaignActivity($region, $sector, $category, $users, $spots)
+    private function seedCampaignActivity($region, $sector, $category, $users, $spots, $largeDemo)
     {
         $campaign = Campaign::where('slug', 'tafelen-in-tenerife')->first();
-        if (!$campaign) return;
+        if (!$campaign) {
+            $this->command->warn("Campaign 'tafelen-in-tenerife' not found. Skipping campaign activity.");
+            return;
+        }
 
-        for ($i = 0; $i < 70; $i++) {
+        $target = $largeDemo ? 70 : 20;
+        for ($i = 0; $i < $target; $i++) {
             CampaignSubmission::create([
                 'campaign_id' => $campaign->id,
                 'user_id' => $users->random()->id,
@@ -389,5 +436,6 @@ class Phase5DiscoverySeeder extends Seeder
                 'status' => fake()->randomElement(['pending', 'approved', 'rejected', 'shortlisted']),
             ]);
         }
+        $this->command->info("Created $target campaign submissions.");
     }
 }

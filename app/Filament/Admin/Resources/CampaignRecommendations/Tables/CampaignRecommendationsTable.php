@@ -46,7 +46,7 @@ class CampaignRecommendationsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

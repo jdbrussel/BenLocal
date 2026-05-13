@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Spots;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Spots\Pages\CreateSpot;
 use App\Filament\Admin\Resources\Spots\Pages\EditSpot;
 use App\Filament\Admin\Resources\Spots\Pages\ListSpots;
@@ -9,8 +13,8 @@ use App\Filament\Support\TranslatableField;
 use App\Models\Spot;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
-use Filament\Schemas\Components\Tabs;
-use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\Tabs\Tab;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Resources\Resource;
@@ -21,7 +25,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use UnitEnum;
@@ -33,14 +37,14 @@ class SpotResource extends Resource
 {
     protected static ?string $model = Spot::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Spots';
+    protected static \UnitEnum|string|null $navigationGroup = 'Spots';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-map-pin';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 Tabs::make('Spot Details')
                     ->tabs([
                         Tab::make('Basic info')
@@ -122,7 +126,7 @@ class SpotResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

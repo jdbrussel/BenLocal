@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\SpotVisits;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\SpotVisits\Pages\CreateSpotVisit;
 use App\Filament\Admin\Resources\SpotVisits\Pages\EditSpotVisit;
 use App\Filament\Admin\Resources\SpotVisits\Pages\ListSpotVisits;
@@ -15,7 +19,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -23,14 +27,14 @@ class SpotVisitResource extends Resource
 {
     protected static ?string $model = SpotVisit::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'System';
+    protected static \UnitEnum|string|null $navigationGroup = 'System';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-map';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
@@ -50,7 +54,7 @@ class SpotVisitResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

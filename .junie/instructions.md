@@ -11,6 +11,10 @@ Junie Pro moet ALTIJD eerst de beschikbare documentatie in dit project bekijken 
 ## Documentatie Locatie
 De primaire documentatie bevindt zich in de `docs/` map in de root van het project.
 
+## Update de Server
+git add . ; 
+git commit -m "Implementatie Fase 5 & 6: Recommendations, Reviews, Social Interactions & Filament Updates" --trailer
+
 git pull origin main
 composer install --no-dev --optimize-autoloader
 npm install

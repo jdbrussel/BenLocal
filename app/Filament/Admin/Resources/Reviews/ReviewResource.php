@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Reviews;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Reviews\Pages\CreateReview;
 use App\Filament\Admin\Resources\Reviews\Pages\EditReview;
 use App\Filament\Admin\Resources\Reviews\Pages\ListReviews;
@@ -23,7 +27,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 use Illuminate\Database\Eloquent\Builder;
@@ -33,14 +37,14 @@ class ReviewResource extends Resource
 {
     protected static ?string $model = Review::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Recommendations & Reviews';
+    protected static \UnitEnum|string|null $navigationGroup = 'Recommendations & Reviews';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required()
@@ -75,7 +79,7 @@ class ReviewResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

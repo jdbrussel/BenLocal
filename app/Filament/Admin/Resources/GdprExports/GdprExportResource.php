@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\GdprExports;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\GdprExports\Pages\CreateGdprExport;
 use App\Filament\Admin\Resources\GdprExports\Pages\EditGdprExport;
 use App\Filament\Admin\Resources\GdprExports\Pages\ListGdprExports;
@@ -11,21 +15,20 @@ use App\Models\GdprExport;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
-use Filament\Tables\Table;
+
 
 class GdprExportResource extends Resource
 {
     protected static ?string $model = GdprExport::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return GdprExportForm::configure($schema);
+        return GdprExportForm::configure($form);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return GdprExportsTable::configure($table);
     }

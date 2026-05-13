@@ -91,7 +91,7 @@ class SpotsTable
             ->filters([
                 TrashedFilter::make(),
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

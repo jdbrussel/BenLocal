@@ -56,7 +56,7 @@ class RecommendationsTable
             ->filters([
                 TrashedFilter::make(),
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

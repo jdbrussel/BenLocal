@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Media;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Media\Pages\CreateMedia;
 use App\Filament\Admin\Resources\Media\Pages\EditMedia;
 use App\Filament\Admin\Resources\Media\Pages\ListMedia;
@@ -20,7 +24,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use UnitEnum;
@@ -30,14 +34,14 @@ class MediaResource extends Resource
 {
     protected static ?string $model = Media::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Media';
+    protected static \UnitEnum|string|null $navigationGroup = 'Media';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-photo';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-photo';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 TextInput::make('model_type')
                     ->required(),
                 TextInput::make('model_id')
@@ -66,7 +70,7 @@ class MediaResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

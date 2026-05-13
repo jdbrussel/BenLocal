@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Communities;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Communities\Pages\ManageCommunities;
 use App\Filament\Support\TranslatableField;
 use App\Models\Community;
@@ -9,7 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
@@ -24,14 +28,14 @@ class CommunityResource extends Resource
 {
     protected static ?string $model = Community::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Core Setup';
+    protected static \UnitEnum|string|null $navigationGroup = 'Core Setup';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-user-group';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-user-group';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 TranslatableField::make('name')
                     ->columnSpanFull(),
                 TextInput::make('slug')
@@ -46,7 +50,7 @@ class CommunityResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

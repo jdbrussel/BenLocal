@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Pages;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Pages\Pages\CreatePage;
 use App\Filament\Admin\Resources\Pages\Pages\EditPage;
 use App\Filament\Admin\Resources\Pages\Pages\ListPages;
@@ -17,7 +21,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -25,14 +29,14 @@ class PageResource extends Resource
 {
     protected static ?string $model = Page::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'CMS & Legal';
+    protected static \UnitEnum|string|null $navigationGroup = 'CMS & Legal';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-document-text';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-document-text';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 TextInput::make('slug')
                     ->required()
                     ->unique(ignoreRecord: true),
@@ -47,7 +51,7 @@ class PageResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\ModerationActions;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\ModerationActions\Pages\CreateModerationAction;
 use App\Filament\Admin\Resources\ModerationActions\Pages\EditModerationAction;
 use App\Filament\Admin\Resources\ModerationActions\Pages\ListModerationActions;
@@ -15,7 +19,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -23,14 +27,14 @@ class ModerationActionResource extends Resource
 {
     protected static ?string $model = ModerationAction::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Moderation';
+    protected static \UnitEnum|string|null $navigationGroup = 'Moderation';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-scale';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-scale';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('moderator_id')
                     ->relationship('moderator', 'name')
                     ->required(),
@@ -46,7 +50,7 @@ class ModerationActionResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

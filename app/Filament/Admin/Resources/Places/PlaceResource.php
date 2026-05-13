@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Places;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Places\Pages\CreatePlace;
 use App\Filament\Admin\Resources\Places\Pages\EditPlace;
 use App\Filament\Admin\Resources\Places\Pages\ListPlaces;
@@ -18,7 +22,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -26,14 +30,14 @@ class PlaceResource extends Resource
 {
     protected static ?string $model = Place::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Locations';
+    protected static \UnitEnum|string|null $navigationGroup = 'Locations';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-map-pin';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-map-pin';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
         return $schema
-            ->components([
+            ->schema([
                 Select::make('area_id')
                     ->relationship('area', 'name->' . config('benlocal.default_language'))
                     ->required()
@@ -55,7 +59,7 @@ class PlaceResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

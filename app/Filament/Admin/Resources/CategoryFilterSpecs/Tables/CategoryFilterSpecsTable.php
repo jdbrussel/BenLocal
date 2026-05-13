@@ -43,7 +43,7 @@ class CategoryFilterSpecsTable
             ->filters([
                 //
             ])
-            ->recordActions([
+            ->actions([
                 EditAction::make(),
             ])
             ->toolbarActions([

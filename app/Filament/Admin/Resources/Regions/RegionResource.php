@@ -2,6 +2,10 @@
 
 namespace App\Filament\Admin\Resources\Regions;
 
+use Filament\Tables\Table;
+
+
+
 use App\Filament\Admin\Resources\Regions\Pages\CreateRegion;
 use App\Filament\Admin\Resources\Regions\Pages\EditRegion;
 use App\Filament\Admin\Resources\Regions\Pages\ListRegions;
@@ -17,7 +21,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Table;
+
 use UnitEnum;
 use BackedEnum;
 
@@ -25,14 +29,14 @@ class RegionResource extends Resource
 {
     protected static ?string $model = Region::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Locations';
+    protected static \UnitEnum|string|null $navigationGroup = 'Locations';
 
-    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-globe-europe-africa';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-globe-europe-africa';
 
-    public static function form(Schema $schema): Schema
+    public static function form(\Filament\Schemas\Schema $form): \Filament\Schemas\Schema
     {
-        return $schema
-            ->components([
+        return $form
+            ->schema([
                 TranslatableField::make('name')
                     ->columnSpanFull(),
                 TextInput::make('slug')
@@ -50,7 +54,7 @@ class RegionResource extends Resource
             ]);
     }
 
-    public static function table(Table $table): Table
+    public static function table(\Filament\Tables\Table $table): \Filament\Tables\Table
     {
         return $table
             ->columns([

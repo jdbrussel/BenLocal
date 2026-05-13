@@ -185,6 +185,7 @@ class Phase4UXSeeder extends Seeder
             $count = ($area->slug === 'costa-adeje' || $area->slug === 'playa-de-las-americas') ? 15 : 6;
 
             for ($i = 0; $i < $count; $i++) {
+                if ($places->isEmpty()) break;
                 $place = $places->random();
                 $isBar = fake()->boolean(40);
                 $isGem = fake()->boolean(15);
