@@ -35,10 +35,40 @@ In plaats van een statische `spot_types` tabel, gebruiken we dynamische categori
 *   **Restaurants:** Bijv. Guachinche, Bodega, Tapas, Asador, Fine dining.
 *   **Bars:** Bijv. Beachbar, Cocktailbar, Pub, Bierbar, Loungebar.
 
-## Meertaligheid (Multilingual System)
+## Trust & Ranking Engine (Phase 7)
 
-Alles in het systeem is vertaalbaar via JSON fields.
+Phase 7 introduces a complex trust-based ranking system that replaces simple average ratings.
 
-*   **Talen:** nl, en, es, de, fr.
-*   **Prioriteit:** Gebruikersvoorkeur > Geselecteerde taal > Browser locale > Default (en) > Origineel.
-*   **Implementatie:** Spatie Laravel Translatable wordt aanbevolen.
+### Core Components
+- **User Reputation:** Calculated per region, sector, category, and community.
+- **Trust Graph:** Personal weights based on follows and community alignment.
+- **Hidden Gem Engine:** Identifies spots with strong local support but low overall volume.
+- **Tourist Saturation:** Detects spots heavily dominated by non-local interactions.
+- **Spot Scoring:** Multi-factor scoring (Recommendation, Review, Local Trust, Hidden Gem, Community Match).
+- **Personalized Ranking:** User-specific discovery results based on trust graph and preferences.
+
+### Modular Services
+The system uses 8 specialized services to handle different aspects of trust and ranking:
+1. `UserReputationService`
+2. `TrustGraphService`
+3. `ReviewWeightService`
+4. `RecommendationScoreService`
+5. `HiddenGemService`
+6. `CommunityProfileService`
+7. `SpotRankingService`
+8. `PersonalizedRankingService`
+
+## Timeline & Feed System (Phase 8)
+
+Phase 8 introduces a personalized timeline that provides users with a real-time stream of relevant local activity.
+
+### Key Features
+- **Personalized Feed:** Ranked based on followed users, current region, community interests, and language.
+- **Timeline Events:** Generic event system capturing recommendations, reviews, reactions, follows, and status updates.
+- **Infinite Scroll:** Optimized API and frontend for seamless content discovery.
+- **Region Awareness:** Prioritizes events happening in the user's active region.
+
+### Core Services
+- `TimelineEventService`: Handles creation and management of activity events.
+- `FeedService`: Orchestrates feed delivery and filtering.
+- `PersonalizedFeedService`: Implements the ranking algorithm for the user's primary feed.

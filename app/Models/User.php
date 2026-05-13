@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
@@ -38,6 +39,7 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
         'residence_area_id',
         'residence_place_id',
         'community_id',
+        'role',
         'last_known_ip',
         'last_known_country',
         'last_known_region',
@@ -60,6 +62,18 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
 
     public function canAccessPanel(Panel $panel): bool
     {
+        if ($panel->getId() === 'admin') {
+            return $this->isAdmin();
+        }
+
+        if ($panel->getId() === 'support') {
+            return $this->isAdmin() || $this->role === UserRole::SUPPORT;
+        }
+
+        if ($panel->getId() === 'owner') {
+            return $this->isAdmin() || $this->isOwner();
+        }
+
         return true;
     }
 
@@ -78,7 +92,18 @@ class User extends Authenticatable implements FilamentUser, MustVerifyEmail
             'is_shadowbanned' => 'boolean',
             'onboarding_completed' => 'boolean',
             'trust_penalty_score' => 'integer',
+            'role' => UserRole::class,
         ];
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::ADMIN;
+    }
+
+    public function isOwner(): bool
+    {
+        return $this->role === UserRole::OWNER;
     }
 
     /**

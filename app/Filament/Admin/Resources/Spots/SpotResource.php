@@ -11,6 +11,8 @@ use App\Filament\Admin\Resources\Spots\Pages\EditSpot;
 use App\Filament\Admin\Resources\Spots\Pages\ListSpots;
 use App\Filament\Support\TranslatableField;
 use App\Models\Spot;
+use App\Services\AI\AIEnrichmentService;
+use App\Services\AI\AITranslationService;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Tabs;
@@ -119,6 +121,9 @@ class SpotResource extends Resource
                             ->schema([
                                 Toggle::make('ai_enriched'),
                                 KeyValue::make('ai_enrichment_data'),
+                                TextInput::make('translated_at')
+                                    ->type('datetime-local')
+                                    ->disabled(),
                                 TextInput::make('source'),
                                 TextInput::make('source_reference'),
                             ]),
@@ -173,6 +178,27 @@ class SpotResource extends Resource
             ])
             ->actions([
                 EditAction::make(),
+                \Filament\Tables\Actions\Action::make('translateMissing')
+                    ->label('Translate Missing')
+                    ->icon('heroicon-o-language')
+                    ->action(function (Spot $record, AITranslationService $service) {
+                        foreach ($record->translatable as $field) {
+                            $service->translateModelField($record, $field, ['nl', 'en', 'es', 'de', 'fr']);
+                        }
+                    })
+                    ->requiresConfirmation(),
+                \Filament\Tables\Actions\Action::make('enrichSpot')
+                    ->label('AI Enrich')
+                    ->icon('heroicon-o-sparkles')
+                    ->action(fn (Spot $record, AIEnrichmentService $service) => $service->enrichSpot($record))
+                    ->requiresConfirmation(),
+                \Filament\Tables\Actions\Action::make('applyEnrichment')
+                    ->label('Approve AI')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->visible(fn (Spot $record) => $record->ai_enriched && $record->ai_enrichment_data)
+                    ->action(fn (Spot $record, AIEnrichmentService $service) => $service->applyEnrichment($record))
+                    ->requiresConfirmation(),
                 DeleteAction::make(),
             ])
             ->bulkActions([

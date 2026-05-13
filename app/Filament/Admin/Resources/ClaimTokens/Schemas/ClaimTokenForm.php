@@ -3,8 +3,10 @@
 namespace App\Filament\Admin\Resources\ClaimTokens\Schemas;
 
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Support\Str;
 
 class ClaimTokenForm
 {
@@ -12,22 +14,25 @@ class ClaimTokenForm
     {
         return $schema
             ->components([
-                TextInput::make('spot_id')
+                Select::make('spot_id')
+                    ->relationship('spot', 'name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('campaign_id')
-                    ->numeric(),
+                    ->searchable(),
+                Select::make('campaign_id')
+                    ->relationship('campaign', 'name')
+                    ->searchable(),
                 TextInput::make('token')
-                    ->required(),
+                    ->default(fn () => Str::random(64))
+                    ->required()
+                    ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
                     ->email()
+                    ->maxLength(255),
+                DateTimePicker::make('expires_at')
+                    ->default(now()->addDays(30))
                     ->required(),
-                DateTimePicker::make('expires_at'),
-                DateTimePicker::make('used_at'),
+                DateTimePicker::make('used_at')
+                    ->disabled(),
             ]);
     }
 }
-
-
-

@@ -2,9 +2,10 @@
 
 namespace App\Filament\Admin\Resources\ClaimTokens\Tables;
 
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -14,28 +15,22 @@ class ClaimTokensTable
     {
         return $table
             ->columns([
-                TextColumn::make('spot_id')
-                    ->numeric()
+                TextColumn::make('spot.name')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('campaign_id')
-                    ->numeric()
+                TextColumn::make('campaign.name')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('token')
-                    ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
                     ->searchable(),
                 TextColumn::make('expires_at')
                     ->dateTime()
                     ->sortable(),
-                TextColumn::make('used_at')
-                    ->dateTime()
-                    ->sortable(),
+                IconColumn::make('used_at')
+                    ->label('Used')
+                    ->boolean()
+                    ->getStateUsing(fn ($record) => $record->used_at !== null),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -46,13 +41,10 @@ class ClaimTokensTable
             ->actions([
                 EditAction::make(),
             ])
-            ->toolbarActions([
+            ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
                 ]),
             ]);
     }
 }
-
-
-

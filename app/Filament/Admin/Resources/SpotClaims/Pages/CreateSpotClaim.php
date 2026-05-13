@@ -9,6 +9,3 @@ class CreateSpotClaim extends CreateRecord
 {
     protected static string $resource = SpotClaimResource::class;
 }
-
-
-

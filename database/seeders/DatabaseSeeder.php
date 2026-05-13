@@ -25,7 +25,14 @@ class DatabaseSeeder extends Seeder
             Phase5DiscoverySeeder::class,
             RecommendationSeeder::class,
             ReviewSeeder::class,
+            Phase8FeedSeeder::class,
+            Phase9CampaignSeeder::class,
             BusinessClaimSeeder::class,
+            BusinessOwnerSeeder::class,
+            SpotClaimDemoSeeder::class,
+            ClaimTokenDemoSeeder::class,
+            SpotOwnerRoleSeeder::class,
+            OwnerReviewResponseSeeder::class,
             CmsPageSeeder::class,
             ModerationSeeder::class,
             NotificationPreferenceSeeder::class,
@@ -33,13 +40,23 @@ class DatabaseSeeder extends Seeder
             ReviewPhotoSeeder::class,
             ReviewReactionSeeder::class,
             ReviewTagSeeder::class,
+            TimelineEventSeeder::class,
+            FollowActivitySeeder::class,
+            RecommendationActivitySeeder::class,
+            ReviewActivitySeeder::class,
+            HiddenGemActivitySeeder::class,
+            CampaignActivitySeeder::class,
+            FeedDemoSeeder::class,
         ]);
 
         User::updateOrCreate(
-            ['email' => 'jasper@studiobxl.com'],
+            [
+                'email' => 'jasper@studiobxl.com',
+            ],
             [
                 'name' => 'Jasper Brussel',
                 'password' => \Illuminate\Support\Facades\Hash::make('jasperStudioBxl!'),
+                'role' => \App\Enums\UserRole::ADMIN,
             ]
         );
     }

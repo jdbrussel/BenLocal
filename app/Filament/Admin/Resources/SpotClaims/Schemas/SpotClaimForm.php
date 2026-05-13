@@ -2,9 +2,11 @@
 
 namespace App\Filament\Admin\Resources\SpotClaims\Schemas;
 
-use Filament\Forms\Components\DateTimePicker;
+use App\Enums\ClaimStatus;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
 use Filament\Schemas\Schema;
 
 class SpotClaimForm
@@ -13,33 +15,41 @@ class SpotClaimForm
     {
         return $schema
             ->components([
-                TextInput::make('spot_id')
+                Select::make('spot_id')
+                    ->relationship('spot', 'name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('user_id')
+                    ->searchable(),
+                Select::make('user_id')
+                    ->relationship('user', 'name')
+                    ->searchable(),
+                TextInput::make('business_name')
                     ->required()
-                    ->numeric(),
-                TextInput::make('business_name'),
-                TextInput::make('contact_name'),
+                    ->maxLength(255),
+                TextInput::make('contact_name')
+                    ->required()
+                    ->maxLength(255),
                 TextInput::make('email')
-                    ->label('Email address')
-                    ->email(),
+                    ->email()
+                    ->required()
+                    ->maxLength(255),
                 TextInput::make('phone')
-                    ->tel(),
+                    ->tel()
+                    ->maxLength(255),
                 TextInput::make('website')
-                    ->url(),
-                TextInput::make('proof_document_path'),
+                    ->url()
+                    ->maxLength(255),
+                FileUpload::make('proof_document_path')
+                    ->label('Proof Document')
+                    ->directory('claim-proofs'),
                 Textarea::make('proof_notes')
+                    ->maxLength(65535)
                     ->columnSpanFull(),
-                TextInput::make('status'),
-                TextInput::make('approved_by')
-                    ->numeric(),
-                DateTimePicker::make('approved_at'),
+                Select::make('status')
+                    ->options(ClaimStatus::class)
+                    ->required(),
                 Textarea::make('rejection_reason')
+                    ->maxLength(65535)
                     ->columnSpanFull(),
             ]);
     }
 }
-
-
-

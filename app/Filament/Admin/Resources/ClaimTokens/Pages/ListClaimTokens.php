@@ -17,6 +17,3 @@ class ListClaimTokens extends ListRecords
         ];
     }
 }
-
-
-

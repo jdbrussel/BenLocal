@@ -26,6 +26,9 @@ class RecommendationResource extends JsonResource
             'original_language' => $this->original_language,
             'is_translated' => $this->original_language !== app()->getLocale(),
             'hidden_gem_candidate' => $this->hidden_gem_candidate,
+            'trust_score' => (float) $this->trust_score,
+            'visibility_score' => (float) $this->visibility_score,
+            'user_reputation' => (float) ($this->user->reputations()->where('region_id', $this->region_id)->first()?->trust_score ?? 0),
             'moderation_status' => $this->moderation_status,
             'created_at' => $this->created_at,
         ];

@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\RecommendationController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\ReviewPhotoController;
 use App\Http\Controllers\Api\ReviewReactionController;
+use App\Http\Controllers\Api\FeedController;
 use App\Http\Controllers\Api\UserContextController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +37,7 @@ Route::get('/categories/{category:slug}', [CategoryController::class, 'show']);
 Route::get('/categories/{category:slug}/specs', [CategoryController::class, 'specs']);
 
 Route::get('/discover', DiscoveryController::class);
+Route::get('/feed', [FeedController::class, 'index']);
 Route::get('/map/spots', [SpotController::class, 'map']);
 Route::get('/spots/{slug}', [SpotController::class, 'show']);
 Route::get('/search', SearchController::class);
@@ -74,4 +76,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // Review Reactions
     Route::post('/reviews/{review}/reaction', [ReviewReactionController::class, 'store']);
     Route::delete('/reviews/{review}/reaction', [ReviewReactionController::class, 'destroy']);
+
+    // User Activity
+    Route::get('/users/{user}/activity', [FeedController::class, 'userActivity']);
 });

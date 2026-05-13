@@ -65,7 +65,7 @@ class CampaignsTable
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
             ])
             ->toolbarActions([
@@ -75,6 +75,3 @@ class CampaignsTable
             ]);
     }
 }
-
-
-

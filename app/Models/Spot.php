@@ -18,7 +18,7 @@ class Spot extends Model
         'address', 'latitude', 'longitude', 'phone', 'email', 'website',
         'opening_hours', 'price_level', 'spec_values', 'source', 'source_reference',
         'lifecycle_status', 'is_claimed', 'claimed_at', 'verified_business', 'verified_at',
-        'ai_enriched', 'ai_enrichment_data', 'created_by'
+        'ai_enriched', 'ai_enrichment_data', 'created_by', 'translated_at'
     ];
 
     public $translatable = ['name', 'description'];
@@ -34,6 +34,7 @@ class Spot extends Model
         'verified_business' => 'boolean',
         'verified_at' => 'datetime',
         'ai_enriched' => 'boolean',
+        'translated_at' => 'datetime',
     ];
 
     public function sector()
@@ -94,5 +95,10 @@ class Spot extends Model
     public function recommendations()
     {
         return $this->hasMany(Recommendation::class);
+    }
+
+    public function owners()
+    {
+        return $this->hasMany(SpotOwnerRole::class);
     }
 }

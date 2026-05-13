@@ -28,4 +28,18 @@ Route::get('/spot/{slug}', function($slug) {
     return Inertia::render('SpotDetail', ['slug' => $slug]);
 })->name('spot.show');
 
+Route::prefix('campaign')->name('campaign.')->group(function () {
+    Route::get('/{slug}', [App\Http\Controllers\CampaignLandingController::class, 'show'])->name('show');
+    Route::post('/{slug}/search', [App\Http\Controllers\CampaignLandingController::class, 'searchSpots'])->name('search');
+    Route::post('/{slug}/submit', [App\Http\Controllers\CampaignLandingController::class, 'submit'])->name('submit');
+    Route::get('/{slug}/success/{submission}', [App\Http\Controllers\CampaignLandingController::class, 'success'])->name('success');
+});
+
+Route::prefix('claim')->name('claim.')->group(function () {
+    Route::get('/success', [App\Http\Controllers\BusinessClaimController::class, 'success'])->name('success');
+    Route::get('/{token}', [App\Http\Controllers\BusinessClaimController::class, 'showByToken'])->name('show');
+    Route::get('/{token}/form', [App\Http\Controllers\BusinessClaimController::class, 'showForm'])->name('form');
+    Route::post('/{token}/submit', [App\Http\Controllers\BusinessClaimController::class, 'submit'])->name('submit');
+});
+
 require __DIR__.'/auth.php';

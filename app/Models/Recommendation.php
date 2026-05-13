@@ -15,7 +15,7 @@ class Recommendation extends Model
     protected $fillable = [
         'user_id', 'spot_id', 'region_id', 'community_id',
         'title', 'motivation', 'original_language',
-        'confidence_score', 'hidden_gem_candidate', 'moderation_status'
+        'confidence_score', 'hidden_gem_candidate', 'moderation_status', 'translated_at'
     ];
 
     public $translatable = ['title', 'motivation'];
@@ -24,6 +24,7 @@ class Recommendation extends Model
         'confidence_score' => 'decimal:2',
         'hidden_gem_candidate' => 'boolean',
         'moderation_status' => ModerationStatus::class,
+        'translated_at' => 'datetime',
     ];
 
     public function user()

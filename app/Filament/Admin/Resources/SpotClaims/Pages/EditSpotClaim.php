@@ -17,6 +17,3 @@ class EditSpotClaim extends EditRecord
         ];
     }
 }
-
-
-

@@ -5,11 +5,17 @@ namespace App\Services;
 use App\Models\Review;
 use App\Models\ReviewReaction;
 use App\Models\User;
-use App\Models\TimelineEvent;
+use App\Services\TimelineEventService;
 use Illuminate\Support\Facades\DB;
 
 class ReviewReactionService
 {
+    protected $timelineEventService;
+
+    public function __construct(TimelineEventService $timelineEventService)
+    {
+        $this->timelineEventService = $timelineEventService;
+    }
     public function react(User $user, Review $review, array $data)
     {
         return DB::transaction(function () use ($user, $review, $data) {
@@ -40,16 +46,15 @@ class ReviewReactionService
 
     protected function createTimelineEvent(ReviewReaction $reaction)
     {
-        TimelineEvent::create([
-            'user_id' => $reaction->user_id,
-            'type' => 'review_reaction_created',
-            'eventable_type' => ReviewReaction::class,
-            'eventable_id' => $reaction->id,
-            'region_id' => $reaction->review->spot->region_id,
-            'payload' => [
+        $this->timelineEventService->createEvent(
+            $reaction->user_id,
+            'review_reaction_created',
+            $reaction,
+            $reaction->review->spot->region_id,
+            [
                 'reaction' => $reaction->reaction,
                 'spot_name' => $reaction->review->spot->getTranslation('name', app()->getLocale()),
-            ],
-        ]);
+            ]
+        );
     }
 }

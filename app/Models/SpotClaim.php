@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ClaimStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,6 +18,7 @@ class SpotClaim extends Model
 
     protected $casts = [
         'approved_at' => 'datetime',
+        'status' => ClaimStatus::class,
     ];
 
     public function spot()

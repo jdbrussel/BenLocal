@@ -157,6 +157,22 @@
     "translated_from": "Automatically translated from {lang}",
     "error": "Something went wrong.",
     "retry": "Retry",
-    "success": "Success!"
+    "success": "Success!",
+    "loading_more": "Loading more..."
+  },
+  "feed": {
+    "empty_title": "Your feed is empty",
+    "empty_desc": "Follow local experts and discover new spots to fill your feed.",
+    "discover_locals": "Discover Locals",
+    "recommended": "recommended",
+    "reviewed": "reviewed",
+    "validated_review": "validated a review",
+    "followed_user": "started following",
+    "saved_spot": "saved a spot",
+    "at": "at",
+    "followed": "FOLLOWED",
+    "hidden_gem_alert": "Hidden Gem Update",
+    "new_hidden_gem_desc": "This spot has been gaining significant local traction!",
+    "end_of_feed": "You've reached the end of your feed."
   }
 }

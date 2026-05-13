@@ -17,7 +17,8 @@ class Review extends Model
         'overall_rating', 'rating_values', 'review_text', 'original_language',
         'visited_at', 'user_region_status_at_time', 'user_community_id',
         'confirms_recommendation', 'perceived_community_profile',
-        'visibility_score', 'moderation_status', 'flagged_count', 'verified_visit'
+        'visibility_score', 'moderation_status', 'flagged_count', 'verified_visit', 'translated_at',
+        'owner_response', 'owner_responded_at'
     ];
 
     public $translatable = ['review_text'];
@@ -32,6 +33,8 @@ class Review extends Model
         'moderation_status' => ModerationStatus::class,
         'flagged_count' => 'integer',
         'verified_visit' => 'boolean',
+        'translated_at' => 'datetime',
+        'owner_responded_at' => 'datetime',
     ];
 
     public function user()

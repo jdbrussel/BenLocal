@@ -9,54 +9,61 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
+use Filament\Tables\Actions\Action;
+use App\Services\AI\AIEnrichmentService;
+use App\Services\Campaign\CampaignRecommendationService;
+use Filament\Notifications\Notification;
+
 class CampaignSubmissionsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('campaign_id')
-                    ->numeric()
+                TextColumn::make('campaign.name')
                     ->sortable(),
-                TextColumn::make('user_id')
-                    ->numeric()
+                TextColumn::make('user.name')
                     ->sortable(),
                 TextColumn::make('submitted_name')
                     ->searchable(),
-                TextColumn::make('submitted_place_hint')
-                    ->searchable(),
-                TextColumn::make('matched_spot_id')
-                    ->numeric()
+                TextColumn::make('matchedSpot.name')
                     ->sortable(),
-                TextColumn::make('created_spot_id')
-                    ->numeric()
-                    ->sortable(),
-                IconColumn::make('user_confirmed_spot')
-                    ->boolean(),
-                IconColumn::make('wants_to_recommend')
-                    ->boolean(),
-                IconColumn::make('consent_to_contact')
-                    ->boolean(),
-                IconColumn::make('consent_to_publish_quote')
-                    ->boolean(),
-                IconColumn::make('consent_to_terms')
-                    ->boolean(),
                 TextColumn::make('status')
+                    ->badge()
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->sortable(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
+            ->recordActions([
                 EditAction::make(),
+                Action::make('ai_enrich')
+                    ->label('AI Enrich')
+                    ->icon('heroicon-o-sparkles')
+                    ->visible(fn ($record) => $record->status === 'pending')
+                    ->action(function ($record, AIEnrichmentService $service) {
+                        $service->enrichCampaignSubmission($record);
+                        Notification::make()
+                            ->title('AI Enrichment Started')
+                            ->success()
+                            ->send();
+                    }),
+                Action::make('convert_to_recommendation')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->visible(fn ($record) => $record->user_id && ($record->matched_spot_id || $record->created_spot_id))
+                    ->action(function ($record, CampaignRecommendationService $service) {
+                        $service->createFromSubmission($record);
+                        $record->update(['status' => 'converted']);
+                        Notification::make()
+                            ->title('Converted to Recommendation')
+                            ->success()
+                            ->send();
+                    }),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
@@ -65,6 +72,3 @@ class CampaignSubmissionsTable
             ]);
     }
 }
-
-
-

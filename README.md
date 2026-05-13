@@ -73,7 +73,9 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 4. **[Fase 4: PWA Frontend](docs/PHASE4.md)**: Mobile-first PWA frontend met Vue 3, onboarding flow en core UX componenten.
 5. **[Fase 5: Public API & Discovery](docs/PHASE5.md)**: Public API routes, Discovery Engine en frontend-backend integratie.
 6. **[Fase 6: Recommendations & Reviews](docs/PHASE6.md)**: Aanbevelingen door locals, reviews, foto's, validaties en sociale interacties.
-7. **AI Integratie & Campagnes**: AI-verrijking, automatische vertalingen en campagnebeheer.
+7. **[Fase 7: Trust & Ranking Engine](docs/PHASE7.md)**: Geavanceerde trust-based ranking, persoonlijke trust graph en hidden gems.
+8. **[Fase 8: Timeline & Social Feed](docs/PHASE8.md)**: Gepersonaliseerde feed, activity tracking en sociale interactie.
+9. **[Fase 9: AI, Campagnes & Business](docs/PHASE9.md)**: AI-gestuurde vertalingen, campagne optimalisatie en business claim flows.
 
 ---
 

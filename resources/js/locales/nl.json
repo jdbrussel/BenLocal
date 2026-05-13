@@ -157,6 +157,22 @@
     "translated_from": "Automatisch vertaald uit het {lang}",
     "error": "Er is iets misgegaan.",
     "retry": "Opnieuw proberen",
-    "success": "Succes!"
+    "success": "Succes!",
+    "loading_more": "Meer laden..."
+  },
+  "feed": {
+    "empty_title": "Je feed is leeg",
+    "empty_desc": "Volg lokale experts en ontdek nieuwe plekjes om je feed te vullen.",
+    "discover_locals": "Ontdek Locals",
+    "recommended": "heeft aanbevolen",
+    "reviewed": "heeft beoordeeld",
+    "validated_review": "heeft een review gevalideerd",
+    "followed_user": "is gaan volgen",
+    "saved_spot": "heeft een spot bewaard",
+    "at": "bij",
+    "followed": "VOLGEND",
+    "hidden_gem_alert": "Verborgen Parel Update",
+    "new_hidden_gem_desc": "Deze spot krijgt veel aandacht van locals!",
+    "end_of_feed": "Je hebt het einde van je feed bereikt."
   }
 }

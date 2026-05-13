@@ -6,7 +6,7 @@ use App\Models\Review;
 use App\Models\Spot;
 use App\Models\User;
 use App\Enums\ModerationStatus;
-use App\Models\TimelineEvent;
+use App\Services\TimelineEventService;
 use App\Models\ReviewUserTag;
 use App\Models\Recommendation;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +14,12 @@ use App\Notifications\UserTaggedInReviewNotification;
 
 class ReviewService
 {
+    protected $timelineEventService;
+
+    public function __construct(TimelineEventService $timelineEventService)
+    {
+        $this->timelineEventService = $timelineEventService;
+    }
     public function getReviewsForSpot(Spot $spot)
     {
         return $spot->reviews()
@@ -101,17 +107,16 @@ class ReviewService
 
     protected function createTimelineEvent(Review $review)
     {
-        TimelineEvent::create([
-            'user_id' => $review->user_id,
-            'type' => 'review_created',
-            'eventable_type' => Review::class,
-            'eventable_id' => $review->id,
-            'region_id' => $review->spot->region_id,
-            'payload' => [
+        $this->timelineEventService->createEvent(
+            $review->user_id,
+            'review_created',
+            $review,
+            $review->spot->region_id,
+            [
                 'spot_name' => $review->spot->getTranslation('name', app()->getLocale()),
                 'rating' => $review->overall_rating,
-            ],
-        ]);
+            ]
+        );
     }
 
     protected function handleRecommendationConfirmation(Review $review)

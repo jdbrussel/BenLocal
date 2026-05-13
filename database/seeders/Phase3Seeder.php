@@ -36,14 +36,17 @@ class Phase3Seeder extends Seeder
         ];
 
         foreach ($languageUsers as $userData) {
-            $user = User::factory()->create([
-                'name' => $userData['name'],
-                'email' => $userData['email'],
-                'preferred_language' => $userData['lang'],
-                'preferred_theme' => $userData['theme'],
-                'community_id' => $userData['community']?->id,
-                'email_verified_at' => now(),
-            ]);
+            $user = User::updateOrCreate(
+                ['email' => $userData['email']],
+                [
+                    'name' => $userData['name'],
+                    'preferred_language' => $userData['lang'],
+                    'preferred_theme' => $userData['theme'],
+                    'community_id' => $userData['community']?->id,
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'),
+                ]
+            );
 
             $this->seedUserBasics($user);
         }
@@ -55,22 +58,29 @@ class Phase3Seeder extends Seeder
         ];
 
         foreach ($socialUsers as $sData) {
-            $user = User::factory()->create([
-                'name' => $sData['name'],
-                'email' => $sData['email'],
-                'provider' => $sData['provider'],
-                'provider_id' => $sData['pid'],
-                'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($sData['name']),
-                'email_verified_at' => now(),
-            ]);
+            $user = User::updateOrCreate(
+                ['email' => $sData['email']],
+                [
+                    'name' => $sData['name'],
+                    'provider' => $sData['provider'],
+                    'provider_id' => $sData['pid'],
+                    'avatar' => 'https://ui-avatars.com/api/?name=' . urlencode($sData['name']),
+                    'email_verified_at' => now(),
+                    'password' => Hash::make('password'),
+                ]
+            );
             $this->seedUserBasics($user);
         }
 
         // 3. Status & Verification Scenarios
-        $unverified = User::factory()->unverified()->create([
-            'name' => 'Unverified User',
-            'email' => 'unverified@example.com',
-        ]);
+        $unverified = User::updateOrCreate(
+            ['email' => 'unverified@example.com'],
+            [
+                'name' => 'Unverified User',
+                'email_verified_at' => null,
+                'password' => Hash::make('password'),
+            ]
+        );
         $this->seedUserBasics($unverified);
 
         // 4. Local Status Testing (Region Statuses)
@@ -83,16 +93,23 @@ class Phase3Seeder extends Seeder
 
         $createdLocals = [];
         foreach ($locals as $l) {
-            $user = User::factory()->create(['name' => $l['name']]);
+            $user = User::updateOrCreate(
+                ['email' => strtolower(str_replace(' ', '.', $l['name'])) . '@example.com'],
+                [
+                    'name' => $l['name'],
+                    'password' => Hash::make('password'),
+                ]
+            );
             $this->seedUserBasics($user);
 
-            UserRegionStatus::factory()->create([
-                'user_id' => $user->id,
-                'region_id' => $tenerife?->id,
-                'status' => $l['status'],
-                'confidence_score' => $l['score'],
-                'verified_at' => $l['status'] === UserRegionStatusEnum::VERIFIED_LOCAL ? now() : null,
-            ]);
+            UserRegionStatus::updateOrCreate(
+                ['user_id' => $user->id, 'region_id' => $tenerife?->id],
+                [
+                    'status' => $l['status'],
+                    'confidence_score' => $l['score'],
+                    'verified_at' => $l['status'] === UserRegionStatusEnum::VERIFIED_LOCAL ? now() : null,
+                ]
+            );
             $createdLocals[] = $user;
         }
 

@@ -17,6 +17,3 @@ class EditClaimToken extends EditRecord
         ];
     }
 }
-
-
-

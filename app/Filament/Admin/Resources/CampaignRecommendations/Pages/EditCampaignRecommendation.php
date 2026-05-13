@@ -17,6 +17,3 @@ class EditCampaignRecommendation extends EditRecord
         ];
     }
 }
-
-
-

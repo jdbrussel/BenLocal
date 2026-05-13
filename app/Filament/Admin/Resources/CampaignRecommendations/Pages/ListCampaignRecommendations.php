@@ -17,6 +17,3 @@ class ListCampaignRecommendations extends ListRecords
         ];
     }
 }
-
-
-

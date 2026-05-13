@@ -9,6 +9,3 @@ class CreateClaimToken extends CreateRecord
 {
     protected static string $resource = ClaimTokenResource::class;
 }
-
-
-

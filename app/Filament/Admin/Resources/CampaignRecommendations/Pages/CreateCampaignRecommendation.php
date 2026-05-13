@@ -9,6 +9,3 @@ class CreateCampaignRecommendation extends CreateRecord
 {
     protected static string $resource = CampaignRecommendationResource::class;
 }
-
-
-

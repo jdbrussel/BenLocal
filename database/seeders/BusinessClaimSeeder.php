@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ClaimStatus;
 use App\Models\Campaign;
 use App\Models\ClaimToken;
 use App\Models\Spot;
@@ -26,7 +27,7 @@ class BusinessClaimSeeder extends Seeder
                     'business_name' => 'Café Vlaanderen',
                     'contact_name' => 'Sofie Peeters',
                     'email' => 'sofie@benlocal.test',
-                    'status' => 'approved',
+                    'status' => ClaimStatus::APPROVED,
                     'approved_at' => now(),
                     'approved_by' => $users['carlos@benlocal.test']->id ?? null,
                 ]
@@ -41,7 +42,7 @@ class BusinessClaimSeeder extends Seeder
                     'business_name' => 'Restaurante Mar Azul',
                     'contact_name' => 'Jan de Hollander',
                     'email' => 'jan@benlocal.test',
-                    'status' => 'pending',
+                    'status' => ClaimStatus::PENDING,
                 ]
             );
         }
@@ -54,7 +55,7 @@ class BusinessClaimSeeder extends Seeder
                     'business_name' => 'Puerto Beach Bar',
                     'contact_name' => 'Emma Smith',
                     'email' => 'emma@benlocal.test',
-                    'status' => 'rejected',
+                    'status' => ClaimStatus::REJECTED,
                     'rejection_reason' => 'Geen bewijs van eigendom verstrekt.',
                 ]
             );

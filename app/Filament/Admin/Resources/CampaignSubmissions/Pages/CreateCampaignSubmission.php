@@ -9,6 +9,3 @@ class CreateCampaignSubmission extends CreateRecord
 {
     protected static string $resource = CampaignSubmissionResource::class;
 }
-
-
-

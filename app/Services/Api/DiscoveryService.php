@@ -31,6 +31,8 @@ class DiscoveryService
                     ->selectRaw('1')
                     ->limit(1)
             ]);
+
+            $this->applyPersonalization($query, $user);
         }
 
         $this->applySorting($query, $request);
@@ -107,9 +109,25 @@ class DiscoveryService
         }
     }
 
+    protected function applyPersonalization(Builder $query, \App\Models\User $user)
+    {
+        $followedUserIds = $user->follows()->pluck('followed_id')->toArray();
+        $userCommunityId = $user->community_id;
+
+        $followedIdsStr = implode(',', $followedUserIds) ?: '0';
+
+        $query->selectRaw("(
+            recommendation_score * 1.0 +
+            review_score * 0.8 +
+            local_trust_score * 1.2 +
+            (CASE WHEN EXISTS (SELECT 1 FROM recommendations WHERE recommendations.spot_id = spots.id AND recommendations.user_id IN ({$followedIdsStr})) THEN 50 ELSE 0 END) +
+            (CASE WHEN EXISTS (SELECT 1 FROM spot_community_profiles WHERE spot_community_profiles.spot_id = spots.id AND spot_community_profiles.community_id = ?) THEN 30 ELSE 0 END)
+        ) as personalized_score", [$userCommunityId ?: 0]);
+    }
+
     protected function applySorting(Builder $query, Request $request)
     {
-        $sort = $request->get('sort', 'relevant');
+        $sort = $request->get('sort', 'recommended_for_you');
 
         switch ($sort) {
             case 'newest':
@@ -129,11 +147,28 @@ class DiscoveryService
                 }
                 break;
             case 'hidden_gems':
-                $query->whereHas('badges', fn($q) => $q->where('key', 'hidden-gem'))
-                      ->latest();
+                $query->orderBy('hidden_gem_score', 'desc');
                 break;
+            case 'trusted_locals':
+                $query->orderBy('local_trust_score', 'desc');
+                break;
+            case 'tourist_favourites':
+                $query->orderBy('tourist_saturation_score', 'desc');
+                break;
+            case 'authentic_local':
+                $query->where('tourist_saturation_score', '<', 30)
+                    ->orderBy('local_trust_score', 'desc');
+                break;
+            case 'community_match':
+                $query->orderBy('community_match_score', 'desc');
+                break;
+            case 'recommended_for_you':
             default:
-                $query->latest();
+                if ($request->user()) {
+                    $query->orderBy('personalized_score', 'desc');
+                } else {
+                    $query->orderBy('recommendation_score', 'desc');
+                }
                 break;
         }
     }

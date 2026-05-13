@@ -6,11 +6,17 @@ use App\Models\Recommendation;
 use App\Models\Spot;
 use App\Models\User;
 use App\Enums\ModerationStatus;
-use App\Models\TimelineEvent;
+use App\Services\TimelineEventService;
 use Illuminate\Support\Facades\DB;
 
 class RecommendationService
 {
+    protected $timelineEventService;
+
+    public function __construct(TimelineEventService $timelineEventService)
+    {
+        $this->timelineEventService = $timelineEventService;
+    }
     public function getRecommendationsForSpot(Spot $spot)
     {
         return $spot->recommendations()
@@ -57,15 +63,14 @@ class RecommendationService
 
     protected function createTimelineEvent(Recommendation $recommendation)
     {
-        TimelineEvent::create([
-            'user_id' => $recommendation->user_id,
-            'type' => 'recommendation_created',
-            'eventable_type' => Recommendation::class,
-            'eventable_id' => $recommendation->id,
-            'region_id' => $recommendation->region_id,
-            'payload' => [
+        $this->timelineEventService->createEvent(
+            $recommendation->user_id,
+            'recommendation_created',
+            $recommendation,
+            $recommendation->region_id,
+            [
                 'spot_name' => $recommendation->spot->getTranslation('name', app()->getLocale()),
-            ],
-        ]);
+            ]
+        );
     }
 }

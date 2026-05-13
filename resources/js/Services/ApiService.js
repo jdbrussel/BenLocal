@@ -40,4 +40,9 @@ export const SavedSpotService = {
     unsaveSpot: (slug) => api.delete(`/spots/${slug}/save`),
 };
 
+export const FeedService = {
+    getFeed: (params) => api.get('/feed', { params }),
+    getUserActivity: (userId, params) => api.get(`/users/${userId}/activity`, { params }),
+};
+
 export default api;

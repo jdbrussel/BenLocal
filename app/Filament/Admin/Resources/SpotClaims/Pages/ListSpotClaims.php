@@ -17,6 +17,3 @@ class ListSpotClaims extends ListRecords
         ];
     }
 }
-
-
-
