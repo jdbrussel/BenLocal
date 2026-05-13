@@ -31,7 +31,15 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Users & Trust';
+    public static function getNavigationGroup(): ?string
+    {
+        return __('ui.admin.nav.users_trust');
+    }
+
+    public static function getLabel(): ?string
+    {
+        return __('ui.admin.resources.user');
+    }
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-users';
 
@@ -40,36 +48,50 @@ class UserResource extends Resource
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label(__('ui.auth.name') ?? 'Name')
                     ->required(),
                 TextInput::make('email')
+                    ->label(__('ui.auth.email'))
                     ->email()
                     ->required()
                     ->unique(ignoreRecord: true),
-                FileUpload::make('avatar'),
+                FileUpload::make('avatar')
+                    ->label(__('ui.profile.avatar') ?? 'Avatar'),
                 Select::make('preferred_language')
+                    ->label(__('ui.language'))
                     ->options(config('benlocal.available_languages')),
                 Select::make('preferred_theme')
+                    ->label(__('ui.theme'))
                     ->options([
-                        'light' => 'Light',
-                        'dark' => 'Dark',
-                        'system' => 'System',
+                        'light' => __('ui.light'),
+                        'dark' => __('ui.dark'),
+                        'system' => __('ui.system'),
                     ]),
-                TextInput::make('country'),
-                TextInput::make('city'),
+                TextInput::make('country')
+                    ->label(__('ui.profile.country') ?? 'Country'),
+                TextInput::make('city')
+                    ->label(__('ui.profile.city') ?? 'City'),
                 Select::make('residence_region_id')
+                    ->label(__('ui.admin.resources.region'))
                     ->relationship('residenceRegion', 'name->' . config('benlocal.default_language')),
                 Select::make('residence_area_id')
+                    ->label(__('ui.admin.resources.area'))
                     ->relationship('residenceArea', 'name->' . config('benlocal.default_language')),
                 Select::make('residence_place_id')
+                    ->label(__('ui.admin.resources.place'))
                     ->relationship('residencePlace', 'name->' . config('benlocal.default_language')),
                 Select::make('community_id')
+                    ->label(__('ui.admin.resources.community'))
                     ->relationship('community', 'name->' . config('benlocal.default_language')),
                 TextInput::make('trust_penalty_score')
+                    ->label(__('ui.admin.trust_penalty') ?? 'Trust Penalty')
                     ->numeric()
                     ->default(0),
                 TextInput::make('suspended_until')
+                    ->label(__('ui.admin.suspended_until') ?? 'Suspended Until')
                     ->type('datetime-local'),
-                Toggle::make('is_shadowbanned'),
+                Toggle::make('is_shadowbanned')
+                    ->label(__('ui.admin.is_shadowbanned') ?? 'Shadowbanned'),
             ]);
     }
 
@@ -78,29 +100,38 @@ class UserResource extends Resource
         return $table
             ->columns([
                 ImageColumn::make('avatar')
+                    ->label(__('ui.profile.avatar') ?? 'Avatar')
                     ->circular(),
                 TextColumn::make('name')
+                    ->label(__('ui.auth.name') ?? 'Name')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('email')
+                    ->label(__('ui.auth.email'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('community.name.' . config('benlocal.default_language'))
-                    ->label('Community'),
+                    ->label(__('ui.admin.resources.community')),
                 TextColumn::make('trust_penalty_score')
+                    ->label(__('ui.admin.trust_penalty') ?? 'Penalty')
                     ->sortable(),
                 TextColumn::make('suspended_until')
+                    ->label(__('ui.admin.suspended_until') ?? 'Suspended')
                     ->dateTime(),
                 IconColumn::make('is_shadowbanned')
+                    ->label(__('ui.admin.is_shadowbanned') ?? 'Shadowbanned')
                     ->boolean(),
                 TextColumn::make('created_at')
+                    ->label(__('ui.common.created_at') ?? 'Created At')
                     ->dateTime()
                     ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('community')
+                    ->label(__('ui.admin.resources.community'))
                     ->relationship('community', 'name->' . config('benlocal.default_language')),
-                TernaryFilter::make('is_shadowbanned'),
+                TernaryFilter::make('is_shadowbanned')
+                    ->label(__('ui.admin.is_shadowbanned') ?? 'Shadowbanned'),
             ])
             ->actions([
                 EditAction::make(),

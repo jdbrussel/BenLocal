@@ -1,0 +1,162 @@
+{
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "email": "Email Address",
+    "password": "Password",
+    "forgot_password": "Forgot your password?",
+    "reset_password": "Reset Password",
+    "verify_email": "Verify Email Address",
+    "social_login": "Or continue with",
+    "google": "Continue with Google",
+    "facebook": "Continue with Facebook",
+    "or": "or",
+    "register_email": "Register with Email",
+    "no_account": "Don't have an account?",
+    "has_account": "Already have an account?"
+  },
+  "nav": {
+    "discover": "Discover",
+    "feed": "Feed",
+    "search": "Search",
+    "saved": "Saved",
+    "profile": "Profile"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to BenLocal",
+      "subtitle": "Discover the best spots in Tenerife through the eyes of locals.",
+      "get_started": "Get Started"
+    },
+    "language": {
+      "title": "Choose your language",
+      "subtitle": "We'll show you recommendations and reviews in your preferred language."
+    },
+    "cookie": {
+      "title": "Cookie Consent",
+      "message": "We use cookies to improve your experience and show you relevant content.",
+      "accept_all": "Accept All",
+      "save": "Save Preferences"
+    },
+    "region": {
+      "title": "Choose your region",
+      "subtitle": "Where are you currently located or planning to go?"
+    },
+    "communities": {
+      "title": "Join your communities",
+      "subtitle": "See recommendations from people who share your background.",
+      "members": "{count} members"
+    },
+    "interests": {
+      "title": "What are you looking for?",
+      "subtitle": "Choose your interests to personalize your discovery.",
+      "items": {
+        "hidden_gems": "Hidden Gems",
+        "beach_bars": "Beach Bars",
+        "local_food": "Local Food",
+        "fine_dining": "Fine Dining",
+        "nightlife": "Nightlife",
+        "cocktails": "Cocktails",
+        "live_music": "Live Music",
+        "seafood": "Seafood",
+        "wine": "Wine",
+        "tapas": "Tapas"
+      }
+    },
+    "follow": {
+      "title": "Follow trusted locals",
+      "subtitle": "Follow people who know the area best.",
+      "follow": "Follow",
+      "following": "Following",
+      "skip_for_now": "Skip for now"
+    },
+    "account": {
+      "title": "Create your account",
+      "subtitle": "Save your favorite spots and start recommending.",
+      "skip": "Skip for now, I just want to browse"
+    },
+    "completion": {
+      "title": "You're all set!",
+      "subtitle": "Welcome to the BenLocal community.",
+      "finish": "Start Exploring"
+    },
+    "next": "Next",
+    "skip": "Skip",
+    "back": "Back",
+    "continue": "Continue"
+  },
+  "discover": {
+    "title": "Discover",
+    "hidden_gems": "Hidden Gems",
+    "hidden_gems_near_you": "Hidden gems near you",
+    "local_favorites": "Local Favorites",
+    "trusted_by_locals": "Trusted by locals",
+    "trending": "Trending Now",
+    "new_recommendations": "New Recommendations",
+    "map_view": "Map View",
+    "list_view": "List View",
+    "map_coming_soon": "Map coming soon",
+    "map_coming_soon_desc": "We're building an interactive map to help you discover spots visually.",
+    "search_placeholder": "Search for spots, areas...",
+    "recent_searches": "Recent Searches",
+    "no_results": "No spots found for your criteria.",
+    "no_results_for": "No results found for \"{query}\"",
+    "no_saved_spots": "No saved spots yet",
+    "no_saved_spots_desc": "Tap the heart icon on any spot to save it for later.",
+    "searching": "Searching...",
+    "trending_searching": "{count} people searching",
+    "filters": "Filters",
+    "see_all": "See all",
+    "choose_region": "Choose Region"
+  },
+  "spot": {
+    "recommendations": "Recommendations",
+    "reviews": "Reviews",
+    "recommended_by": "Recommended by locals",
+    "write_review": "Write a Review",
+    "recommend_spot": "Recommend this Spot",
+    "save": "Save",
+    "saved": "Saved",
+    "share": "Share",
+    "hidden_gem": "Hidden Gem",
+    "about": "About",
+    "details": "Details",
+    "location": "Location",
+    "opening_hours": "Opening Hours",
+    "contact": "Contact",
+    "similar_spots": "Similar Spots",
+    "local_in_region": "Local in {region}"
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "privacy": "Privacy",
+    "communities": "Communities",
+    "account": "Account",
+    "cookie_preferences": "Cookie Preferences",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    }
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "all": "All",
+    "spots": "Spots",
+    "regions": "Regions",
+    "people": "People",
+    "local_guide": "Local Guide",
+    "loading": "Loading...",
+    "translated_from": "Automatically translated from {lang}",
+    "error": "Something went wrong.",
+    "retry": "Retry",
+    "success": "Success!"
+  }
+}

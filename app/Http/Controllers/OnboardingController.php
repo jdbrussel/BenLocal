@@ -31,4 +31,15 @@ class OnboardingController extends Controller
             'currentStep' => (int)$step,
         ]);
     }
+
+    public function complete(Request $request)
+    {
+        if (auth()->check()) {
+            auth()->user()->update(['onboarding_completed' => true]);
+        } else {
+            session(['onboarding_completed' => true]);
+        }
+
+        return redirect()->route('discover');
+    }
 }

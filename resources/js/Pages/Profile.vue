@@ -18,17 +18,22 @@
                         <h1 class="text-2xl font-bold">{{ $page.props.auth.user?.name || 'Guest User' }}</h1>
                         <p class="text-sm text-gray-500">Member since May 2026</p>
                     </div>
-                    <button class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-xl text-sm font-bold">Edit Profile</button>
+                    <div class="flex gap-2">
+                        <Link :href="route('settings')" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-xl text-gray-700 dark:text-gray-300">
+                            <SettingsIcon class="w-5 h-5" />
+                        </Link>
+                        <button class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-xl text-sm font-bold">{{ $t('common.edit') }}</button>
+                    </div>
                 </div>
 
                 <div class="flex gap-6 mb-8">
                     <div class="text-center">
                         <p class="font-bold text-lg">12</p>
-                        <p class="text-xs text-gray-500 uppercase">Reviews</p>
+                        <p class="text-xs text-gray-500 uppercase">{{ $t('spot.reviews') }}</p>
                     </div>
                     <div class="text-center">
                         <p class="font-bold text-lg">5</p>
-                        <p class="text-xs text-gray-500 uppercase">Recommendations</p>
+                        <p class="text-xs text-gray-500 uppercase">{{ $t('spot.recommendations') }}</p>
                     </div>
                     <div class="text-center">
                         <p class="font-bold text-lg">84</p>
@@ -42,7 +47,7 @@
                             @click="activeTab = tab"
                             class="flex-1 py-4 text-sm font-bold transition-all border-b-2"
                             :class="activeTab === tab ? 'border-amber-500 text-amber-500' : 'border-transparent text-gray-500'">
-                        {{ tab }}
+                        {{ $t('nav.' + tab.toLowerCase()) }}
                     </button>
                 </div>
 
@@ -62,8 +67,9 @@
 
 <script setup>
 import { ref } from 'vue';
+import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
-import { BookmarkIcon, SparklesIcon } from 'lucide-vue-next';
+import { BookmarkIcon, SparklesIcon, SettingsIcon } from 'lucide-vue-next';
 
 const activeTab = ref('Recommendations');
 </script>

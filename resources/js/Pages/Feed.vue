@@ -1,13 +1,13 @@
 <template>
     <AppLayout>
         <div class="max-w-7xl mx-auto p-4">
-            <h1 class="text-2xl font-bold mb-4">Feed</h1>
+            <h1 class="text-2xl font-bold mb-4">{{ $t('nav.feed') }}</h1>
             <div class="space-y-6">
                 <div v-for="i in 3" :key="i" class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm">
                     <div class="p-4 flex items-center gap-3">
                         <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center font-bold text-amber-600">L</div>
                         <div>
-                            <p class="font-bold text-sm">Local Guide</p>
+                            <p class="font-bold text-sm">{{ $t('common.local_guide') }}</p>
                             <p class="text-xs text-gray-500">Recommended a new spot • 2h ago</p>
                         </div>
                     </div>

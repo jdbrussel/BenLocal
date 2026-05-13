@@ -1,0 +1,162 @@
+{
+  "auth": {
+    "login": "Iniciar sesión",
+    "register": "Registrarse",
+    "logout": "Cerrar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgot_password": "¿Has olvidado tu contraseña?",
+    "reset_password": "Restablecer contraseña",
+    "verify_email": "Verificar correo electrónico",
+    "social_login": "O continuar con",
+    "google": "Continuar con Google",
+    "facebook": "Continuar con Facebook",
+    "or": "o",
+    "register_email": "Registrarse con Correo",
+    "no_account": "¿No tienes una cuenta?",
+    "has_account": "¿Ya tienes una cuenta?"
+  },
+  "nav": {
+    "discover": "Descubrir",
+    "feed": "Feed",
+    "search": "Buscar",
+    "saved": "Guardado",
+    "profile": "Perfil"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Bienvenido a BenLocal",
+      "subtitle": "Descubre los mejores lugares de Tenerife a través de los ojos de los locales.",
+      "get_started": "Empezar"
+    },
+    "language": {
+      "title": "Elige tu idioma",
+      "subtitle": "Te mostraremos recomendaciones y reseñas en tu idioma preferido."
+    },
+    "cookie": {
+      "title": "Consentimiento de cookies",
+      "message": "Utilizamos cookies para mejorar tu experiencia y mostrarte contenido relevante.",
+      "accept_all": "Aceptar todo",
+      "save": "Guardar preferencias"
+    },
+    "region": {
+      "title": "Elige tu región",
+      "subtitle": "¿Dónde te encuentras actualmente o a dónde piensas ir?"
+    },
+    "communities": {
+      "title": "Únete a tus comunidades",
+      "subtitle": "Mira recomendaciones de personas que comparten tu origen.",
+      "members": "{count} miembros"
+    },
+    "interests": {
+      "title": "¿Qué estás buscando?",
+      "subtitle": "Elige tus intereses para personalizar tu descubrimiento.",
+      "items": {
+        "hidden_gems": "Joyas ocultas",
+        "beach_bars": "Chiringuitos",
+        "local_food": "Comida local",
+        "fine_dining": "Cena elegante",
+        "nightlife": "Vida nocturna",
+        "cocktails": "Cócteles",
+        "live_music": "Música en vivo",
+        "seafood": "Mariscos",
+        "wine": "Vino",
+        "tapas": "Tapas"
+      }
+    },
+    "follow": {
+      "title": "Sigue a locales de confianza",
+      "subtitle": "Sigue a personas que conocen mejor la zona.",
+      "follow": "Seguir",
+      "following": "Siguiendo",
+      "skip_for_now": "Saltar por ahora"
+    },
+    "account": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Guarda tus lugares favoritos y empieza a recomendar.",
+      "skip": "Saltar por ahora, solo quiero navegar"
+    },
+    "completion": {
+      "title": "¡Ya está todo listo!",
+      "subtitle": "Bienvenido a la comunidad BenLocal.",
+      "finish": "Empezar a explorar"
+    },
+    "next": "Siguiente",
+    "skip": "Saltar",
+    "back": "Atrás",
+    "continue": "Continuar"
+  },
+  "discover": {
+    "title": "Descubrir",
+    "hidden_gems": "Joyas ocultas",
+    "hidden_gems_near_you": "Joyas ocultas cerca de ti",
+    "local_favorites": "Favoritos locales",
+    "trusted_by_locals": "De confianza para los locales",
+    "trending": "Tendencias ahora",
+    "new_recommendations": "Nuevas recomendaciones",
+    "map_view": "Mapa",
+    "list_view": "Lista",
+    "map_coming_soon": "Mapa próximamente",
+    "map_coming_soon_desc": "Estamos creando un mapa interactivo para ayudarte a descubrir lugares visualmente.",
+    "search_placeholder": "Buscar lugares, zonas...",
+    "recent_searches": "Búsquedas recientes",
+    "no_results": "No se han encontrado lugares para tus criterios.",
+    "no_results_for": "No se han encontrado resultados para \"{query}\"",
+    "no_saved_spots": "Aún no hay lugares guardados",
+    "no_saved_spots_desc": "Pulsa el icono del corazón en cualquier lugar para guardarlo para más tarde.",
+    "searching": "Buscando...",
+    "trending_searching": "{count} personas buscando esto",
+    "filters": "Filtros",
+    "see_all": "Ver todo",
+    "choose_region": "Elegir región"
+  },
+  "spot": {
+    "recommendations": "Recomendaciones",
+    "reviews": "Reseñas",
+    "recommended_by": "Recomendado por locales",
+    "write_review": "Escribir una reseña",
+    "recommend_spot": "Recomendar este lugar",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "share": "Compartir",
+    "hidden_gem": "Joya oculta",
+    "about": "Acerca de",
+    "details": "Detalles",
+    "location": "Ubicación",
+    "opening_hours": "Horario",
+    "contact": "Contacto",
+    "similar_spots": "Lugares similares",
+    "local_in_region": "Local en {region}"
+  },
+  "settings": {
+    "title": "Ajustes",
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificaciones",
+    "privacy": "Privacidad",
+    "communities": "Comunidades",
+    "account": "Cuenta",
+    "cookie_preferences": "Preferencias de cookies",
+    "themes": {
+      "light": "Claro",
+      "dark": "Oscuro",
+      "system": "Sistema"
+    }
+  },
+  "common": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "all": "Todos",
+    "spots": "Lugares",
+    "regions": "Regiones",
+    "people": "Gente",
+    "local_guide": "Guía Local",
+    "loading": "Cargando...",
+    "translated_from": "Traducido automáticamente del {lang}",
+    "error": "Algo ha salido mal.",
+    "retry": "Reintentar",
+    "success": "¡Éxito!"
+  }
+}

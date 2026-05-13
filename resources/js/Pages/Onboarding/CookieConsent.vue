@@ -1,13 +1,13 @@
 <template>
     <OnboardingLayout :current-step="3">
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl font-bold mb-2">Cookie Preferences</h1>
-            <p class="text-gray-500 mb-8">We use cookies to improve your experience. Choose what you'd like to allow.</p>
+            <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.cookie.title') }}</h1>
+            <p class="text-gray-500 mb-8">{{ $t('onboarding.cookie.message') }}</p>
 
             <div class="space-y-4">
                 <div v-for="cat in categories" :key="cat.id" class="p-4 rounded-2xl bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-800 flex items-center justify-between">
                     <div>
-                        <h3 class="font-bold text-sm capitalize">{{ cat.id }}</h3>
+                        <h3 class="font-bold text-sm capitalize">{{ $t('common.' + cat.id) || cat.id }}</h3>
                         <p class="text-xs text-gray-500">{{ cat.desc }}</p>
                     </div>
                     <button @click="cat.enabled = !cat.enabled"
@@ -22,10 +22,10 @@
 
             <div class="mt-auto space-y-3">
                 <button @click="next" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl shadow-lg transition-all">
-                    Accept Selection
+                    {{ $t('onboarding.cookie.save') }}
                 </button>
                 <button @click="acceptAll" class="w-full text-gray-500 font-medium py-2">
-                    Accept All
+                    {{ $t('onboarding.cookie.accept_all') }}
                 </button>
             </div>
         </div>

@@ -2,18 +2,21 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasTranslatableFields;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class SpotDetailResource extends JsonResource
 {
+    use HasTranslatableFields;
+
     public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
-            'name' => $this->getTranslation('name', app()->getLocale()),
+            'name' => $this->translated('name'),
             'slug' => $this->slug,
-            'description' => $this->getTranslation('description', app()->getLocale()),
+            'description' => $this->resolveTranslatable('description'),
             'contact_info' => [
                 'phone' => $this->phone,
                 'email' => $this->email,

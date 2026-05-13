@@ -6,7 +6,7 @@
                 <div class="flex items-center justify-between gap-4">
                     <button @click="showRegionSelector = true" class="flex items-center gap-2 bg-white dark:bg-gray-800 px-4 py-2 rounded-full border border-gray-200 dark:border-gray-700 shadow-sm">
                         <MapPinIcon class="w-4 h-4 text-amber-500" />
-                        <span class="text-sm font-semibold truncate max-w-[120px]">{{ selectedRegion?.name || 'Loading...' }}</span>
+                        <span class="text-sm font-semibold truncate max-w-[120px]">{{ selectedRegion?.name || $t('common.loading') }}</span>
                         <ChevronDownIcon class="w-4 h-4 text-gray-400" />
                     </button>
 
@@ -36,8 +36,8 @@
                 <!-- Hidden Gems Section -->
                 <section>
                     <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-xl font-bold tracking-tight">Hidden gems near you</h2>
-                        <button class="text-sm font-medium text-amber-600">See all</button>
+                        <h2 class="text-xl font-bold tracking-tight">{{ $t('discover.hidden_gems_near_you') }}</h2>
+                        <button class="text-sm font-medium text-amber-600">{{ $t('discover.see_all') }}</button>
                     </div>
                     <div class="flex gap-4 overflow-x-auto no-scrollbar py-2">
                         <div v-for="spot in featuredSpots" :key="spot.id" class="flex-none w-72 group">
@@ -45,7 +45,7 @@
                                 <div class="relative aspect-[4/3] rounded-2xl overflow-hidden mb-3">
                                     <img :src="spot.image || 'https://images.unsplash.com/photo-1515276427842-f85802d514a2?auto=format&fit=crop&w=600&q=80'" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                                     <div class="absolute top-3 left-3 bg-amber-500 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full flex items-center gap-1">
-                                        <SparklesIcon class="w-3 h-3" /> Hidden Gem
+                                        <SparklesIcon class="w-3 h-3" /> {{ $t('spot.hidden_gem') }}
                                     </div>
                                     <button class="absolute top-3 right-3 p-2 bg-white/20 backdrop-blur-md rounded-full text-white">
                                         <BookmarkIcon class="w-4 h-4" />
@@ -69,7 +69,7 @@
                 </section>
 
                 <section>
-                    <h2 class="text-xl font-bold tracking-tight mb-4">Trusted by locals</h2>
+                    <h2 class="text-xl font-bold tracking-tight mb-4">{{ $t('discover.trusted_by_locals') }}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <Link v-for="spot in localFavorites" :key="spot.id" :href="route('spot.show', spot.slug)" class="bg-white dark:bg-gray-800 rounded-2xl p-3 border border-gray-100 dark:border-gray-700 flex gap-4 hover:shadow-md transition-shadow">
                             <div class="w-24 h-24 rounded-xl overflow-hidden flex-none">
@@ -86,7 +86,7 @@
                                             <img :src="`https://i.pravatar.cc/100?u=${spot.id+i}`" />
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-medium text-gray-500">Recommended by locals</span>
+                                    <span class="text-[10px] font-medium text-gray-500">{{ $t('spot.recommended_by') }}</span>
                                 </div>
                             </div>
                         </Link>
@@ -97,9 +97,9 @@
             <!-- Map View Placeholder -->
             <div v-else class="h-[calc(100vh-144px)] bg-gray-200 dark:bg-gray-800 flex flex-col items-center justify-center text-center p-8">
                 <MapIcon class="w-16 h-16 text-gray-400 mb-4" />
-                <h3 class="text-lg font-bold">Map coming soon</h3>
-                <p class="text-gray-500 max-w-xs">We're building an interactive map to help you discover spots visually.</p>
-                <button @click="viewMode = 'list'" class="mt-6 bg-amber-500 text-white px-6 py-2 rounded-full font-bold">Switch to list</button>
+                <h3 class="text-lg font-bold">{{ $t('discover.map_coming_soon') }}</h3>
+                <p class="text-gray-500 max-w-xs">{{ $t('discover.map_coming_soon_desc') }}</p>
+                <button @click="viewMode = 'list'" class="mt-6 bg-amber-500 text-white px-6 py-2 rounded-full font-bold">{{ $t('discover.list_view') }}</button>
             </div>
         </div>
 
@@ -109,7 +109,7 @@
                 <div @click="showRegionSelector = false" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
                 <div class="relative w-full bg-white dark:bg-gray-900 rounded-t-[32px] p-6 max-h-[80vh] overflow-y-auto">
                     <div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-8"></div>
-                    <h2 class="text-2xl font-bold mb-6">Choose Region</h2>
+                    <h2 class="text-2xl font-bold mb-6">{{ $t('discover.choose_region') }}</h2>
                     <div class="space-y-4">
                         <button v-for="region in regions"
                                 :key="region.id"
@@ -132,6 +132,7 @@ import { ref, onMounted, watch } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { LocationService, CategoryService, DiscoveryService } from '@/Services/ApiService';
+import { useI18n } from 'vue-i18n';
 import {
     MapPinIcon,
     ChevronDownIcon,
@@ -143,6 +144,7 @@ import {
     CheckIcon
 } from 'lucide-vue-next';
 
+const { t } = useI18n();
 const regions = ref([]);
 const categories = ref([]);
 const featuredSpots = ref([]);
@@ -161,7 +163,9 @@ onMounted(async () => {
         ]);
 
         regions.value = regionsRes.data.data;
-        categories.value = [{ id: null, name: 'All' }, ...categoriesRes.data.data];
+        // The category name from API might be a string or object.
+        // For 'All', we use the translation key.
+        categories.value = [{ id: null, name: t('common.all') }, ...categoriesRes.data.data];
 
         if (regions.value.length > 0) {
             selectedRegion.value = regions.value[0];

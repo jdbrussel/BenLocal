@@ -1,8 +1,8 @@
 <template>
     <OnboardingLayout :current-step="4">
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl font-bold mb-2">Select Region</h1>
-            <p class="text-gray-500 mb-8">Where are you planning to discover spots?</p>
+            <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.region.title') }}</h1>
+            <p class="text-gray-500 mb-8">{{ $t('onboarding.region.subtitle') }}</p>
 
             <div class="space-y-3">
                 <button v-for="region in regions"
@@ -20,7 +20,7 @@
             <div class="mt-auto">
                 <button @click="next" :disabled="!selectedRegion"
                         class="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-50 text-white font-bold py-4 rounded-2xl shadow-lg transition-all">
-                    Next
+                    {{ $t('onboarding.next') }}
                 </button>
             </div>
         </div>

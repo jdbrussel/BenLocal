@@ -35,27 +35,27 @@
             <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-around">
                 <Link :href="route('discover')" class="flex flex-col items-center gap-1 transition-colors" :class="route().current('discover') ? 'text-amber-500' : 'text-gray-500 hover:text-amber-400'">
                     <HomeIcon class="w-6 h-6" />
-                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('messages.nav.discover') }}</span>
+                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('nav.discover') }}</span>
                 </Link>
 
                 <Link v-if="$page.props.auth.user" :href="route('feed')" class="flex flex-col items-center gap-1 transition-colors" :class="route().current('feed') ? 'text-amber-500' : 'text-gray-500 hover:text-amber-400'">
                     <RssIcon class="w-6 h-6" />
-                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('messages.nav.feed') }}</span>
+                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('nav.feed') }}</span>
                 </Link>
 
                 <Link :href="route('search')" class="flex flex-col items-center gap-1 transition-colors" :class="route().current('search') ? 'text-amber-500' : 'text-gray-500 hover:text-amber-400'">
                     <SearchIcon class="w-6 h-6" />
-                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('messages.nav.search') }}</span>
+                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('nav.search') }}</span>
                 </Link>
 
                 <Link v-if="$page.props.auth.user" :href="route('saved')" class="flex flex-col items-center gap-1 transition-colors" :class="route().current('saved') ? 'text-amber-500' : 'text-gray-500 hover:text-amber-400'">
                     <BookmarkIcon class="w-6 h-6" />
-                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('messages.nav.saved') }}</span>
+                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $t('nav.saved') }}</span>
                 </Link>
 
                 <Link :href="$page.props.auth.user ? route('profile') : route('register')" class="flex flex-col items-center gap-1 transition-colors" :class="route().current('profile') || route().current('register') ? 'text-amber-500' : 'text-gray-500 hover:text-amber-400'">
                     <UserIcon class="w-6 h-6" />
-                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $page.props.auth.user ? $t('messages.nav.profile') : $t('auth.register') }}</span>
+                    <span class="text-[10px] font-medium uppercase tracking-wider">{{ $page.props.auth.user ? $t('nav.profile') : $t('auth.register') }}</span>
                 </Link>
             </div>
         </nav>

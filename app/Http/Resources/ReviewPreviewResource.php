@@ -2,11 +2,14 @@
 
 namespace App\Http\Resources;
 
+use App\Http\Resources\Concerns\HasTranslatableFields;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReviewPreviewResource extends JsonResource
 {
+    use HasTranslatableFields;
+
     public function toArray(Request $request): array
     {
         return [
@@ -14,7 +17,7 @@ class ReviewPreviewResource extends JsonResource
             'user' => new UserMiniResource($this->whenLoaded('user')),
             'rating' => (float) $this->overall_rating,
             'rating_values' => $this->rating_values,
-            'content' => $this->getTranslation('review_text', app()->getLocale()),
+            'content' => $this->resolveTranslatable('review_text'),
             'photos' => MediaResource::collection($this->whenLoaded('media')),
             'confirms_recommendation' => $this->confirms_recommendation,
             'verified_visit' => $this->verified_visit,

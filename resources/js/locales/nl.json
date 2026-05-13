@@ -1,0 +1,162 @@
+{
+  "auth": {
+    "login": "Inloggen",
+    "register": "Registreren",
+    "logout": "Uitloggen",
+    "email": "E-mailadres",
+    "password": "Wachtwoord",
+    "forgot_password": "Wachtwoord vergeten?",
+    "reset_password": "Wachtwoord herstellen",
+    "verify_email": "E-mailadres verifiëren",
+    "social_login": "Of ga verder met",
+    "google": "Doorgaan met Google",
+    "facebook": "Doorgaan met Facebook",
+    "or": "of",
+    "register_email": "Registreren met E-mail",
+    "no_account": "Nog geen account?",
+    "has_account": "Heb je al een account?"
+  },
+  "nav": {
+    "discover": "Ontdekken",
+    "feed": "Feed",
+    "search": "Zoeken",
+    "saved": "Bewaard",
+    "profile": "Profiel"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welkom bij BenLocal",
+      "subtitle": "Ontdek de beste plekjes in Tenerife door de ogen van locals.",
+      "get_started": "Aan de slag"
+    },
+    "language": {
+      "title": "Kies je taal",
+      "subtitle": "We tonen je aanbevelingen en reviews in de taal van jouw voorkeur."
+    },
+    "cookie": {
+      "title": "Cookie Toestemming",
+      "message": "We gebruiken cookies om je ervaring te verbeteren en relevante content te tonen.",
+      "accept_all": "Alles accepteren",
+      "save": "Voorkeuren opslaan"
+    },
+    "region": {
+      "title": "Kies je regio",
+      "subtitle": "Waar bevind je je momenteel of waar ben je van plan heen te gaan?"
+    },
+    "communities": {
+      "title": "Sluit je aan bij communities",
+      "subtitle": "Bekijk aanbevelingen van mensen met dezelfde achtergrond.",
+      "members": "{count} leden"
+    },
+    "interests": {
+      "title": "Waar ben je naar op zoek?",
+      "subtitle": "Kies je interesses om je ontdekkingstocht te personaliseren.",
+      "items": {
+        "hidden_gems": "Verborgen parels",
+        "beach_bars": "Beach bars",
+        "local_food": "Lokaal eten",
+        "fine_dining": "Fine dining",
+        "nightlife": "Nachtleven",
+        "cocktails": "Cocktails",
+        "live_music": "Live muziek",
+        "seafood": "Seafood",
+        "wine": "Wijn",
+        "tapas": "Tapas"
+      }
+    },
+    "follow": {
+      "title": "Volg vertrouwde locals",
+      "subtitle": "Volg mensen die de omgeving het beste kennen.",
+      "follow": "Volgen",
+      "following": "Volgend",
+      "skip_for_now": "Nu overslaan"
+    },
+    "account": {
+      "title": "Maak je account aan",
+      "subtitle": "Bewaar je favoriete spots en begin met aanbevelen.",
+      "skip": "Nu overslaan, ik wil alleen rondkijken"
+    },
+    "completion": {
+      "title": "Je bent er helemaal klaar voor!",
+      "subtitle": "Welkom bij de BenLocal community.",
+      "finish": "Begin met ontdekken"
+    },
+    "next": "Volgende",
+    "skip": "Overslaan",
+    "back": "Terug",
+    "continue": "Doorgaan"
+  },
+  "discover": {
+    "title": "Ontdekken",
+    "hidden_gems": "Verborgen parels",
+    "hidden_gems_near_you": "Verborgen parels in de buurt",
+    "local_favorites": "Favorieten van locals",
+    "trusted_by_locals": "Vertrouwd door locals",
+    "trending": "Nu populair",
+    "new_recommendations": "Nieuwe aanbevelingen",
+    "map_view": "Kaart",
+    "list_view": "Lijst",
+    "map_coming_soon": "Kaart binnenkort beschikbaar",
+    "map_coming_soon_desc": "We bouwen aan een interactieve kaart om je te helpen plekjes visueel te ontdekken.",
+    "search_placeholder": "Zoek naar spots, gebieden...",
+    "recent_searches": "Recente zoekopdrachten",
+    "no_results": "Geen spots gevonden voor je criteria.",
+    "no_results_for": "Geen resultaten gevonden voor \"{query}\"",
+    "no_saved_spots": "Nog geen opgeslagen spots",
+    "no_saved_spots_desc": "Tik op het hartje bij een spot om deze te bewaren voor later.",
+    "searching": "Zoeken...",
+    "trending_searching": "{count} mensen zoeken hierop",
+    "filters": "Filters",
+    "see_all": "Alles tonen",
+    "choose_region": "Kies regio"
+  },
+  "spot": {
+    "recommendations": "Aanbevelingen",
+    "reviews": "Reviews",
+    "recommended_by": "Aanbevolen door locals",
+    "write_review": "Schrijf een review",
+    "recommend_spot": "Beveel deze spot aan",
+    "save": "Opslaan",
+    "saved": "Bewaard",
+    "share": "Delen",
+    "hidden_gem": "Verborgen parel",
+    "about": "Over deze spot",
+    "details": "Details",
+    "location": "Locatie",
+    "opening_hours": "Openingstijden",
+    "contact": "Contact",
+    "similar_spots": "Vergelijkbare spots",
+    "local_in_region": "Local in {region}"
+  },
+  "settings": {
+    "title": "Instellingen",
+    "language": "Taal",
+    "theme": "Thema",
+    "notifications": "Meldingen",
+    "privacy": "Privacy",
+    "communities": "Communities",
+    "account": "Account",
+    "cookie_preferences": "Cookie voorkeuren",
+    "themes": {
+      "light": "Licht",
+      "dark": "Donker",
+      "system": "Systeem"
+    }
+  },
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "all": "Alle",
+    "spots": "Spots",
+    "regions": "Regio's",
+    "people": "Mensen",
+    "local_guide": "Lokale Gids",
+    "loading": "Laden...",
+    "translated_from": "Automatisch vertaald uit het {lang}",
+    "error": "Er is iets misgegaan.",
+    "retry": "Opnieuw proberen",
+    "success": "Succes!"
+  }
+}
