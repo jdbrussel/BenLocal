@@ -1,5 +1,17 @@
 # Changelog
 
+## [Phase 17] - 2026-05-14
+
+### Added
+- **Production Readiness:** Comprehensive caching, queueing, and performance optimizations.
+- **Multilingual System Translations:** 30+ new system-level translation keys for both PHP and JSON (`system.php`, `locales/*.json`).
+- **Caching Layer:** Redis-backed `Cache::tags` implementation for Discovery, Feed, and Spot APIs.
+- **Background Task Management:** Dedicated CLI commands for ranking, reputation, and cache maintenance.
+- **Health Monitoring:** New `/api/health` endpoint with multi-component connectivity checks.
+- **PWA Resilience:** UI support for offline mode, cached content banners, and slow connection warnings.
+- **Performance Documentation:** New technical docs for `performance.md`, `queues.md`, and `cache.md`.
+- **Benchmark Seeders:** Expanded seeder suite for large-scale performance testing (100k+ events), realistic geo-clustering in Tenerife, and queue/cache scenario testing.
+
 ## [Phase 16] - 2026-05-14
 
 ### Added

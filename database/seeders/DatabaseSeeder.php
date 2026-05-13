@@ -57,6 +57,10 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
         ]);
 
+        if (env('BENLOCAL_SEED_BENCHMARKS', false)) {
+            $this->call(PerformanceBenchmarkSeeder::class);
+        }
+
         User::updateOrCreate(
             [
                 'email' => 'jasper@studiobxl.com',

@@ -88,3 +88,40 @@ The order in `DatabaseSeeder` is critical as activity and visit seeders depend o
    - Followed users' activity appears prominently.
    - Community-relevant content is visible.
    - Region filtering (Tenerife) is applied.
+
+## Benchmark Seeders (Phase 17)
+
+For performance testing, discovery filtering, and map marker clustering, we provide a set of benchmark seeders. These are **not** run by default and must be explicitly enabled.
+
+### Configuration
+
+Enable benchmark seeding in your `.env`:
+
+```env
+BENLOCAL_SEED_BENCHMARKS=true
+BENLOCAL_BENCHMARK_USERS=5000
+BENLOCAL_BENCHMARK_SPOTS=1000
+BENLOCAL_BENCHMARK_REVIEWS=20000
+BENLOCAL_BENCHMARK_RECOMMENDATIONS=5000
+BENLOCAL_BENCHMARK_REACTIONS=50000
+BENLOCAL_BENCHMARK_TIMELINE_EVENTS=100000
+```
+
+### Components
+
+*   **PerformanceBenchmarkSeeder**: The master seeder that coordinates the process.
+*   **LargeSpotDatasetSeeder**: Generates spots clustered in Tenerife (Costa Adeje, Los Cristianos, etc.).
+*   **LargeReviewDatasetSeeder**: Generates large-scale review data with weighted distribution (popular vs. quiet spots).
+*   **LargeTimelineDatasetSeeder**: Populates the timeline with diverse events.
+*   **QueueJobDemoSeeder**: Prepares records (spots, users) that appear "stale" to trigger background processing jobs.
+*   **CacheScenarioSeeder**: Creates specific records to verify cache invalidation and regional caching.
+
+### How to Run
+
+```bash
+# Run with full database refresh
+php artisan migrate:fresh --seed
+
+# Run only benchmark seeder (if base data already exists)
+php artisan db:seed --class=PerformanceBenchmarkSeeder
+```

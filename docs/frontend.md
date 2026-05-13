@@ -43,3 +43,23 @@ The frontend uses localized JSON files for UI strings and calls the CMS API for 
 - **Help Center:** Browsing FAQs via `GET /api/cms/faqs`.
 - **Legal Pages:** Rendering policies via `GET /api/cms/pages/{slug}`.
 - **Translatable CMS Content:** The API returns `title` and `content` based on the `Accept-Language` header, with fallback to English.
+
+## Production Readiness & PWA (Phase 17)
+
+### System State & Messaging
+The frontend includes comprehensive system state messaging using the `system.*` translation keys:
+- **Loading States:** `system.loading`, `system.pagination_loading`, `system.map_loading`.
+- **Offline & Cache:**
+    - `system.offline_mode`: Shown when the user's browser is offline.
+    - `system.cached_content`: Displayed as a banner when the PWA is serving content from the cache while offline or during slow connections.
+- **Connection Issues:** `system.slow_connection` and `system.try_again`.
+- **Background Tasks:** `system.queue_processing` and `system.job_*` keys for showing the status of long-running operations.
+
+### PWA Updates
+When a new version of the Service Worker is detected, the UI prompts the user:
+- **Update Message:** `system.update_available`.
+- **Action Button:** `system.update_now`.
+
+### Rate Limiting & Health
+- **Rate Limited:** `system.rate_limited` is shown when the backend returns a `429 Too Many Requests` status.
+- **System Health:** Monitoring statuses like `system.health_ok`, `system.health_warning`, and `system.health_error`.

@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Public Endpoints
+Route::get('/health', \App\Http\Controllers\Api\HealthCheckController::class);
 Route::get('/me/context', UserContextController::class);
 
 Route::get('/regions', [RegionController::class, 'index']);

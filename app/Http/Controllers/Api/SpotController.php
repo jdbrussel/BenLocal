@@ -13,30 +13,40 @@ class SpotController extends Controller
 {
     public function show($slug, Request $request)
     {
-        $spot = Spot::where('slug', $slug)
-            ->with([
-                'category.filterSpecs.options',
-                'category.ratingSpecs.options',
-                'region', 'area', 'place', 'badges',
-                'communityProfiles.community',
-                'media',
-                'recommendations' => fn($q) => $q->with('user')->limit(5),
-                'reviews' => fn($q) => $q->with(['user', 'media'])->withCount('reactions')->limit(5)
-            ])
-            ->firstOrFail();
+        $cacheKey = 'spot_detail:' . $slug . ($request->user() ? ':u' . $request->user()->id : '');
 
-        if ($user = $request->user()) {
-            $spot->is_saved = $user->savedSpots()->where('spot_id', $spot->id)->exists();
-        }
+        $spot = \Illuminate\Support\Facades\Cache::tags(['spots'])->remember($cacheKey, now()->addHours(1), function() use ($slug, $request) {
+            $spot = Spot::where('slug', $slug)
+                ->with([
+                    'category.filterSpecs.options',
+                    'category.ratingSpecs.options',
+                    'region', 'area', 'place', 'badges',
+                    'communityProfiles.community',
+                    'media',
+                    'recommendations' => fn($q) => $q->with('user')->limit(5),
+                    'reviews' => fn($q) => $q->with(['user', 'media'])->withCount('reactions')->limit(5)
+                ])
+                ->firstOrFail();
+
+            if ($user = $request->user()) {
+                $spot->is_saved = $user->savedSpots()->where('spot_id', $spot->id)->exists();
+            }
+
+            return $spot;
+        });
 
         return new SpotDetailResource($spot);
     }
 
     public function map(Request $request, DiscoveryService $discoveryService)
     {
-        // For map we usually want more items and less data
-        $request->merge(['per_page' => $request->get('limit', 500)]);
-        $spots = $discoveryService->discover($request);
+        $cacheKey = 'map_markers:' . md5(serialize($request->all()));
+
+        $spots = \Illuminate\Support\Facades\Cache::tags(['spots', 'map'])->remember($cacheKey, now()->addMinutes(10), function() use ($request, $discoveryService) {
+            // For map we usually want more items and less data
+            $request->merge(['per_page' => $request->get('limit', 500)]);
+            return $discoveryService->discover($request);
+        });
 
         return MapMarkerResource::collection($spots);
     }

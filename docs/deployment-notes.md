@@ -32,3 +32,24 @@ To clear trust-related caches:
 ```bash
 php artisan cache:forget trust_graph_*
 ```
+
+## Phase 17: Performance & Production Scale
+
+### Environment Configuration
+Ensure the following variables are set for production:
+- `CACHE_STORE=redis`
+- `QUEUE_CONNECTION=redis`
+
+### Benchmark Data (Optional)
+To test performance in a staging environment with realistic volumes:
+1. Set `BENLOCAL_SEED_BENCHMARKS=true` in `.env`.
+2. Configure desired volumes (e.g., `BENLOCAL_BENCHMARK_SPOTS=1000`).
+3. Run `php artisan db:seed --class=PerformanceBenchmarkSeeder`.
+4. **Important**: Do not run benchmark seeders in production.
+
+### Post-Seeding Maintenance
+After seeding large datasets, run the recalculation commands to populate scores:
+```bash
+php artisan benlocal:recalculate-rankings
+php artisan benlocal:recalculate-reputation
+```

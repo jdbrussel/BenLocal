@@ -32,7 +32,8 @@ class SpotRankingService
     public function recalculateScores(Spot $spot)
     {
         // 1. Recommendation Score
-        $recs = $spot->recommendations;
+        // Optimization: Use with('user') to avoid N+1 in RecommendationScoreService if it uses user
+        $recs = $spot->recommendations()->with('user')->get();
         $totalRecScore = 0;
         foreach ($recs as $rec) {
             $scores = $this->recommendationScoreService->calculateScores($rec);
@@ -45,7 +46,7 @@ class SpotRankingService
         $spot->recommendation_score = $totalRecScore;
 
         // 2. Review Score
-        $reviews = $spot->reviews;
+        $reviews = $spot->reviews()->with('user')->get();
         $weightedRatingSum = 0;
         $totalWeight = 0;
         foreach ($reviews as $review) {
