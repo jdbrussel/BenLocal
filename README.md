@@ -33,15 +33,18 @@ Gedetailleerde documentatie over de werking van het systeem is te vinden in de `
 - [Core Features](docs/features.md): Aanbevelingen, AI vertalingen en reputatie.
 - [Business Rules](docs/business_rules.md): Logica achter scoring en ranking.
 - [Algoritmes](docs/algorithms.md): Gedetailleerde scoring specificaties.
+- [Deployment & Production](docs/DEPLOYMENT.md): Productie setup en configuratie.
+- [Seeding Strategie](docs/seeders.md): Data bevolking voor demo en productie.
 
 ## Tech Stack
 
 - **Framework**: Laravel 12 (PHP 8.3+)
 - **Admin Panel**: Filament v5
 - **Database**: MySQL of PostgreSQL (momenteel SQLite voor dev)
-- **Frontend**: TailwindCSS & Mobile-first PWA
+- **Frontend**: TailwindCSS & Mobile-first PWA (Inertia.js + Vue 3)
+- **Caching & Queues**: Redis
 - **Meertaligheid**: Spatie Laravel Translatable (JSON fields)
-- **AI**: AI-ondersteunde vertalingen en spot enrichment
+- **AI**: AI-ondersteunde vertalingen en spot enrichment (OpenAI)
 
 ## Systeemonderdelen
 
@@ -54,6 +57,7 @@ Gedetailleerde documentatie over de werking van het systeem is te vinden in de `
 - **Notification System**: Uitgebreid systeem voor in-app, e-mail en push-notificaties met voorkeuren.
 - **GDPR & Privacy Management**: Volledige flows voor gegevensopvraag, accountverwijdering en privacy-instellingen.
 - **Multilingual CMS**: Beheer van statische pagina's en FAQ's met ondersteuning voor meerdere talen.
+- **Health & Monitoring**: Geïntegreerde health checks en API rate limiting voor stabiliteit.
 
 ## Scoring & Algoritmes
 
@@ -87,6 +91,8 @@ Het project wordt modulair opgebouwd in verschillende fasen:
 14. **[Fase 14: Notifications & Preferences](docs/PHASE14.md)**: Real-time notificaties (In-app, Email, Push) en gebruikersvoorkeuren.
 15. **[Fase 15: GDPR, Privacy & Account](docs/PHASE15.md)**: Volledige GDPR flows, data export, account anonimisering en privacy audit.
 16. **[Fase 16: Multilingual CMS & Legal](docs/PHASE16.md)**: Meertalige statische pagina's, FAQ's en juridische content beheer.
+17. **[Fase 17: Performance & Production Readiness](docs/PHASE17.md)**: Redis caching, queues, rate limiting, health monitoring en optimalisaties.
+18. **[Fase 18: Final QA & Deployment](docs/PHASE18.md)**: Volledige regressietesten, security audit, productie seeding en launch checklist.
 
 ---
 

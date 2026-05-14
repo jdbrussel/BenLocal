@@ -10,7 +10,7 @@ use Tests\TestCase;
 
 class LocaleTest extends TestCase
 {
-    // use RefreshDatabase;
+    use RefreshDatabase;
 
     public function test_it_resolves_default_locale()
     {

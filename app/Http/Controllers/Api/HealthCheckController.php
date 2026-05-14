@@ -49,7 +49,8 @@ class HealthCheckController extends Controller
     protected function checkRedis()
     {
         try {
-            return Redis::ping() ? 'up' : 'down';
+            // Use connection() to ensure we're not just calling it on the facade without a driver
+            return Redis::connection()->ping() ? 'up' : 'down';
         } catch (\Exception $e) {
             return 'down';
         }

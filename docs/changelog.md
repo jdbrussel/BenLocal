@@ -1,5 +1,23 @@
 # Changelog
 
+## [MVP Final Audit] - 2026-05-14
+
+### Added
+- **Production Seeding:** Implemented `ProductionSeeder` and `TenerifeSpotSeeder` with 80+ realistic spots in Tenerife (Food & Drinks).
+- **Hardened Test Suite:** Added `ResponseIntegrityTest` to ensure root and onboarding routes remain stable.
+- **Tenerife Focus:** Verified and seeded specific regions (Costa Adeje, Los Cristianos, Playa de las Américas, etc.) and categories (Restaurants, Bars).
+
+### Fixed
+- **API Stability:** Fixed 500 errors in `CategoryController` and `DiscoveryController` by removing incompatible `Cache::tags()` (switched to standard caching for database/file drivers).
+- **Service Worker:** Fixed 404/302 errors in `sw.js` related to Vite versioned assets and redirect handling.
+- **Seeder Reliability:** Fixed `UniqueConstraintViolationException` in `AnonymizedUserSeeder` by ensuring proper community associations.
+- **Type Errors:** Resolved critical `__PHP_Incomplete_Class` errors caused by corrupted session/cache data through a full system purge.
+
+### Changed
+- **Database Architecture:** Verified that Spot Types are dynamically handled via `category_filter_specs` instead of hardcoded tables.
+- **CMS Audit:** Verified all 15+ mandatory legal and help pages are present and translatable in EN, NL, and ES.
+- **Filament Audit:** Verified all 30+ resources are functional and properly configured for the MVP launch.
+
 ## [Phase 17] - 2026-05-14
 
 ### Added
