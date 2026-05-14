@@ -101,4 +101,29 @@ class Spot extends Model
     {
         return $this->hasMany(SpotOwnerRole::class);
     }
+
+    public function subscription()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
+    public function analytics()
+    {
+        return $this->hasMany(SpotAnalytics::class);
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+    public function getPlanTypeAttribute(): string
+    {
+        return $this->subscription?->plan_type ?? 'free';
+    }
 }

@@ -14,6 +14,10 @@
 - **Type Errors:** Resolved critical `__PHP_Incomplete_Class` errors caused by corrupted session/cache data through a full system purge.
 
 ### Changed
+- **API Resources:** Synchronized `SpotDetailResource`, `SpotListResource`, and `TimelineEventResource` with frontend data requirements.
+- **Translations:** Enriched PHP translation files (`ui.php`, `system.php`) with frontend keys and optimized `HandleInertiaRequests` for translation sharing.
+- **Onboarding:** Enhanced `OnboardingController` to persist user choices (language, region, community) in session and database.
+- **Models:** Added `active()` scope to `Region` and `Community` models for better query handling.
 - **Database Architecture:** Verified that Spot Types are dynamically handled via `category_filter_specs` instead of hardcoded tables.
 - **CMS Audit:** Verified all 15+ mandatory legal and help pages are present and translatable in EN, NL, and ES.
 - **Filament Audit:** Verified all 30+ resources are functional and properly configured for the MVP launch.

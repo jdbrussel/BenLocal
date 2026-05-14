@@ -52,10 +52,17 @@ class CampaignLandingController extends Controller
 
         $submission = $submissionService->createSubmission($campaign, $validated, $request->user());
 
-        return response()->json([
-            'message' => 'Submission received',
-            'submission_id' => $submission->id,
-            'guest_token' => $submission->guest_token,
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message' => 'Submission received',
+                'submission_id' => $submission->id,
+                'guest_token' => $submission->guest_token,
+            ]);
+        }
+
+        return redirect()->route('campaign.success', [
+            'slug' => $campaign->slug,
+            'submission' => $submission->id
         ]);
     }
 

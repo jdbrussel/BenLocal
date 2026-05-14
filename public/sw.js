@@ -23,6 +23,11 @@ self.addEventListener('fetch', (event) => {
     // Skip Chrome extensions and other non-http schemes
     if (!event.request.url.startsWith('http')) return;
 
+    // IMPORTANT: Skip Vite dev server assets (port 5173) and HMR
+    if (event.request.url.includes(':5173') || event.request.url.includes('@vite') || event.request.url.includes('hot')) {
+        return;
+    }
+
     event.respondWith(
         caches.match(event.request).then((response) => {
             return response || fetch(event.request).catch(() => {

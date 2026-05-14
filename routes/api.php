@@ -18,6 +18,8 @@ use App\Http\Controllers\Api\GdprApiController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\UserContextController;
 use App\Http\Controllers\Api\CmsController;
+use App\Http\Controllers\Api\Owner\OwnerAnalyticsController;
+use App\Http\Controllers\Api\Owner\OwnerPromotionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -104,4 +106,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     // GDPR & Privacy
     Route::post('/gdpr/export', [GdprApiController::class, 'requestExport']);
     Route::put('/gdpr/privacy', [GdprApiController::class, 'updatePrivacySettings']);
+
+    // Owner Tools
+    Route::prefix('owner')->group(function () {
+        Route::get('/spots/{spot}/analytics', [OwnerAnalyticsController::class, 'index']);
+        Route::get('/spots/{spot}/offers', [OwnerPromotionController::class, 'getOffers']);
+        Route::post('/spots/{spot}/offers', [OwnerPromotionController::class, 'createOffer']);
+        Route::get('/spots/{spot}/events', [OwnerPromotionController::class, 'getEvents']);
+        Route::post('/spots/{spot}/events', [OwnerPromotionController::class, 'createEvent']);
+    });
 });

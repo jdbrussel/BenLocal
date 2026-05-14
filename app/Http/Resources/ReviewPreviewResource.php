@@ -18,6 +18,7 @@ class ReviewPreviewResource extends JsonResource
             'rating' => (float) $this->overall_rating,
             'rating_values' => $this->rating_values,
             'content' => $this->resolveTranslatable('review_text'),
+            'text' => $this->translated('review_text'),
             'photos' => MediaResource::collection($this->whenLoaded('media')),
             'confirms_recommendation' => $this->confirms_recommendation,
             'verified_visit' => $this->verified_visit,

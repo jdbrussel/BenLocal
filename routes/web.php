@@ -14,6 +14,7 @@ Route::post('/locale/switch', [App\Http\Controllers\LocaleController::class, 'sw
 Route::prefix('onboarding')->name('onboarding.')->group(function () {
     Route::get('/welcome', [OnboardingController::class, 'welcome'])->name('welcome');
     Route::get('/step/{step}', [OnboardingController::class, 'step'])->name('step');
+    Route::post('/step/{step}', [OnboardingController::class, 'store'])->name('store');
     Route::post('/complete', [OnboardingController::class, 'complete'])->name('complete');
 });
 

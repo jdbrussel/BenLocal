@@ -4,15 +4,23 @@
             <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.language.title') }}</h1>
             <p class="text-gray-500 mb-8">{{ $t('onboarding.language.subtitle') }}</p>
 
-            <div class="space-y-3">
+            <div class="grid grid-cols-1 gap-4 overflow-y-auto pb-4">
                 <button v-for="(name, code) in $page.props.config.available_languages"
                         :key="code"
                         @click="switchLanguage(code)"
-                        class="w-full p-4 rounded-2xl border flex items-center justify-between transition-all"
-                        :class="selectedLanguage === code ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/10' : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800'">
-                    <span class="font-bold">{{ name }}</span>
-                    <div v-if="selectedLanguage === code" class="w-6 h-6 bg-amber-500 rounded-full flex items-center justify-center">
-                        <CheckIcon class="w-4 h-4 text-white" />
+                        class="w-full p-6 rounded-[28px] border-2 flex items-center justify-between transition-all duration-300 relative overflow-hidden group"
+                        :class="selectedLanguage === code ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20 shadow-lg shadow-amber-500/10 scale-[1.02]' : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 hover:border-amber-200 dark:hover:border-amber-900/40'">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-2xl bg-gray-50 dark:bg-gray-700/50 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                            {{ getFlag(code) }}
+                        </div>
+                        <div class="text-left">
+                            <span class="block font-black text-lg tracking-tight">{{ name }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 font-medium uppercase tracking-widest">{{ code }}</span>
+                        </div>
+                    </div>
+                    <div v-if="selectedLanguage === code" class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/40">
+                        <CheckIcon class="w-5 h-5 text-white stroke-[3]" />
                     </div>
                 </button>
             </div>
@@ -36,6 +44,17 @@ import { useI18n } from 'vue-i18n';
 const { locale } = useI18n();
 const page = usePage();
 const selectedLanguage = ref(page.props.locale);
+
+const getFlag = (code) => {
+    const flags = {
+        nl: '🇳🇱',
+        en: '🇬🇧',
+        es: '🇪🇸',
+        de: '🇩🇪',
+        fr: '🇫🇷'
+    };
+    return flags[code] || '🌍';
+};
 
 const switchLanguage = (code) => {
     selectedLanguage.value = code;

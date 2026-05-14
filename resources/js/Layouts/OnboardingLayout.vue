@@ -11,9 +11,16 @@
                 </div>
             </header>
 
-            <main class="flex-1 relative">
+            <main class="flex-1 relative z-10">
                 <slot />
             </main>
+
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-amber-200/20 dark:bg-amber-500/10 rounded-full blur-3xl"></div>
+                <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-amber-300/20 dark:bg-amber-600/10 rounded-full blur-3xl"></div>
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1200&q=80')] opacity-[0.03] dark:opacity-[0.05] grayscale"></div>
+            </div>
         </div>
     </div>
 </template>

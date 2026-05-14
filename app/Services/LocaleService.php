@@ -27,7 +27,12 @@ class LocaleService
             }
         }
 
-        // 2. Cookie (for guests)
+        // 2. Session or Cookie (for guests)
+        $sessionLocale = session('locale');
+        if ($sessionLocale && in_array($sessionLocale, $available)) {
+            return $sessionLocale;
+        }
+
         $cookieLocale = Request::cookie('benlocal_locale');
         if ($cookieLocale && in_array($cookieLocale, $available)) {
             return $cookieLocale;

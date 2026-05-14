@@ -5,11 +5,17 @@ namespace App\Http\Resources\Concerns;
 trait HasTranslatableFields
 {
     /**
-     * Resolve a translatable field with fallback logic.
+     * Resolve a translatable field with fallback logic for frontend consumption.
      */
-    protected function resolveTranslatable(string $field): array|string|null
+    protected function resolveTranslatable(string $field): array
     {
-        if (!$this->resource) return null;
+        if (!$this->resource) {
+            return [
+                'value' => null,
+                'is_translated' => false,
+                'original_language' => null,
+            ];
+        }
 
         $locale = app()->getLocale();
         $default = config('benlocal.default_language', 'en');
@@ -22,7 +28,6 @@ trait HasTranslatableFields
             $originalLanguage = $default;
         }
 
-        // If still no value, take the first available translation
         if (!$value) {
             $translations = $this->getTranslations($field);
             if (!empty($translations)) {
@@ -33,7 +38,7 @@ trait HasTranslatableFields
 
         return [
             'value' => $value,
-            'is_translated' => $originalLanguage !== $locale,
+            'is_translated' => $originalLanguage !== null && $originalLanguage !== $locale,
             'original_language' => $originalLanguage,
         ];
     }

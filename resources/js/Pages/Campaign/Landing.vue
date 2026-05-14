@@ -65,14 +65,9 @@ const proceedWithUnknown = () => {
 
 const submit = () => {
     form.post(route('campaign.submit', props.campaign.slug), {
-        onSuccess: (page) => {
-            // If response is JSON and has submission_id
-            const data = page.props.flash?.submission_id || page.props.submission_id;
-            // Controller returns JSON, so we might need to handle navigation manually if not using Inertia redirect
+        onSuccess: () => {
+            // Inertia will handle the redirect from the controller
         },
-        onFinish: () => {
-            // Handled in controller usually via redirect or manual handling here
-        }
     });
 };
 
@@ -205,7 +200,7 @@ const submitForm = async () => {
                     </div>
 
                     <button
-                        @click="submitForm"
+                        @click="submit"
                         :disabled="!form.consent_to_terms || form.processing"
                         class="w-full py-4 bg-blue-600 text-white rounded-xl font-bold text-lg hover:bg-blue-700 disabled:opacity-50 transition-colors shadow-lg shadow-blue-200"
                     >

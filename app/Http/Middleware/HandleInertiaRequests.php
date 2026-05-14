@@ -59,7 +59,7 @@ class HandleInertiaRequests extends Middleware
     protected function getTranslations(): array
     {
         $locale = app()->getLocale();
-        $files = ['auth', 'pagination', 'passwords', 'validation', 'messages'];
+        $files = ['ui', 'system', 'notifications', 'pages', 'visits', 'auth', 'validation'];
         $translations = [];
 
         foreach ($files as $file) {
@@ -67,6 +67,11 @@ class HandleInertiaRequests extends Middleware
             if (file_exists($path)) {
                 $translations[$file] = require $path;
             }
+        }
+
+        // Add root level translations for common keys if needed
+        if (isset($translations['ui'])) {
+            $translations = array_merge($translations, $translations['ui']);
         }
 
         // Also check for JSON translations

@@ -35,6 +35,7 @@ class SpotListResource extends JsonResource
             'spec_values' => $this->spec_values,
             'distance' => $this->distance ?? null,
             'is_saved' => $this->is_saved ?? false,
+            'saved_state' => $this->is_saved ?? false,
             'lifecycle_status' => $this->lifecycle_status,
         ];
     }

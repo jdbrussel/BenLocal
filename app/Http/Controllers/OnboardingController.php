@@ -14,7 +14,8 @@ class OnboardingController extends Controller
 
     public function step($step)
     {
-        $view = match ((int)$step) {
+        $stepInt = (int)$step;
+        $view = match ($stepInt) {
             1 => 'Onboarding/Welcome',
             2 => 'Onboarding/Language',
             3 => 'Onboarding/CookieConsent',
@@ -27,9 +28,44 @@ class OnboardingController extends Controller
             default => 'Onboarding/Welcome',
         };
 
-        return Inertia::render($view, [
-            'currentStep' => (int)$step,
-        ]);
+        $data = [
+            'currentStep' => $stepInt,
+        ];
+
+        // Add step specific data
+        if ($stepInt === 4) {
+            $data['regions'] = \App\Models\Region::active()->get(['id', 'name', 'slug']);
+        }
+
+        if ($stepInt === 5) {
+            $data['communities'] = \App\Models\Community::active()->get(['id', 'name', 'slug']);
+        }
+
+        return Inertia::render($view, $data);
+    }
+
+    public function store(Request $request, $step)
+    {
+        $stepInt = (int)$step;
+
+        // Logic to store choices in session or user record
+        switch ($stepInt) {
+            case 2: // Language
+                $locale = $request->input('locale', app()->getLocale());
+                session(['locale' => $locale]);
+                if (auth()->check()) {
+                    auth()->user()->update(['preferred_language' => $locale]);
+                }
+                break;
+            case 4: // Region
+                session(['onboarding_region_id' => $request->input('region_id')]);
+                break;
+            case 5: // Communities
+                session(['onboarding_community_ids' => $request->input('community_ids')]);
+                break;
+        }
+
+        return redirect()->route('onboarding.step', $stepInt + 1);
     }
 
     public function complete(Request $request)

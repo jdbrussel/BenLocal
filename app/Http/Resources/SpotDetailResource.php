@@ -38,7 +38,11 @@ class SpotDetailResource extends JsonResource
             'recommendations_preview' => RecommendationPreviewResource::collection($this->whenLoaded('recommendations')),
             'reviews_preview' => ReviewPreviewResource::collection($this->whenLoaded('reviews')),
             'photos' => MediaResource::collection($this->whenLoaded('media')),
+            'offers' => OfferResource::collection($this->whenLoaded('offers')),
+            'events' => EventResource::collection($this->whenLoaded('events')),
             'saved_state' => $this->is_saved ?? false,
+            'is_saved' => $this->is_saved ?? false,
+            'is_hidden_gem' => $this->hidden_gem_score >= 70,
             'user_permissions' => [
                 'can_review' => true,
                 'can_recommend' => $request->user() ? $request->user()->regionStatuses()->where('region_id', $this->region_id)->exists() : false,
