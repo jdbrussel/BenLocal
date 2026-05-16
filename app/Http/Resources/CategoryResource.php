@@ -9,10 +9,20 @@ class CategoryResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
+        $name = $this->getTranslation('name', app()->getLocale());
+
+        if (!$name) {
+            $name = $this->getTranslation('name', config('app.fallback_locale', 'en'));
+        }
+
+        if (!$name) {
+            $name = ucfirst(str_replace('-', ' ', $this->slug));
+        }
+
         return [
             'id' => $this->id,
             'sector_id' => $this->sector_id,
-            'name' => $this->getTranslation('name', app()->getLocale()),
+            'name' => $name,
             'slug' => $this->slug,
             'description' => $this->getTranslation('description', app()->getLocale()),
             'icon' => $this->icon,

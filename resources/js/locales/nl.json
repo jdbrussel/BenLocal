@@ -33,29 +33,27 @@
   },
   "auth": {
     "login": "Inloggen",
-    "register": "Registreren",
+    "register": "Account aanmaken",
     "logout": "Uitloggen",
+    "forgot_password": "Wachtwoord vergeten?",
+    "continue_google": "Doorgaan met Google",
+    "continue_facebook": "Doorgaan met Facebook",
     "email": "E-mailadres",
     "password": "Wachtwoord",
-    "forgot_password": "Wachtwoord vergeten?",
     "reset_password": "Wachtwoord herstellen",
     "verify_email": "E-mailadres verifiëren",
     "social_login": "Of ga verder met",
-    "google": "Doorgaan met Google",
-    "facebook": "Doorgaan met Facebook",
     "or": "of",
     "register_email": "Registreren met E-mail",
     "no_account": "Nog geen account?",
     "has_account": "Heb je al een account?"
   },
-  "nav": {
-    "discover": "Ontdekken",
-    "feed": "Feed",
-    "search": "Zoeken",
-    "saved": "Bewaard",
-    "profile": "Profiel"
-  },
   "onboarding": {
+    "welcome_title": "Ontdek plekken die locals écht waarderen",
+    "choose_region": "Kies je regio",
+    "choose_communities": "Kies jouw communities",
+    "choose_interests": "Waar ben je naar op zoek?",
+    "follow_locals": "Volg trusted locals",
     "welcome": {
       "title": "Welkom bij BenLocal",
       "subtitle": "Ontdek de beste plekjes in Tenerife door de ogen van locals.",
@@ -120,14 +118,17 @@
   },
   "discover": {
     "title": "Ontdekken",
-    "hidden_gems": "Verborgen parels",
+    "hidden_gems": "Hidden gems",
+    "local_favourites": "Favorieten van locals",
+    "trending": "Trending",
+    "near_you": "Bij jou in de buurt",
+    "trusted_by_locals": "Trusted by locals",
     "hidden_gems_near_you": "Verborgen parels in de buurt",
     "local_favorites": "Favorieten van locals",
-    "trusted_by_locals": "Vertrouwd door locals",
-    "trending": "Nu populair",
     "new_recommendations": "Nieuwe aanbevelingen",
-    "map_view": "Kaart",
-    "list_view": "Lijst",
+    "map_view": "Kaartweergave",
+    "list_view": "Lijstweergave",
+    "nearby": "In de buurt",
     "map_coming_soon": "Kaart binnenkort beschikbaar",
     "map_coming_soon_desc": "We bouwen aan een interactieve kaart om je te helpen plekjes visueel te ontdekken.",
     "search_placeholder": "Zoek naar spots, gebieden...",
@@ -141,6 +142,220 @@
     "filters": "Filters",
     "see_all": "Alles tonen",
     "choose_region": "Kies regio"
+  },
+  "filters": {
+    "venue_type": "Type locatie",
+    "cuisine": "Keuken",
+    "price_class": "Prijsklasse",
+    "terrace": "Terras",
+    "sea_view": "Zeezicht",
+    "open_now": "Nu open",
+    "hidden_gems_only": "Alleen hidden gems"
+  },
+  "venue_types": {
+    "guachinche": "Guachinche",
+    "bodega": "Bodega",
+    "tapas": "Tapas",
+    "beachbar": "Beachbar",
+    "cocktailbar": "Cocktailbar",
+    "bierbar": "Bierbar",
+    "wijnbar": "Wijnbar"
+  },
+  "spots": {
+    "recommended_by_locals": "Aanbevolen door locals",
+    "reviews": "Reviews",
+    "photos": "Foto’s",
+    "opening_hours": "Openingstijden",
+    "save": "Opslaan",
+    "saved": "Opgeslagen",
+    "claim_spot": "Claim deze spot"
+  },
+  "reviews": {
+    "write_review": "Review schrijven",
+    "overall_rating": "Algemene beoordeling",
+    "agree": "Mee eens",
+    "partly_agree": "Deels mee eens",
+    "disagree": "Niet mee eens",
+    "verified_visit": "Geverifieerd bezoek",
+    "translated": "Automatisch vertaald"
+  },
+  "recommendations": {
+    "recommend_spot": "Spot aanbevelen",
+    "why_recommend": "Waarom raad je deze spot aan?",
+    "hidden_gem": "Dit is een hidden gem",
+    "locals_only": "Alleen locals kunnen spots aanbevelen in deze regio."
+  },
+  "feed": {
+    "title": "Jouw feed",
+    "new_recommendation": "heeft een nieuwe spot aanbevolen",
+    "new_review": "schreef een review",
+    "hidden_gem_discovered": "Nieuwe hidden gem ontdekt",
+    "started_following": "volgt nu",
+    "saved_spot": "sloeg een spot op",
+    "review_validated": "kreeg validatie op een review",
+    "review_disputed": "kreeg discussie op een review",
+    "spot_trending": "is trending",
+    "campaign_selected": "werd geselecteerd voor een campagne",
+    "new_hidden_gem": "Nieuwe hidden gem in jouw regio",
+    "community_trending": "Trending binnen jouw community",
+    "locals_agree": "Locals zijn het hiermee eens",
+    "tourists_love": "Geliefd bij toeristen",
+    "controversial_spot": "Verdeelde meningen",
+    "followed_local_posted": "Een local die jij volgt heeft iets geplaatst",
+    "friend_visited": "bezocht deze spot",
+    "new_photos": "voegde nieuwe foto’s toe",
+    "view_activity": "Bekijk activiteit",
+    "feed_empty": "Je feed is nog leeg",
+    "feed_empty_text": "Volg locals en ontdek nieuwe spots om jouw feed tot leven te brengen.",
+    "empty_title": "Je feed is leeg",
+    "empty_desc": "Volg lokale experts en ontdek nieuwe plekjes om je feed te vullen.",
+    "discover_locals": "Ontdek Locals",
+    "recommended": "heeft aanbevolen",
+    "reviewed": "heeft beoordeeld",
+    "validated_review": "heeft een review gevalideerd",
+    "followed_user": "is gaan volgen",
+    "saved_spot": "heeft een spot bewaard",
+    "at": "bij",
+    "followed": "VOLGEND",
+    "hidden_gem_alert": "Verborgen Parel Update",
+    "new_hidden_gem_desc": "Deze spot krijgt veel aandacht van locals!",
+    "end_of_feed": "Je hebt het einde van je feed bereikt."
+  },
+  "profile": {
+    "followers": "Volgers",
+    "following": "Volgend",
+    "trusted_local": "Trusted local",
+    "hidden_gem_hunter": "Hidden gem hunter",
+    "recommendations": "Aanbevelingen",
+    "reviews": "Reviews",
+    "saved": "Opgeslagen",
+    "activity": "Activiteit",
+    "follow": "Volgen",
+    "unfollow": "Ontvolgen",
+    "edit_profile": "Profiel bewerken",
+    "local_in": "Local in",
+    "verified_local": "Geverifieerde local",
+    "regular_visitor": "Regelmatige bezoeker",
+    "tourist": "Toerist",
+    "community": "Community",
+    "reputation": "Reputation",
+    "trust_score": "Trust score",
+    "hidden_gems_found": "Hidden gems ontdekt",
+    "review_validation_rate": "Review validatie score",
+    "member_since": "Lid sinds",
+    "bio": "Bio",
+    "communities": "Communities",
+    "expertise": "Expertise",
+    "food_expert": "Food expert",
+    "cocktail_expert": "Cocktail expert",
+    "beachbar_expert": "Beachbar expert",
+    "activity_empty": "Nog geen activiteit",
+    "saved_empty": "Nog geen opgeslagen spots",
+    "recommendations_empty": "Nog geen aanbevelingen",
+    "reviews_empty": "Nog geen reviews",
+    "followers_empty": "Nog geen volgers",
+    "following_empty": "Volgt nog niemand",
+    "view_all": "Bekijk alles"
+  },
+  "gamification": {
+    "explorer": "Explorer",
+    "insider": "Insider",
+    "regional_authority": "Regionale autoriteit",
+    "achievement_unlocked": "Prestatie ontgrendeld"
+  },
+  "hidden_gems": {
+    "title": "Hidden gems",
+    "description": "Plekken die weinig genoemd worden maar uitzonderlijk gewaardeerd worden door locals.",
+    "known_by_locals": "Bekend bij locals"
+  },
+  "campaigns": {
+    "tafelen_title": "Wat is jouw favoriete restaurant op Tenerife?",
+    "submit_restaurant": "Geef jouw favoriete restaurant door",
+    "featured_tfs": "Kans op publicatie in TFS Magazine"
+  },
+  "business": {
+    "dashboard": "Business dashboard",
+    "claim_verified": "Claim geverifieerd",
+    "respond_review": "Reageer op review",
+    "visitor_trends": "Bezoekerstrends"
+  },
+  "ai": {
+    "translated": "Automatisch vertaald",
+    "ai_summary": "AI samenvatting",
+    "discovering_spot": "Spotinformatie wordt verzameld"
+  },
+  "notifications": {
+    "new_follower": "volgt jou nu",
+    "review_validated": "Jouw review kreeg nieuwe validaties",
+    "tagged_in_review": "Je bent getagd in een review"
+  },
+  "search": {
+    "title": "Zoeken",
+    "placeholder": "Zoek restaurants, bars of locals",
+    "recent_searches": "Recente zoekopdrachten",
+    "trending_searches": "Trending zoekopdrachten",
+    "no_results": "Geen zoekresultaten"
+  },
+  "map": {
+    "title": "Kaart",
+    "list_view": "Lijstweergave",
+    "map_view": "Kaartweergave",
+    "current_location": "Huidige locatie",
+    "explore_area": "Verken deze omgeving"
+  },
+  "badges": {
+    "hidden_gem": "Hidden gem",
+    "local_favourite": "Favoriet van locals",
+    "trusted_by_locals": "Trusted by locals",
+    "tourist_approved": "Geliefd bij toeristen"
+  },
+  "analytics": {
+    "visitor_trends": "Bezoekerstrends",
+    "community_distribution": "Community verdeling",
+    "top_hidden_gems": "Top hidden gems"
+  },
+  "moderation": {
+    "under_review": "Onder beoordeling",
+    "hidden": "Verborgen",
+    "reported": "Gerapporteerd"
+  },
+  "errors": {
+    "offline": "Je bent offline",
+    "not_found": "Niet gevonden",
+    "try_again": "Probeer opnieuw"
+  },
+  "empty": {
+    "no_results": "Geen resultaten gevonden",
+    "no_reviews": "Nog geen reviews",
+    "no_saved": "Nog geen opgeslagen spots"
+  },
+  "actions": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "confirm": "Bevestigen",
+    "load_more": "Meer laden"
+  },
+  "legal": {
+    "privacy_policy": "Privacybeleid",
+    "cookie_policy": "Cookiebeleid",
+    "terms": "Algemene voorwaarden"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "spots": "Spots",
+    "recommendations": "Aanbevelingen",
+    "reviews": "Reviews",
+    "campaigns": "Campagnes"
+  },
+  "nav": {
+    "discover": "Ontdekken",
+    "feed": "Feed",
+    "saved": "Opgeslagen",
+    "profile": "Profiel",
+    "map": "Kaart",
+    "search": "Zoeken",
+    "notifications": "Meldingen",
+    "settings": "Instellingen"
   },
   "spot": {
     "recommendations": "Aanbevelingen",
@@ -158,7 +373,9 @@
     "opening_hours": "Openingstijden",
     "contact": "Contact",
     "similar_spots": "Vergelijkbare spots",
-    "local_in_region": "Local in {region}"
+    "local_in_region": "Local in {region}",
+    "directions": "Routebeschrijving",
+    "community_profile": "Community Profiel"
   },
   "settings": {
     "title": "Instellingen",
@@ -166,9 +383,11 @@
     "theme": "Thema",
     "notifications": "Meldingen",
     "privacy": "Privacy",
+    "cookie_preferences": "Cookie voorkeuren",
+    "dark_mode": "Donkere modus",
+    "system_theme": "Systeemthema",
     "communities": "Communities",
     "account": "Account",
-    "cookie_preferences": "Cookie voorkeuren",
     "themes": {
       "light": "Licht",
       "dark": "Donker",
@@ -186,26 +405,16 @@
     "people": "Mensen",
     "local_guide": "Lokale Gids",
     "loading": "Laden...",
+    "loading_more": "Meer laden...",
+    "helpful": "Nuttig",
+    "comment": "Reageren",
+    "view_more": "Meer bekijken",
+    "retry": "Opnieuw proberen",
+    "today": "Vandaag",
+    "yesterday": "Gisteren",
     "translated_from": "Automatisch vertaald uit het {lang}",
     "error": "Er is iets misgegaan.",
-    "retry": "Opnieuw proberen",
-    "success": "Succes!",
-    "loading_more": "Meer laden..."
-  },
-  "feed": {
-    "empty_title": "Je feed is leeg",
-    "empty_desc": "Volg lokale experts en ontdek nieuwe plekjes om je feed te vullen.",
-    "discover_locals": "Ontdek Locals",
-    "recommended": "heeft aanbevolen",
-    "reviewed": "heeft beoordeeld",
-    "validated_review": "heeft een review gevalideerd",
-    "followed_user": "is gaan volgen",
-    "saved_spot": "heeft een spot bewaard",
-    "at": "bij",
-    "followed": "VOLGEND",
-    "hidden_gem_alert": "Verborgen Parel Update",
-    "new_hidden_gem_desc": "Deze spot krijgt veel aandacht van locals!",
-    "end_of_feed": "Je hebt het einde van je feed bereikt."
+    "success": "Succes!"
   },
   "visit": {
     "check_in": "Ik ben hier",
@@ -254,5 +463,15 @@
     "accept_privacy": "Ik accepteer het Privacybeleid",
     "search_help": "Zoek helpartikelen...",
     "no_help_results": "Geen helpartikelen gevonden voor \"{query}\""
+  },
+  "activity": {
+    "visit_logged": "heeft deze spot bezocht",
+    "visit_verified": "heeft een geverifieerd bezoek geregistreerd",
+    "review_created": "schreef een review",
+    "recommendation_created": "raadde deze spot aan",
+    "saved_spot": "sloeg deze spot op",
+    "started_following": "volgt nu",
+    "review_helpful": "vond een review nuttig",
+    "hidden_gem_discovered": "ontdekte een hidden gem"
   }
 }

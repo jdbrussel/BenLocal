@@ -122,6 +122,11 @@ class Spot extends Model
         return $this->hasMany(Event::class);
     }
 
+    public function savedSpots()
+    {
+        return $this->hasMany(SavedSpot::class);
+    }
+
     public function getPlanTypeAttribute(): string
     {
         return $this->subscription?->plan_type ?? 'free';

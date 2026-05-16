@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div v-if="event.rank_score > 100" class="bg-amber-100 dark:bg-amber-900/50 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                <UsersIcon class="w-3 h-3" /> {{ $t('feed.followed') }}
+                <UsersIcon class="w-3 h-3" /> {{ $t('ui.feed.followed') }}
             </div>
         </div>
 
@@ -22,7 +22,7 @@
             <!-- Recommendation -->
             <div v-if="(event.type === 'recommendation_created' || event.type === 'recommendation') && event.eventable?.spot" class="space-y-3">
                 <p class="text-sm">
-                    <span class="font-medium text-amber-600">{{ $t('feed.recommended') }}</span>
+                    <span class="font-medium text-amber-600">{{ $t('activity.recommendation_created') }}</span>
                     <span class="font-bold"> {{ event.eventable.spot.name }}</span>
                 </p>
                 <div v-if="event.payload?.spot_image" class="aspect-video rounded-2xl overflow-hidden bg-gray-100">
@@ -34,7 +34,7 @@
             <div v-else-if="(event.type === 'review_created' || event.type === 'review') && event.eventable?.spot" class="space-y-3">
                 <div class="flex items-center justify-between">
                     <p class="text-sm font-medium">
-                        {{ $t('feed.reviewed') }} <span class="font-bold">{{ event.eventable.spot.name }}</span>
+                        {{ $t('activity.review_created') }} <span class="font-bold">{{ event.eventable.spot.name }}</span>
                     </p>
                     <div v-if="event.eventable.rating" class="flex items-center gap-1 bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded-full">
                         <StarIcon class="w-3 h-3 text-amber-400 fill-amber-400" />
@@ -52,7 +52,7 @@
                     <ThumbsUpIcon class="w-4 h-4 text-blue-500" />
                 </div>
                 <p class="text-sm">
-                    {{ $t('feed.validated_review') }} {{ $t('feed.at') }} <span class="font-bold">{{ event.eventable.review.spot.name }}</span>
+                    {{ $t('activity.review_helpful') }} {{ $t('ui.feed.at') }} <span class="font-bold">{{ event.eventable.review.spot.name }}</span>
                 </p>
             </div>
 
@@ -62,7 +62,7 @@
                     <UserPlusIcon class="w-4 h-4 text-purple-500" />
                 </div>
                 <p class="text-sm">
-                    {{ $t('feed.followed_user') }} <span class="font-bold">{{ event.eventable.followed_user.name }}</span>
+                    {{ $t('activity.started_following') }} <span class="font-bold">{{ event.eventable.followed_user.name }}</span>
                 </p>
             </div>
 
@@ -72,7 +72,7 @@
                     <HeartIcon class="w-4 h-4 text-red-500 fill-red-500" />
                 </div>
                 <p class="text-sm">
-                    {{ $t('feed.saved_spot') || 'Saved' }} <span class="font-bold">{{ event.eventable.spot.name }}</span>
+                    {{ $t('activity.saved_spot') }} <span class="font-bold">{{ event.eventable.spot.name }}</span>
                 </p>
             </div>
 
@@ -80,10 +80,10 @@
             <div v-else-if="(event.type === 'hidden_gem_update' || event.type === 'hidden_gem_detected') && event.payload?.spot_name" class="bg-amber-50 dark:bg-amber-900/10 p-4 rounded-2xl border border-amber-100 dark:border-amber-900/30">
                 <div class="flex items-center gap-2 mb-2">
                     <SparklesIcon class="w-4 h-4 text-amber-500" />
-                    <span class="text-xs font-bold uppercase tracking-wider text-amber-600">{{ $t('feed.hidden_gem_alert') }}</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-600">{{ $t('ui.feed.hidden_gem_alert') }}</span>
                 </div>
                 <p class="text-sm font-bold">{{ event.payload.spot_name }}</p>
-                <p class="text-xs text-gray-500 mt-1">{{ $t('feed.new_hidden_gem_desc') }}</p>
+                <p class="text-xs text-gray-500 mt-1">{{ $t('ui.feed.new_hidden_gem_desc') }}</p>
             </div>
 
             <!-- Default -->
@@ -97,11 +97,11 @@
             <div class="flex gap-4">
                 <button class="flex items-center gap-1.5 text-gray-400 hover:text-amber-500 transition-colors">
                     <HeartIcon class="w-4 h-4" />
-                    <span class="text-xs">Helpful</span>
+                    <span class="text-xs">{{ $t('ui.common.helpful') }}</span>
                 </button>
                 <button class="flex items-center gap-1.5 text-gray-400 hover:text-amber-500 transition-colors">
                     <MessageSquareIcon class="w-4 h-4" />
-                    <span class="text-xs">Comment</span>
+                    <span class="text-xs">{{ $t('ui.common.comment') }}</span>
                 </button>
             </div>
             <button class="text-gray-400">

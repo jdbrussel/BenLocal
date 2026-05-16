@@ -2,9 +2,9 @@
     <OnboardingLayout :current-step="6">
         <div class="flex flex-col h-full">
             <div class="flex-1 overflow-hidden flex flex-col">
-                <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.interests.title') }}</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.interests.title') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400 mb-8">
-                    {{ $t('onboarding.interests.subtitle') }}
+                    {{ $t('ui.onboarding.interests.subtitle') }}
                 </p>
 
                 <div class="flex flex-wrap gap-3 overflow-y-auto pb-4 pr-1">
@@ -13,7 +13,7 @@
                             class="px-6 py-4 rounded-[24px] border-2 transition-all duration-300 font-black text-sm uppercase tracking-wider flex items-center gap-2 group"
                             :class="selectedInterests.includes(interest.id) ? 'border-amber-500 bg-amber-500 text-white shadow-lg shadow-amber-500/30 scale-[1.05]' : 'border-gray-100 dark:border-gray-800 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:border-amber-200'">
                         <SparklesIcon v-if="selectedInterests.includes(interest.id)" class="w-4 h-4 animate-pulse" />
-                        {{ $t('onboarding.interests.items.' + interest.key) }}
+                        {{ $t('ui.onboarding.interests.items.' + interest.key) }}
                     </button>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             <div class="mt-auto pt-4">
                 <button @click="next"
                         class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.continue') }}
+                    {{ $t('ui.onboarding.continue') }}
                 </button>
             </div>
         </div>

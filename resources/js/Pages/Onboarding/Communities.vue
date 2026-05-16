@@ -2,9 +2,9 @@
     <OnboardingLayout :current-step="5">
         <div class="flex flex-col h-full">
             <div class="flex-1 overflow-hidden flex flex-col">
-                <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.communities.title') }}</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.communities.title') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400 mb-8">
-                    {{ $t('onboarding.communities.subtitle') }}
+                    {{ $t('ui.onboarding.communities.subtitle') }}
                 </p>
 
                 <div class="grid grid-cols-1 gap-4 overflow-y-auto pb-4 pr-1">
@@ -18,7 +18,7 @@
                             </div>
                             <div class="text-left">
                                 <h3 class="font-black text-lg tracking-tight">{{ community.name }}</h3>
-                                <p class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">{{ $t('onboarding.communities.members', { count: community.members_count || 0 }) }}</p>
+                                <p class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">{{ $t('ui.onboarding.communities.members', { count: community.members_count || 0 }) }}</p>
                             </div>
                         </div>
                         <div v-if="selectedCommunities.includes(community.id)" class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/40 relative z-10">
@@ -30,7 +30,7 @@
                     </div>
 
                     <div v-if="communities.length === 0" class="text-center py-12 bg-white dark:bg-gray-800 rounded-[28px] border-2 border-dashed border-gray-200 dark:border-gray-700">
-                        <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">{{ $t('onboarding.communities.no_communities') || 'Loading communities...' }}</p>
+                        <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">{{ $t('ui.empty.no_results') }}</p>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
             <div class="mt-auto pt-4">
                 <button @click="next" :disabled="selectedCommunities.length === 0"
                         class="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:grayscale text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.continue') }}
+                    {{ $t('ui.onboarding.continue') }}
                 </button>
             </div>
         </div>

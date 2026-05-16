@@ -1,8 +1,8 @@
 <template>
     <OnboardingLayout :current-step="4">
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.region.title') }}</h1>
-            <p class="text-gray-500 mb-8">{{ $t('onboarding.region.subtitle') }}</p>
+            <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.region.title') }}</h1>
+            <p class="text-gray-500 mb-8">{{ $t('ui.onboarding.region.subtitle') }}</p>
 
             <div class="grid grid-cols-1 gap-4 overflow-y-auto pb-4">
                 <button v-for="region in regions"
@@ -16,7 +16,7 @@
                         </div>
                         <div class="text-left">
                             <span class="block font-black text-xl tracking-tight">{{ region.name }}</span>
-                            <span class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">{{ $t('common.spots') }}: {{ region.spots_count || 0 }}</span>
+                            <span class="text-xs text-gray-500 dark:text-gray-400 font-bold uppercase tracking-widest">{{ $t('ui.common.spots') }}: {{ region.spots_count || 0 }}</span>
                         </div>
                     </div>
                     <div v-if="selectedRegionId === region.id" class="w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-amber-500/40 relative z-10">
@@ -28,14 +28,14 @@
                 </button>
 
                 <div v-if="regions.length === 0" class="text-center py-12 bg-white dark:bg-gray-800 rounded-[28px] border-2 border-dashed border-gray-200 dark:border-gray-700">
-                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">{{ $t('onboarding.region.no_regions') || 'No regions available' }}</p>
+                    <p class="text-gray-500 font-bold uppercase tracking-widest text-xs">{{ $t('ui.empty.no_results') }}</p>
                 </div>
             </div>
 
             <div class="mt-auto pt-4">
                 <button @click="next" :disabled="!selectedRegionId"
                         class="w-full bg-amber-500 hover:bg-amber-600 disabled:opacity-50 disabled:grayscale text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.next') }}
+                    {{ $t('ui.onboarding.next') }}
                 </button>
             </div>
         </div>

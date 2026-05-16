@@ -11,9 +11,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Inertia\Response as InertiaResponse;
 
 class RegisteredUserController extends Controller
 {
+    /**
+     * Display the registration view.
+     */
+    public function create(): InertiaResponse
+    {
+        return Inertia::render('Auth/Register');
+    }
+
     /**
      * Handle an incoming registration request.
      *

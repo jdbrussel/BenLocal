@@ -16,7 +16,7 @@ class SavedSpotController extends Controller
         $spots = Spot::whereHas('savedSpots', fn($q) => $q->where('user_id', $user->id))
             ->with(['category', 'region', 'area', 'place', 'badges', 'mainImage'])
             ->withCount(['recommendations', 'reviews'])
-            ->withAvg('reviews', 'rating')
+            ->withAvg('reviews as reviews_avg_overall_rating', 'overall_rating')
             ->get();
 
         foreach ($spots as $spot) {

@@ -17,23 +17,32 @@ trait HasTranslatableFields
             ];
         }
 
-        $locale = app()->getLocale();
-        $default = config('benlocal.default_language', 'en');
+        try {
+            $locale = app()->getLocale();
+            $default = config('benlocal.default_language', 'en');
 
-        $value = $this->getTranslation($field, $locale, false);
-        $originalLanguage = $this->getTranslation($field, $locale) ? $locale : null;
+            $value = $this->getTranslation($field, $locale, false);
+            $originalLanguage = $this->getTranslation($field, $locale) ? $locale : null;
 
-        if (!$value) {
-            $value = $this->getTranslation($field, $default, false);
-            $originalLanguage = $default;
-        }
-
-        if (!$value) {
-            $translations = $this->getTranslations($field);
-            if (!empty($translations)) {
-                $originalLanguage = array_key_first($translations);
-                $value = $translations[$originalLanguage];
+            if (!$value) {
+                $value = $this->getTranslation($field, $default, false);
+                $originalLanguage = $default;
             }
+
+            if (!$value) {
+                $translations = $this->getTranslations($field);
+                if (!empty($translations)) {
+                    $originalLanguage = array_key_first($translations);
+                    $value = $translations[$originalLanguage];
+                }
+            }
+        } catch (\Throwable $e) {
+            // Log or handle the error, returning a safe fallback
+            return [
+                'value' => 'Data format error',
+                'is_translated' => false,
+                'original_language' => null,
+            ];
         }
 
         return [
@@ -50,11 +59,24 @@ trait HasTranslatableFields
     {
         if (!$this->resource) return null;
 
-        $locale = app()->getLocale();
-        $val = $this->getTranslation($field, $locale);
+        try {
+            $locale = app()->getLocale();
+            $default = config('benlocal.default_language', 'en');
 
-        if (!$val) {
-            $val = $this->getTranslation($field, config('benlocal.default_language', 'en'));
+            $val = $this->getTranslation($field, $locale);
+
+            if (!$val) {
+                $val = $this->getTranslation($field, $default);
+            }
+
+            if (!$val) {
+                $translations = $this->getTranslations($field);
+                if (!empty($translations)) {
+                    $val = reset($translations);
+                }
+            }
+        } catch (\Throwable $e) {
+            return 'Data format error';
         }
 
         return $val;

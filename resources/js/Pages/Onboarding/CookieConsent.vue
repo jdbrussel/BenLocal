@@ -1,8 +1,8 @@
 <template>
     <OnboardingLayout :current-step="3">
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.cookie.title') }}</h1>
-            <p class="text-gray-500 mb-8">{{ $t('onboarding.cookie.message') }}</p>
+            <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.cookie.title') }}</h1>
+            <p class="text-gray-500 mb-8">{{ $t('ui.onboarding.cookie.message') }}</p>
 
             <div class="space-y-4 overflow-y-auto pb-4">
                 <div v-for="cat in categories" :key="cat.id"
@@ -10,7 +10,7 @@
                      class="p-5 rounded-[28px] bg-white dark:bg-gray-800 border-2 transition-all duration-300 flex items-center justify-between group cursor-pointer"
                      :class="cat.enabled ? 'border-amber-100 dark:border-amber-900/30' : 'border-gray-50 dark:border-gray-800/50 opacity-80'">
                     <div class="flex-1 pr-4">
-                        <h3 class="font-black text-lg tracking-tight capitalize">{{ $t('common.' + cat.id) || cat.id }}</h3>
+                        <h3 class="font-black text-lg tracking-tight capitalize">{{ $t('ui.common.' + cat.id) || cat.id }}</h3>
                         <p class="text-xs text-gray-500 leading-normal">{{ cat.desc }}</p>
                     </div>
                     <button class="w-14 h-8 rounded-full transition-all duration-300 relative shadow-inner"
@@ -26,10 +26,10 @@
 
             <div class="mt-auto space-y-4">
                 <button @click="next" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.cookie.save') }}
+                    {{ $t('ui.onboarding.cookie.save') }}
                 </button>
                 <button @click="acceptAll" class="w-full text-gray-400 font-bold py-2 text-sm uppercase tracking-widest hover:text-amber-500 transition-colors">
-                    {{ $t('onboarding.cookie.accept_all') }}
+                    {{ $t('ui.onboarding.cookie.accept_all') }}
                 </button>
             </div>
         </div>

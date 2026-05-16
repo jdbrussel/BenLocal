@@ -15,11 +15,7 @@ class DiscoveryController extends Controller
 
     public function __invoke(DiscoverRequest $request)
     {
-        $cacheKey = 'discover:' . md5(serialize($request->all()) . ($request->user()?->id ?? 'guest'));
-
-        $spots = \Illuminate\Support\Facades\Cache::remember($cacheKey, now()->addMinutes(15), function() use ($request) {
-            return $this->discoveryService->discover($request);
-        });
+        $spots = $this->discoveryService->discover($request);
 
         return SpotListResource::collection($spots);
     }

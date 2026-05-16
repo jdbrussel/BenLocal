@@ -16,28 +16,28 @@
                 <div class="flex justify-between items-start mb-4">
                     <div>
                         <h1 class="text-2xl font-bold">{{ $page.props.auth.user?.name || 'Guest User' }}</h1>
-                        <p class="text-sm text-gray-500">Member since May 2026</p>
+                        <p class="text-sm text-gray-500">{{ $t('ui.profile.member_since') }} May 2026</p>
                     </div>
                     <div class="flex gap-2">
                         <Link :href="route('settings')" class="bg-gray-100 dark:bg-gray-800 p-2 rounded-xl text-gray-700 dark:text-gray-300">
                             <SettingsIcon class="w-5 h-5" />
                         </Link>
-                        <button class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-xl text-sm font-bold">{{ $t('common.edit') }}</button>
+                        <button class="bg-gray-100 dark:bg-gray-800 px-4 py-2 rounded-xl text-sm font-bold">{{ $t('ui.profile.edit_profile') }}</button>
                     </div>
                 </div>
 
                 <div class="flex gap-6 mb-8">
                     <div class="text-center">
                         <p class="font-bold text-lg">12</p>
-                        <p class="text-xs text-gray-500 uppercase">{{ $t('spot.reviews') }}</p>
+                        <p class="text-xs text-gray-500 uppercase">{{ $t('ui.spots.reviews') }}</p>
                     </div>
                     <div class="text-center">
                         <p class="font-bold text-lg">5</p>
-                        <p class="text-xs text-gray-500 uppercase">{{ $t('spot.recommendations') }}</p>
+                        <p class="text-xs text-gray-500 uppercase">{{ $t('ui.spots.recommendations') }}</p>
                     </div>
                     <div class="text-center">
                         <p class="font-bold text-lg">84</p>
-                        <p class="text-xs text-gray-500 uppercase">Followers</p>
+                        <p class="text-xs text-gray-500 uppercase">{{ $t('ui.profile.followers') }}</p>
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                             @click="activeTab = tab"
                             class="flex-1 py-4 text-sm font-bold transition-all border-b-2"
                             :class="activeTab === tab ? 'border-amber-500 text-amber-500' : 'border-transparent text-gray-500'">
-                        {{ $t('nav.' + tab.toLowerCase()) }}
+                        {{ $t('ui.profile.' + tab.toLowerCase()) }}
                     </button>
                 </div>
 
@@ -57,8 +57,8 @@
                         <BookmarkIcon v-if="activeTab === 'Saved'" class="w-8 h-8" />
                         <SparklesIcon v-else class="w-8 h-8" />
                     </div>
-                    <h3 class="font-bold text-lg">No {{ activeTab }} yet</h3>
-                    <p class="text-sm text-gray-500 max-w-xs mt-1">Start exploring and saving your favorite spots in the Canary Islands!</p>
+                    <h3 class="font-bold text-lg">{{ $t('ui.profile.' + activeTab.toLowerCase() + '_empty') }}</h3>
+                    <p class="text-sm text-gray-500 max-w-xs mt-1">{{ $t('ui.feed.feed_empty_text') }}</p>
                 </div>
             </div>
         </div>

@@ -2,7 +2,7 @@
     <AppLayout>
         <div class="max-w-7xl mx-auto p-4">
             <header class="flex items-center justify-between mb-6">
-                <h1 class="text-2xl font-bold">{{ $t('nav.feed') }}</h1>
+                <h1 class="text-2xl font-bold">{{ $t('ui.nav.feed') }}</h1>
                 <button @click="refreshFeed" :disabled="loading" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
                     <RefreshCwIcon :class="{'animate-spin': loading}" class="w-5 h-5 text-gray-500" />
                 </button>
@@ -18,10 +18,10 @@
                 <div class="w-20 h-20 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center mb-4">
                     <RssIcon class="w-10 h-10 text-gray-400" />
                 </div>
-                <h3 class="text-lg font-bold">{{ $t('feed.empty_title') }}</h3>
-                <p class="text-gray-500 max-w-xs mt-2">{{ $t('feed.empty_desc') }}</p>
+                <h3 class="text-lg font-bold">{{ $t('ui.feed.feed_empty') }}</h3>
+                <p class="text-gray-500 max-w-xs mt-2">{{ $t('ui.feed.feed_empty_text') }}</p>
                 <Link :href="route('discover')" class="mt-6 bg-amber-500 text-white px-6 py-2 rounded-full font-bold shadow-lg shadow-amber-500/30">
-                    {{ $t('feed.discover_locals') }}
+                    {{ $t('ui.nav.discover') }}
                 </Link>
             </div>
 
@@ -33,10 +33,10 @@
                 <div ref="loadMoreTrigger" class="py-10 flex justify-center">
                     <div v-if="hasMore" class="flex flex-col items-center gap-2">
                         <div class="w-6 h-6 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-                        <span class="text-xs text-gray-500">{{ $t('common.loading_more') }}</span>
+                        <span class="text-xs text-gray-500">{{ $t('ui.common.loading_more') }}</span>
                     </div>
                     <p v-else class="text-sm text-gray-400 italic">
-                        {{ $t('feed.end_of_feed') }}
+                        {{ $t('ui.feed.end_of_feed') }}
                     </p>
                 </div>
             </div>

@@ -7,19 +7,19 @@
                         <HeartIcon class="w-12 h-12 fill-current" />
                     </div>
                 </div>
-                <h1 class="text-4xl font-black mb-4 tracking-tighter text-gray-900 dark:text-white">{{ $t('onboarding.welcome.title') }}</h1>
+                <h1 class="text-4xl font-black mb-4 tracking-tighter text-gray-900 dark:text-white">{{ $t('ui.onboarding.welcome.title') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400 text-xl font-medium leading-tight px-4">
-                    {{ $t('onboarding.welcome.subtitle') }}
+                    {{ $t('ui.onboarding.welcome.subtitle') }}
                 </p>
             </div>
 
             <div class="mt-auto space-y-4 relative z-10">
                 <button @click="next" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.welcome.get_started') }}
+                    {{ $t('ui.onboarding.welcome.get_started') }}
                 </button>
                 <div class="flex items-center gap-4 py-2">
                     <div class="flex-1 h-px bg-gray-200 dark:bg-gray-800"></div>
-                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ $t('auth.or') }}</span>
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">{{ $t('ui.auth.or') }}</span>
                     <div class="flex-1 h-px bg-gray-200 dark:bg-gray-800"></div>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
@@ -33,7 +33,7 @@
                     </button>
                 </div>
                 <Link :href="route('login')" class="w-full block text-center py-4 text-gray-500 font-bold text-sm uppercase tracking-widest">
-                    {{ $t('auth.has_account') }} <span class="text-amber-500">{{ $t('auth.login') }}</span>
+                    {{ $t('ui.auth.already_account') }} <span class="text-amber-500">{{ $t('ui.auth.login') }}</span>
                 </Link>
             </div>
         </div>

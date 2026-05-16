@@ -12,10 +12,16 @@ class PlaceResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $name = $this->translated('name');
+
+        if (!$name) {
+            $name = ucfirst(str_replace('-', ' ', $this->slug));
+        }
+
         return [
             'id' => $this->id,
             'area_id' => $this->area_id,
-            'name' => $this->translated('name'),
+            'name' => $name,
             'slug' => $this->slug,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,

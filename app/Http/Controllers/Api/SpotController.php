@@ -21,51 +21,51 @@ class SpotController extends Controller
 
     public function show($slug, Request $request)
     {
-        $cacheKey = 'spot_detail:' . $slug . ($request->user() ? ':u' . $request->user()->id : '');
+        $spot = Spot::where('slug', $slug)
+            ->with([
+                'category.filterSpecs.options',
+                'category.ratingSpecs.options',
+                'region', 'area', 'place', 'badges',
+                'communityProfiles.community',
+                'media',
+                'offers' => fn($q) => $q->where('is_active', true)->where(fn($sq) => $sq->whereNull('ends_at')->orWhere('ends_at', '>=', now())),
+                'events' => fn($q) => $q->where('is_active', true)->where('ends_at', '>=', now()),
+                'recommendations' => fn($q) => $q->with('user')->limit(5),
+            ])
+            ->firstOrFail();
 
-        $spot = \Illuminate\Support\Facades\Cache::remember($cacheKey, now()->addHours(1), function() use ($slug, $request) {
-            $spot = Spot::where('slug', $slug)
-                ->with([
-                    'category.filterSpecs.options',
-                    'category.ratingSpecs.options',
-                    'region', 'area', 'place', 'badges',
-                    'communityProfiles.community',
-                    'media',
-                    'offers' => fn($q) => $q->where('is_active', true)->where(fn($sq) => $sq->whereNull('ends_at')->orWhere('ends_at', '>=', now())),
-                    'events' => fn($q) => $q->where('is_active', true)->where('ends_at', '>=', now()),
-                    'recommendations' => fn($q) => $q->with('user')->limit(5),
-                    'reviews' => fn($q) => $q->with(['user', 'media'])->withCount('reactions')->limit(5)
-                ])
-                ->firstOrFail();
+        // Load reviews safely
+        try {
+            $spot->setRelation('reviews', $spot->reviews()->with(['user', 'media'])->withCount('reactions')->limit(5)->get());
+        } catch (\Throwable $e) {
+            $spot->setRelation('reviews', collect());
+        }
 
-            if ($user = $request->user()) {
-                $spot->is_saved = $user->savedSpots()->where('spot_id', $spot->id)->exists();
-            }
-
-            return $spot;
-        });
+        if ($user = $request->user()) {
+            $spot->is_saved = $user->savedSpots()->where('spot_id', $spot->id)->exists();
+        }
 
         // Track view
-        $this->analyticsService->track(
-            $spot,
-            'view',
-            $request->user()?->id,
-            $request->header('X-Guest-Token'),
-            $request->input('source')
-        );
+        try {
+            $this->analyticsService->track(
+                $spot,
+                'view',
+                $request->user()?->id,
+                $request->header('X-Guest-Token'),
+                $request->input('source')
+            );
+        } catch (\Throwable $e) {
+            // Silently fail for analytics to not block the request
+        }
 
         return new SpotDetailResource($spot);
     }
 
     public function map(Request $request, DiscoveryService $discoveryService)
     {
-        $cacheKey = 'map_markers:' . md5(serialize($request->all()));
-
-        $spots = \Illuminate\Support\Facades\Cache::remember($cacheKey, now()->addMinutes(10), function() use ($request, $discoveryService) {
-            // For map we usually want more items and less data
-            $request->merge(['per_page' => $request->get('limit', 500)]);
-            return $discoveryService->discover($request);
-        });
+        // For map we usually want more items and less data
+        $request->merge(['per_page' => $request->get('limit', 500)]);
+        $spots = $discoveryService->discover($request);
 
         return MapMarkerResource::collection($spots);
     }

@@ -17,10 +17,17 @@ class SetLocale
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $localeService = app(LocaleService::class);
-        $locale = $localeService->resolveLocale();
-
-        App::setLocale($locale);
+        try {
+            $localeService = app(LocaleService::class);
+            $locale = $localeService->resolveLocale();
+            App::setLocale($locale);
+        } catch (\Throwable $e) {
+            // If session is corrupt, clear it and use default locale
+            if (str_contains($e->getMessage(), '__PHP_Incomplete_Class')) {
+                $request->session()->flush();
+            }
+            App::setLocale(config('app.fallback_locale', 'en'));
+        }
 
         return $next($request);
     }

@@ -2,9 +2,9 @@
     <OnboardingLayout :current-step="7">
         <div class="flex flex-col h-full">
             <div class="flex-1 overflow-hidden flex flex-col">
-                <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.follow.title') }}</h1>
+                <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.follow.title') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400 mb-8">
-                    {{ $t('onboarding.follow.subtitle') }}
+                    {{ $t('ui.onboarding.follow.subtitle') }}
                 </p>
 
                 <div class="space-y-4 overflow-y-auto pb-4 pr-1">
@@ -37,7 +37,7 @@
             <div class="mt-auto pt-4">
                 <button @click="next"
                         class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ followed.length > 0 ? $t('onboarding.continue') : $t('onboarding.follow.skip_for_now') }}
+                    {{ followed.length > 0 ? $t('ui.onboarding.continue') : $t('ui.onboarding.follow.skip_for_now') }}
                 </button>
             </div>
         </div>

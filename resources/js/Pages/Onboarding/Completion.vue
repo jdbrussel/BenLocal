@@ -8,15 +8,15 @@
                     </div>
                     <div class="absolute inset-0 bg-green-400/20 rounded-full blur-3xl animate-pulse"></div>
                 </div>
-                <h1 class="text-4xl font-black mb-4 tracking-tighter text-gray-900 dark:text-white">{{ $t('onboarding.completion.title') }}</h1>
+                <h1 class="text-4xl font-black mb-4 tracking-tighter text-gray-900 dark:text-white">{{ $t('ui.onboarding.completion.title') }}</h1>
                 <p class="text-gray-600 dark:text-gray-400 text-xl font-medium leading-tight px-4">
-                    {{ $t('onboarding.completion.subtitle') }}
+                    {{ $t('ui.onboarding.completion.subtitle') }}
                 </p>
             </div>
 
             <div class="mt-auto w-full pb-6">
                 <button @click="finish" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-amber-500/30 transition-all transform active:scale-[0.98] text-lg uppercase tracking-wider">
-                    {{ $t('onboarding.completion.finish') }}
+                    {{ $t('ui.onboarding.completion.finish') }}
                 </button>
             </div>
         </div>

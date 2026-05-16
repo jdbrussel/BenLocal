@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
-            <p class="text-gray-500">{{ $t('common.loading') }}</p>
+            <p class="text-gray-500">{{ $t('ui.common.loading') }}</p>
         </div>
         <div v-else-if="spot" class="pb-24">
             <!-- Hero Header Section -->
@@ -26,7 +26,7 @@
                             <SparklesIcon class="w-3.5 h-3.5" /> {{ spot.category?.name }}
                         </div>
                         <div v-if="spot.is_hidden_gem" class="bg-white/20 backdrop-blur-md border border-white/30 text-white text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-                            <SparklesIcon class="w-3.5 h-3.5" /> {{ $t('spot.hidden_gem') }}
+                            <SparklesIcon class="w-3.5 h-3.5" /> {{ $t('ui.spots.hidden_gem') }}
                         </div>
                     </div>
                     <h1 class="text-5xl font-black text-white mb-4 tracking-tighter leading-none">{{ spot.name }}</h1>
@@ -35,7 +35,7 @@
                         <div class="flex items-center gap-2 text-white/90">
                             <StarIcon class="w-5 h-5 text-amber-400 fill-amber-400" />
                             <span class="text-lg font-black">{{ spot.average_rating }}</span>
-                            <span class="text-sm font-bold opacity-60">({{ spot.review_count }} {{ $t('spot.reviews') }})</span>
+                            <span class="text-sm font-bold opacity-60">({{ spot.review_count }} {{ $t('ui.spots.reviews') }})</span>
                         </div>
                         <div class="flex items-center gap-2 text-white/90">
                             <MapPinIcon class="w-5 h-5 text-rose-500" />
@@ -51,7 +51,7 @@
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-8">
                         <!-- Community Profile Placeholder -->
                         <div class="flex-1">
-                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-4">{{ $t('spot.community_profile') || 'Community Profile' }}</h3>
+                            <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-4">{{ $t('ui.spots.community_profile') }}</h3>
                             <div class="flex items-end gap-1 h-12">
                                 <div class="w-4 bg-amber-500 rounded-t-lg transition-all duration-500" style="height: 70%"></div>
                                 <div class="w-4 bg-amber-400 rounded-t-lg transition-all duration-500" style="height: 15%"></div>
@@ -67,7 +67,7 @@
                         <!-- Main Action -->
                         <div class="flex-none">
                             <button class="w-full md:w-auto bg-gray-900 dark:bg-white text-white dark:text-gray-900 px-8 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-gray-900/20 transition-all hover:scale-[1.02] active:scale-95">
-                                {{ $t('spot.recommend_spot') }}
+                                {{ $t('ui.spots.recommend_spot') }}
                             </button>
                         </div>
                     </div>
@@ -76,13 +76,13 @@
                 <!-- Info Grid -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <section>
-                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 px-1">{{ $t('spot.about') }}</h2>
+                        <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 px-1">{{ $t('ui.spots.about') }}</h2>
                         <p class="text-lg font-medium text-gray-700 dark:text-gray-300 leading-relaxed px-1">
                             {{ spot.description.value }}
                         </p>
                         <div v-if="spot.description.is_translated" class="mt-4 inline-flex items-center gap-2 bg-gray-50 dark:bg-gray-800 px-3 py-1.5 rounded-xl border border-gray-100 dark:border-gray-700">
                              <span class="text-[10px] text-gray-400 font-bold uppercase tracking-widest italic">
-                                {{ $t('common.translated_from', { lang: spot.description.original_language }) }}
+                                {{ $t('ui.common.translated_from', { lang: spot.description.original_language }) }}
                             </span>
                         </div>
                     </section>
@@ -92,7 +92,7 @@
                         <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800">
                             <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 flex items-center gap-2">
                                 <InfoIcon class="w-4 h-4" />
-                                {{ $t('spot.details') }}
+                                {{ $t('ui.spots.details') }}
                             </h3>
                             <div class="space-y-4">
                                 <div v-for="(val, key) in spot.specs" :key="key" class="flex items-center justify-between pb-3 border-b border-gray-200/50 dark:border-gray-700 last:border-0 last:pb-0">
@@ -103,10 +103,10 @@
                         </div>
 
                         <!-- Location Card -->
-                        <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800">
+                        <div v-if="spot.location?.latitude && spot.location?.longitude" class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-[32px] border border-gray-100 dark:border-gray-800">
                             <h3 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-6 flex items-center gap-2">
                                 <MapIcon class="w-4 h-4" />
-                                {{ $t('spot.location') }}
+                                {{ $t('ui.spots.location') }}
                             </h3>
                             <div class="h-40 rounded-2xl overflow-hidden mb-4 shadow-inner">
                                 <MapView :center="[spot.location.latitude, spot.location.longitude]" :zoom="15" :markers="[{latitude: spot.location.latitude, longitude: spot.location.longitude, rating: spot.average_rating}]" />
@@ -120,7 +120,7 @@
                                     <PhoneIcon class="w-5 h-5" />
                                 </a>
                                 <button class="flex-1 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 font-black text-[10px] uppercase tracking-widest">
-                                    {{ $t('spot.directions') || 'Route' }}
+                                    {{ $t('ui.spots.directions') }}
                                 </button>
                             </div>
                         </div>
@@ -134,9 +134,9 @@
                             <div class="w-10 h-10 bg-amber-500 rounded-2xl flex items-center justify-center text-white shadow-lg shadow-amber-500/20">
                                 <ShieldCheckIcon class="w-6 h-6" />
                             </div>
-                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('spot.recommended_by') }}</h2>
+                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('ui.spots.recommended_by_locals') }}</h2>
                         </div>
-                        <span class="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">{{ spot.recommendation_count }} {{ $t('spot.recommendations') }}</span>
+                        <span class="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">{{ spot.recommendation_count }} {{ $t('ui.spots.recommendations') }}</span>
                     </div>
 
                     <div class="space-y-6">
@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <h4 class="font-black text-lg tracking-tight">{{ rec.user?.name }}</h4>
-                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ $t('spot.local_in_region', { region: spot.location?.region?.name }) }}</p>
+                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">{{ $t('ui.spots.local_in_region', { region: spot.location?.region?.name }) }}</p>
                                 </div>
                                 <button class="p-3 rounded-2xl border border-gray-100 dark:border-gray-700 hover:bg-amber-50 dark:hover:bg-amber-900/20 transition-colors group">
                                      <UserPlusIcon class="w-5 h-5 text-gray-400 group-hover:text-amber-500" />
@@ -165,7 +165,7 @@
 
                 <!-- Reviews Section -->
                 <section v-if="spot.reviews_preview?.length" class="mb-12">
-                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-8 px-1">{{ $t('spot.reviews') }}</h2>
+                    <h2 class="text-xs font-black uppercase tracking-[0.2em] text-gray-400 mb-8 px-1">{{ $t('ui.spots.reviews') }}</h2>
                     <div class="space-y-8">
                         <div v-for="review in spot.reviews_preview" :key="review.id" class="px-1 border-b border-gray-100 dark:border-gray-800 pb-10 last:border-0 last:pb-0">
                             <div class="flex items-start justify-between mb-4">
@@ -182,7 +182,7 @@
                                     </div>
                                 </div>
                                 <div class="bg-green-50 dark:bg-green-900/20 text-green-600 px-3 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
-                                    <ShieldCheckIcon class="w-3.5 h-3.5" /> {{ $t('visit.verified_visit') }}
+                                    <ShieldCheckIcon class="w-3.5 h-3.5" /> {{ $t('ui.reviews.verified_visit') }}
                                 </div>
                             </div>
                             <p class="text-lg font-medium text-gray-600 dark:text-gray-400 leading-relaxed mb-6">{{ review.content.value }}</p>
@@ -190,13 +190,13 @@
                             <!-- Review Actions / AI Validation -->
                             <div class="flex items-center gap-2">
                                 <button class="px-5 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 text-[10px] font-black uppercase tracking-widest hover:border-amber-200 transition-colors">
-                                    {{ $t('review.agree') || 'Agree' }}
+                                    {{ $t('ui.reviews.agree') }}
                                 </button>
                                 <button class="px-5 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 text-[10px] font-black uppercase tracking-widest hover:border-amber-200 transition-colors">
-                                    {{ $t('review.partly') || 'Partly' }}
+                                    {{ $t('ui.reviews.partly_agree') }}
                                 </button>
                                 <button class="px-5 py-2.5 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700 text-[10px] font-black uppercase tracking-widest hover:border-rose-200 transition-colors">
-                                    {{ $t('review.disagree') || 'Disagree' }}
+                                    {{ $t('ui.reviews.disagree') }}
                                 </button>
                             </div>
                         </div>

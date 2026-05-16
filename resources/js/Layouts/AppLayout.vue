@@ -44,7 +44,7 @@
                     <div class="p-1 rounded-xl transition-colors" :class="route().current('discover') ? 'bg-amber-50 dark:bg-amber-900/20' : ''">
                         <CompassIcon class="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('nav.discover') }}</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('ui.nav.discover') }}</span>
                     <div v-if="route().current('discover')" class="absolute -top-1 w-1 h-1 bg-amber-500 rounded-full"></div>
                 </Link>
 
@@ -52,7 +52,7 @@
                     <div class="p-1 rounded-xl transition-colors" :class="route().current('map') ? 'bg-amber-50 dark:bg-amber-900/20' : ''">
                         <MapIcon class="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('discover.map_view') }}</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('ui.nav.map') }}</span>
                     <div v-if="route().current('map')" class="absolute -top-1 w-1 h-1 bg-amber-500 rounded-full"></div>
                 </Link>
 
@@ -60,7 +60,7 @@
                     <div class="p-1 rounded-xl transition-colors" :class="route().current('feed') ? 'bg-amber-50 dark:bg-amber-900/20' : ''">
                         <RssIcon class="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('nav.feed') }}</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('ui.nav.feed') }}</span>
                     <div v-if="route().current('feed')" class="absolute -top-1 w-1 h-1 bg-amber-500 rounded-full"></div>
                 </Link>
 
@@ -68,7 +68,7 @@
                     <div class="p-1 rounded-xl transition-colors" :class="route().current('saved') ? 'bg-amber-50 dark:bg-amber-900/20' : ''">
                         <BookmarkIcon class="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('nav.saved') }}</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $t('ui.nav.saved') }}</span>
                     <div v-if="route().current('saved')" class="absolute -top-1 w-1 h-1 bg-amber-500 rounded-full"></div>
                 </Link>
 
@@ -76,7 +76,7 @@
                     <div class="p-1 rounded-xl transition-colors" :class="route().current('profile') || route().current('login') ? 'bg-amber-50 dark:bg-amber-900/20' : ''">
                         <UserIcon class="w-6 h-6 stroke-[2.5]" />
                     </div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $page.props.auth.user ? $t('nav.profile') : $t('auth.login') }}</span>
+                    <span class="text-[10px] font-black uppercase tracking-[0.1em]">{{ $page.props.auth.user ? $t('ui.nav.profile') : $t('ui.auth.login') }}</span>
                     <div v-if="route().current('profile')" class="absolute -top-1 w-1 h-1 bg-amber-500 rounded-full"></div>
                 </Link>
             </div>

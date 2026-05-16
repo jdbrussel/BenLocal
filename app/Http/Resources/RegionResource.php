@@ -12,9 +12,16 @@ class RegionResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $name = $this->translated('name');
+
+        // Fallback to slug if name is somehow still empty
+        if (!$name) {
+            $name = ucfirst(str_replace('-', ' ', $this->slug));
+        }
+
         return [
             'id' => $this->id,
-            'name' => $this->translated('name'),
+            'name' => $name,
             'slug' => $this->slug,
             'description' => $this->resolveTranslatable('description'),
             'latitude' => $this->latitude,

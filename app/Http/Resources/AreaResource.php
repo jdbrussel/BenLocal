@@ -12,10 +12,16 @@ class AreaResource extends JsonResource
 
     public function toArray(Request $request): array
     {
+        $name = $this->translated('name');
+
+        if (!$name) {
+            $name = ucfirst(str_replace('-', ' ', $this->slug));
+        }
+
         return [
             'id' => $this->id,
             'region_id' => $this->region_id,
-            'name' => $this->translated('name'),
+            'name' => $name,
             'slug' => $this->slug,
             'description' => $this->resolveTranslatable('description'),
             'latitude' => $this->latitude,

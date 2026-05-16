@@ -23,11 +23,7 @@ class FeedController extends Controller
      */
     public function index(Request $request)
     {
-        $cacheKey = 'feed:' . ($request->user() ? 'u' . $request->user()->id : 'guest') . ':p' . $request->get('page', 1);
-
-        $feed = \Illuminate\Support\Facades\Cache::tags(['feed'])->remember($cacheKey, now()->addMinutes(5), function() use ($request) {
-            return $this->feedService->getFeed($request);
-        });
+        $feed = $this->feedService->getFeed($request);
 
         return TimelineEventResource::collection($feed);
     }

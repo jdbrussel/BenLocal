@@ -20,6 +20,7 @@ Route::prefix('onboarding')->name('onboarding.')->group(function () {
 
 // Mock routes for Nav
 Route::get('/discover', function() { return Inertia::render('Discover'); })->name('discover');
+Route::get('/map', function() { return Inertia::render('Discover', ['view' => 'map']); })->name('map');
 Route::get('/feed', function() { return Inertia::render('Feed'); })->name('feed');
 Route::get('/search', function() { return Inertia::render('Search'); })->name('search');
 Route::get('/saved', function() { return Inertia::render('Saved'); })->name('saved');

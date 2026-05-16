@@ -1,8 +1,8 @@
 <template>
     <OnboardingLayout :current-step="2">
         <div class="flex flex-col h-full">
-            <h1 class="text-2xl font-bold mb-2">{{ $t('onboarding.language.title') }}</h1>
-            <p class="text-gray-500 mb-8">{{ $t('onboarding.language.subtitle') }}</p>
+            <h1 class="text-2xl font-bold mb-2">{{ $t('ui.onboarding.language.title') }}</h1>
+            <p class="text-gray-500 mb-8">{{ $t('ui.onboarding.language.subtitle') }}</p>
 
             <div class="grid grid-cols-1 gap-4 overflow-y-auto pb-4">
                 <button v-for="(name, code) in $page.props.config.available_languages"
@@ -27,7 +27,7 @@
 
             <div class="mt-auto">
                 <button @click="next" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl shadow-lg transition-all">
-                    {{ $t('onboarding.next') }}
+                    {{ $t('ui.onboarding.next') }}
                 </button>
             </div>
         </div>

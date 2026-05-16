@@ -7,8 +7,8 @@
                     <button @click="showRegionSelector = true" class="flex flex-1 items-center gap-2 bg-gray-50 dark:bg-gray-800/50 px-4 py-3 rounded-2xl border border-transparent hover:border-amber-200 transition-all group">
                         <MapPinIcon class="w-5 h-5 text-amber-500 group-hover:scale-110 transition-transform" />
                         <div class="text-left flex-1 min-w-0">
-                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 leading-none mb-1">{{ $t('common.regions') }}</p>
-                            <p class="text-sm font-black truncate text-gray-900 dark:text-white">{{ selectedRegion?.name || $t('common.loading') }}</p>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 leading-none mb-1">{{ $t('ui.common.regions') }}</p>
+                            <p class="text-sm font-black truncate text-gray-900 dark:text-white">{{ selectedRegion?.name || $t('ui.common.loading') }}</p>
                         </div>
                         <ChevronDownIcon class="w-5 h-5 text-gray-300" />
                     </button>
@@ -51,9 +51,9 @@
                     <div class="flex items-center justify-between mb-5 px-1">
                         <div class="flex items-center gap-2">
                             <SparklesIcon class="w-5 h-5 text-amber-500" />
-                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('discover.hidden_gems_near_you') }}</h2>
+                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('ui.discover.hidden_gems_near_you') }}</h2>
                         </div>
-                        <button class="text-xs font-black uppercase tracking-widest text-amber-600 hover:text-amber-700">{{ $t('discover.see_all') }}</button>
+                        <button class="text-xs font-black uppercase tracking-widest text-amber-600 hover:text-amber-700">{{ $t('ui.discover.see_all') }}</button>
                     </div>
                     <div class="flex gap-5 overflow-x-auto no-scrollbar py-2 px-1">
                         <div v-for="spot in featuredSpots" :key="spot.id" class="flex-none w-[280px] group">
@@ -64,7 +64,7 @@
                                     <!-- Badges -->
                                     <div class="absolute top-4 left-4 flex flex-col gap-2">
                                         <div class="bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl flex items-center gap-1.5 shadow-lg shadow-amber-500/30">
-                                            <SparklesIcon class="w-3.5 h-3.5" /> {{ $t('spot.hidden_gem') }}
+                                            <SparklesIcon class="w-3.5 h-3.5" /> {{ $t('ui.spots.hidden_gem') }}
                                         </div>
                                     </div>
 
@@ -95,7 +95,7 @@
                     <div class="flex items-center justify-between mb-5 px-1">
                         <div class="flex items-center gap-2">
                             <ShieldCheckIcon class="w-5 h-5 text-amber-500" />
-                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('discover.trusted_by_locals') }}</h2>
+                            <h2 class="text-2xl font-black tracking-tighter">{{ $t('ui.discover.trusted_by_locals') }}</h2>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -118,7 +118,7 @@
                                             <img :src="`https://i.pravatar.cc/100?u=${spot.id+i}`" />
                                         </div>
                                     </div>
-                                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ $t('spot.recommended_by') }}</span>
+                                    <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">{{ $t('ui.spots.recommended_by_locals') }}</span>
                                 </div>
                             </div>
                         </Link>
@@ -156,7 +156,7 @@
                                     </div>
                                 </div>
                                 <div class="bg-amber-50 dark:bg-amber-900/30 text-amber-600 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
-                                    {{ $t('spot.details') }}
+                                    {{ $t('ui.spots.details') }}
                                 </div>
                             </div>
                         </div>
@@ -182,7 +182,7 @@
                 <div @click="showRegionSelector = false" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
                 <div class="relative w-full bg-white dark:bg-gray-900 rounded-t-[32px] p-6 max-h-[80vh] overflow-y-auto">
                     <div class="w-12 h-1.5 bg-gray-200 dark:bg-gray-700 rounded-full mx-auto mb-8"></div>
-                    <h2 class="text-2xl font-bold mb-6">{{ $t('discover.choose_region') }}</h2>
+                    <h2 class="text-2xl font-bold mb-6">{{ $t('ui.discover.choose_region') }}</h2>
                     <div class="space-y-4">
                         <button v-for="region in regions"
                                 :key="region.id"
@@ -254,20 +254,26 @@ onMounted(async () => {
             CategoryService.getCategories()
         ]);
 
-        regions.value = regionsRes.data.data;
+        console.log('Discover: Regions API response:', regionsRes.data);
+        regions.value = regionsRes.data.data || [];
         console.log('Discover: Loaded regions:', regions.value.length);
 
-        // The category name from API might be a string or object.
-        // For 'All', we use the translation key.
-        categories.value = [{ id: null, name: t('common.all') }, ...categoriesRes.data.data];
+        categories.value = [{ id: null, name: t('common.all') }, ...(categoriesRes.data.data || [])];
         console.log('Discover: Loaded categories:', categories.value.length);
 
         if (regions.value.length > 0) {
+            // Priority: previously selected region (if possible) > first region
             selectedRegion.value = regions.value[0];
             console.log('Discover: Auto-selected region:', selectedRegion.value.name);
+        } else {
+            console.warn('Discover: No regions found in API response');
         }
     } catch (error) {
         console.error('Discover: Failed to load initial data', error);
+        if (error.response) {
+            console.error('Data:', error.response.data);
+            console.error('Status:', error.response.status);
+        }
     }
 });
 

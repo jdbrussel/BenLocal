@@ -1,7 +1,7 @@
 <template>
     <AppLayout>
         <div class="max-w-7xl mx-auto p-6">
-            <h1 class="text-3xl font-bold mb-8 tracking-tight">{{ $t('nav.saved') }}</h1>
+            <h1 class="text-3xl font-bold mb-8 tracking-tight">{{ $t('ui.nav.saved') }}</h1>
 
             <div v-if="savedSpots.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div v-for="spot in savedSpots" :key="spot.id" class="bg-white dark:bg-gray-800 rounded-3xl overflow-hidden border border-gray-100 dark:border-gray-700 shadow-sm group">
@@ -20,13 +20,13 @@
 
             <div v-else-if="!isLoading" class="py-20 flex flex-col items-center justify-center text-center">
                 <BookmarkIcon class="w-16 h-16 text-gray-200 mb-4" />
-                <h2 class="text-xl font-bold">{{ $t('discover.no_saved_spots') }}</h2>
-                <p class="text-gray-500 max-w-xs mt-2">{{ $t('discover.no_saved_spots_desc') }}</p>
-                <Link :href="route('discover')" class="mt-8 bg-amber-500 text-white px-8 py-3 rounded-2xl font-bold">{{ $t('onboarding.completion.finish') }}</Link>
+                <h2 class="text-xl font-bold">{{ $t('ui.discover.no_saved_spots') }}</h2>
+                <p class="text-gray-500 max-w-xs mt-2">{{ $t('ui.discover.no_saved_spots_desc') }}</p>
+                <Link :href="route('discover')" class="mt-8 bg-amber-500 text-white px-8 py-3 rounded-2xl font-bold">{{ $t('ui.onboarding.completion.finish') }}</Link>
             </div>
 
             <div v-else class="py-20 text-center">
-                <p class="text-gray-500">{{ $t('common.loading') }}</p>
+                <p class="text-gray-500">{{ $t('ui.common.loading') }}</p>
             </div>
         </div>
     </AppLayout>
