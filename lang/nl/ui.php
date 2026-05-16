@@ -237,7 +237,7 @@ return [
         'recommendations' => 'Aanbevelingen',
         'reviews' => 'Reviews',
         'campaigns' => 'Campagnes',
-        'nav' => [
+        'navigation' => [
             'users_trust' => 'Gebruikers & Vertrouwen',
             'locations' => 'Locaties',
             'content' => 'Inhoud',
